@@ -1,0 +1,147 @@
+@charset "utf-8";
+body {
+    margin: 0px;
+    padding: 0px;
+}
+
+a:link {
+    color: #FFFFFF;
+    text-decoration: none;
+}
+
+a:visited {
+    text-decoration: none;
+    color: #FFFFFF;
+}
+
+a:hover {
+    text-decoration: none;
+    color: #FFFFFF;
+}
+
+a:active {
+    text-decoration: none;
+    color: #FFFFFF;
+}
+
+li {
+    list-style-type: none;
+}
+
+.base_whole {
+    margin: 0px;
+    padding: 0px;
+}
+
+.base_top {
+    height: 80px;
+    width: 100%;
+    background-color: #2368c3;
+    color: #FFFFFF;
+}
+
+.base_top_left {
+    height: 80px;
+    width: 200px;
+    float: left;
+    line-height: 80px;
+}
+
+.base_top_left li {
+    font-size: 25px;
+    text-align: center;
+}
+
+.base_top_right1 {
+    height: 100%;
+    width: 250px;
+    line-height: 80px;
+    float: right;
+}
+.base_top_right2 {
+    height: 100%;
+    width: 100px;
+    line-height: 80px;
+    float: right;
+}
+.base_body {
+    height: 674px;
+    width: 100%;
+    background-color: sandybrown;
+}
+
+.base_left {
+    padding-top: 10px;
+    width: 12%;
+    height: 100%;
+    float: left;
+    background-color: #343345;
+}
+
+.base_right {
+    float: left;
+    width: 88%;
+    height: 100%;
+    background-color: dimgrey;
+}
+
+.base_title {
+    height: 10%;
+    width: 100%;
+    background-color: #ffffff;
+    line-height: 65px;
+    font-size: 20px;
+    font-weight: bolder;
+
+}
+
+.base_content {
+    padding-top: 21px;
+    width: 100%;
+    height: 90%;
+    background-color: #eef0ef;
+}
+
+.now_page_lzy {
+    font-size: 20px;
+
+}
+
+.base_left :hover {
+    background-color: #2b2a3a;
+    color: #ffffff;
+}
+
+
+.base_left li {
+    font-size: 15px;
+    text-align: center;
+    color: #a9a8a7;
+    height: 60px;
+    line-height: 60px;
+}
+
+.page_now {
+    background-color: #2b2a3a;
+    color: #fdfdfd;
+    border-left: 4px solid #2268c3;
+}
+
+.content_whole{
+    height: 98%;
+    width: 95%;
+    margin-left: 33px;
+    background-color: white;
+    overflow: scroll;
+}
+
+.content_form{
+    padding-left: 50px;
+    padding-top: 30px;
+    padding-right: 900px;
+}
+
+.content_table{
+    padding-top: 20px;
+    padding-left: 50px;
+}

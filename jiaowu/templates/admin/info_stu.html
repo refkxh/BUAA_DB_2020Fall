@@ -1,0 +1,82 @@
+{% extends "base.html" %}
+{% block title%}
+学生信息管理
+{% endblock %}
+
+{% block Title%}
+学生信息管理
+{% endblock %}
+
+{% block content%}
+<div class="content_whole">
+    <div class="content_form">
+        <form action="{{ url_for('admin.info_stu') }}">
+            学号: <input type="text" name="sno" value=""><br>
+            姓名: <input type="text" name="sname" value=""><br>
+            年级: <input type="text" name="sgrade" value=""><br>
+            院系: <input type="text" name="sdept" value=""><br>
+            <input type="submit" value="查询">
+        </form>
+    </div>
+
+    <div class="content_table">
+        <table class="primary">
+            <thead>
+            <tr>
+                <th>学号</th>
+                <th>姓名</th>
+                <th>性别</th>
+                <th>年级</th>
+                <th>课程代码</th>
+                <th>课程名称</th>
+                <th>成绩</th>
+                <th>操作</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>18373126</td>
+                <td>刘紫阳</td>
+                <td>男</td>
+                <td>大三</td>
+                <td>12345</td>
+                <td>数据库</td>
+                <td>100</td>
+                <td ><a style="color: #5474fe" href="">修改</a> &nbsp; <a style="color:#fc3c3a" href="">删除</a></td>
+            </tr>
+            <tr>
+                <td>18373127</td>
+                <td>刘紫阳1</td>
+                <td>男</td>
+                <td>大三</td>
+                <td>12345</td>
+                <td>数据库</td>
+                <td>60</td>
+                <td ><a style="color: #5474fe" href="">修改</a> &nbsp; <a style="color:#fc3c3a" href="">删除</a></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+</div>
+{% endblock %}
+
+
+{% block nav %}
+
+<li>
+    <div class="page_now">学生信息查询</div>
+</li>
+<a href="#">
+    <li>用户管理</li>
+</a>
+<a href="#">
+    <li>学籍管理</li>
+</a>
+<a href="#">
+    <li>国奖群成员查询</li>
+</a>
+<a href="#">
+    <li>退学办理</li>
+</a>
+{% endblock %}

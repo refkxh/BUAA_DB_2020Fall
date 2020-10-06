@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title%}{% endblock %}</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/picnic">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+<div class="base_whole">
+
+    <div class="base_top">
+        <div class="base_top_left">
+            <li>教务管理系统</li>
+        </div>
+        <div class="base_top_right2">
+            <a href="#">登出</a>
+        </div>
+        <div class="base_top_right1">
+            欢迎&ensp;&ensp;&ensp;//这里要传名字进来
+        </div>
+
+    </div>
+    <div class="base_body">
+        <div class="base_left">
+            {% block nav%}{% endblock %}
+        </div>
+
+        <div class="base_right">
+
+            <div class="base_title">
+                <li>&ensp;&ensp;&ensp;{% block Title%}{% endblock %}</li>
+            </div>
+            <div class="base_content">
+                {% block content %}{% endblock %}
+            </div>
+
+        </div>
+
+    </div>
+
+
+</div>
+</body>
+</html>
+
+<!--
+    <li>
+            <div class="page_now">学生成绩查询</div>
+            </li>
+            <a href="#">
+                <li>课程查询</li>
+            </a>
+            <a href="#">
+                <li>用户管理</li>
+            </a>
+            <a href="#">
+                <li>学籍管理</li>
+            </a>
+            <a href="#">
+                <li>国奖群成员查询</li>
+            </a>
+            <a href="#">
+                <li>退学办理</li>
+            </a>
+-->
+
+
+<!--
+    搜索框
+    <div class="menu">
+        <input placeholder="Search plugins"/>
+    </div>
+    -->
+
+<!--
+    表单，输入
+    <form action="demo-form.php">
+        First name: <input type="text" name="FirstName" value="Mickey"><br>
+        Last name: <input type="text" name="LastName" value="Mouse"><br>
+        <input type="submit" value="提交">
+    </form>
+-->
