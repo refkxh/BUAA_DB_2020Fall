@@ -3,7 +3,7 @@ import os
 from flask import Flask
 
 
-def create_app(test_config=None):
+def create_app():
     app = Flask(__name__, instance_relative_config=True)
 
     username = input('Please enter MySQL username: ')
@@ -16,9 +16,6 @@ def create_app(test_config=None):
         DATABASE_PASSWORD=password,
         DATABASE_NAME=db_name,
     )
-
-    if test_config is not None:
-        app.config.from_mapping(test_config)
 
     # ensure the instance folder exists
     try:

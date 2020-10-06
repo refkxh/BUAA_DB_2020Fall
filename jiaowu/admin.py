@@ -10,11 +10,19 @@ bp = Blueprint('admin', __name__, url_prefix='/admin')
 
 @bp.route('/info_stu', methods=('GET', 'POST'))
 def info_stu():
+    db = get_db()
+    cursor = db.cursor(dictionary=True)
     if request.method == 'POST':
         pass
     else:
-        pass
-    return render_template('admin/info_stu.html')
+        cursor.execute(
+            'SELECT sno, sname, ssex, sid, sgrade, sdept, stel, smail'
+            ' FROM Student'
+            ' ORDER BY sno'
+        )
+    students = cursor.fetchall()
+    cursor.close()
+    return render_template('admin/info_stu.html', students=students)
 
 
 @bp.route('/create_stu', methods=('GET', 'POST'))
