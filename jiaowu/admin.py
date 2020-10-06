@@ -8,12 +8,30 @@ from jiaowu.db_base import get_db
 bp = Blueprint('admin', __name__, url_prefix='/admin')
 
 
+@bp.route('/', methods=('GET',))
+def index():
+    return redirect(url_for('admin.info_stu'))
+
+
 @bp.route('/info_stu', methods=('GET', 'POST'))
 def info_stu():
     db = get_db()
     cursor = db.cursor(dictionary=True)
     if request.method == 'POST':
-        pass
+        str_select = ''
+        for key in request.form.keys():
+            value = request.form[key]
+            if type(value) == str:
+                str_select += key + '=\'' + value + '\' and '
+            else:
+                flash('非法查询条件')
+                return redirect(url_for('admin.info_stu'))
+        if len(str_select) == 0:
+            flash('查询条件不能为空！')
+            return redirect(url_for('admin.info_stu'))
+        sql = 'SELECT sno, sname, ssex, sid, sgrade, sdept, stel, smail'\
+              ' FROM Student WHERE {} ORDER BY sno'.format(str_select[:-4])
+        cursor.execute(sql)
     else:
         cursor.execute(
             'SELECT sno, sname, ssex, sid, sgrade, sdept, stel, smail'
