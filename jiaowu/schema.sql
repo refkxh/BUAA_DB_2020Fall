@@ -18,8 +18,8 @@ create table course
 (
     cno     int auto_increment primary key,
     cname   varchar(32) not null,
-    cdept   varchar(32),
-    ccap    int         not null,
+    ctype   varchar(10) not null,
     ccredit int         not null,
-    cdate   varchar(4)  not null
+    cdept   varchar(32),
+    ccap    int         not null
 );

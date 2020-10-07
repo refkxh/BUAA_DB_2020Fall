@@ -42,6 +42,9 @@ class Student:
         if len(input_str) == 0:
             raise ValidateException("密码不能为空！")
 
+        if len(input_str) < 6:
+            raise ValidateException("密码不能少于6位！")
+
         if len(input_str) > 128:
             raise ValidateException("密码过长！")
 
