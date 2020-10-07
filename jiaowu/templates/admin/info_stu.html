@@ -1,10 +1,10 @@
 {% extends "base.html" %}
 {% block title%}
-学生信息管理
+学生信息查询和修改
 {% endblock %}
 
 {% block Title%}
-学生信息查询
+学生信息查询和修改
 {% endblock %}
 
 {% block content%}
@@ -27,6 +27,10 @@
                 <th>姓名</th>
                 <th>性别</th>
                 <th>年级</th>
+                <th>院系</th>
+                <th>身份证</th>
+                <th>手机号</th>
+                <th>邮箱</th>
                 <th>操作</th>
 
             </tr>
@@ -39,6 +43,10 @@
                 <td>{{ info['sname'] }}</td>
                 <td>{{ info['ssex'] }}</td>
                 <td>{{ info['sgrade'] }}</td>
+                <td>{{ info['sdept'] }}</td>
+                <td>{{ info['sid'] }}</td>
+                <td>{{ info['stel'] }}</td>
+                <td>{{ info['smail'] }}</td>
                 <td><a style="color: #5474fe" href="{{ url_for('admin.update_stu',sno=info['sno']) }}">修改</a>
                     &nbsp; <a style="color:#fc3c3a" href="{{ url_for('admin.delete_stu',sno=info['sno']) }}">删除</a></td>
             </tr>
@@ -56,10 +64,10 @@
 {% block nav %}
 
 <li>
-    <div class="page_now">学生信息查询</div>
+    <div class="page_now">学生信息查询和修改</div>
 </li>
-<a href="#">
-    <li>用户管理</li>
+<a href="{{ url_for('admin.create_stu') }}">
+    <li>新建学生</li>
 </a>
 <a href="#">
     <li>学籍管理</li>

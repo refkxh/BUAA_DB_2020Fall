@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+{% block title %}
+    学生信息查询和修改
+{% endblock %}
+
+{% block Title %}
+    学生信息查询和修改
+{% endblock %}
+
+{% block content %}
+    <div class="content_whole">
+
+        <div class="content_table">
+            <form method="post" action="{{ url_for('admin.update_stu',sno=student['sno']) }}">
+                <label for="title">学号</label><br>
+                <b><h1>{{ student['sno'] }}</h1></b><br>
+                <label for="title">姓名</label>
+                <input name="title" id="title"
+                       value="{{ request.form['sname'] or student['sname'] }}" required>
+
+                <label for="title">密码</label>
+                <input name="title" id="title" type="password"
+                       value="{{ request.form['spwd'] or student['spwd'] }}">
+
+                <label for="title">性别</label>
+                <input name="title" id="title"
+                       value="{{ request.form['ssex'] or student['ssex'] }}" required>
+
+                <label for="title">年级</label>
+                <input name="title" id="title"
+                       value="{{ request.form['sgrade'] or student['sgrade'] }}" required>
+
+                <label for="title">院系</label>
+                <input name="title" id="title"
+                       value="{{ request.form['sdept'] or student['sdept'] }}" required>
+
+                <label for="title">身份证</label>
+                <input name="title" id="title"
+                       value="{{ request.form['sid'] or student['sid'] }}" required>
+
+                <label for="title">手机号</label>
+                <input name="title" id="title"
+                       value="{{ request.form['stel'] or student['stel'] }}" required>
+
+                <label for="title">邮箱</label>
+                <input name="title" id="title"
+                       value="{{ request.form['smail'] or student['smail'] }}" required>
+
+                <input type="submit" value="保存">
+            </form>
+        </div>
+
+    </div>
+{% endblock %}
+
+
+{% block nav %}
+
+    <li>
+        <div class="page_now">学生信息查询和修改</div>
+    </li>
+    <a href="{{ url_for('admin.create_stu') }}">
+        <li>新建学生</li>
+    </a>
+    <a href="#">
+        <li>学籍管理</li>
+    </a>
+    <a href="#">
+        <li>国奖群成员查询</li>
+    </a>
+    <a href="#">
+        <li>退学办理</li>
+    </a>
+{% endblock %}
