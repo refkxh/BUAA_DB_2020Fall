@@ -26,7 +26,7 @@ def info_stu():
             value = request.form[key]
             if type(value) == str:
                 if len(value) > 0:
-                    str_select += key + '=\'' + value + '\' and '
+                    str_select += key + ' LIKE \'%' + value + '%\' and '
             else:
                 return redirect(url_for('admin.info_stu'))
         if len(str_select) == 0:
