@@ -21,5 +21,6 @@ create table course
     ctype   varchar(10) not null,
     ccredit int         not null,
     cdept   varchar(32),
-    ccap    int         not null
+    ccap    int         not null,
+    cleft   int         not null
 );
