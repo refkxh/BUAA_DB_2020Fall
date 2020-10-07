@@ -64,7 +64,7 @@
 {% block nav %}
 
 <li>
-    <div class="page_now">学生信息查询和修改</div>
+    <div class="page_now"><a href="{{ url_for('admin.info_stu') }}">学生信息查询和修改</a></div>
 </li>
 <a href="{{ url_for('admin.create_stu') }}">
     <li>新建学生</li>

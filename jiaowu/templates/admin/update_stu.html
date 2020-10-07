@@ -15,35 +15,35 @@
                 <label for="title">学号</label><br>
                 <b><h1>{{ student['sno'] }}</h1></b><br>
                 <label for="title">姓名</label>
-                <input name="title" id="title"
+                <input name="title" id="title" type="text"
                        value="{{ request.form['sname'] or student['sname'] }}" required>
 
                 <label for="title">密码</label>
                 <input name="title" id="title" type="password"
-                       value="{{ request.form['spwd'] or student['spwd'] }}">
+                       value="">
 
                 <label for="title">性别</label>
-                <input name="title" id="title"
+                <input name="title" id="title" type="text"
                        value="{{ request.form['ssex'] or student['ssex'] }}" required>
 
                 <label for="title">年级</label>
-                <input name="title" id="title"
+                <input name="title" id="title" type="text"
                        value="{{ request.form['sgrade'] or student['sgrade'] }}" required>
 
                 <label for="title">院系</label>
-                <input name="title" id="title"
+                <input name="title" id="title" type="text"
                        value="{{ request.form['sdept'] or student['sdept'] }}" required>
 
                 <label for="title">身份证</label>
-                <input name="title" id="title"
+                <input name="title" id="title" type="text"
                        value="{{ request.form['sid'] or student['sid'] }}" required>
 
                 <label for="title">手机号</label>
-                <input name="title" id="title"
+                <input name="title" id="title" type="text"
                        value="{{ request.form['stel'] or student['stel'] }}" required>
 
                 <label for="title">邮箱</label>
-                <input name="title" id="title"
+                <input name="title" id="title" type="text"
                        value="{{ request.form['smail'] or student['smail'] }}" required>
 
                 <input type="submit" value="保存">
@@ -57,7 +57,7 @@
 {% block nav %}
 
     <li>
-        <div class="page_now">学生信息查询和修改</div>
+        <div class="page_now"><a href="{{ url_for('admin.info_stu') }}">学生信息查询和修改</a></div>
     </li>
     <a href="{{ url_for('admin.create_stu') }}">
         <li>新建学生</li>
