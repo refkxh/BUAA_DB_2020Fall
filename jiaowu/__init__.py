@@ -1,6 +1,6 @@
 import os
 
-from flask import Flask
+from flask import Flask, render_template
 
 
 def create_app():
@@ -29,6 +29,14 @@ def create_app():
     from . import admin
     app.register_blueprint(admin.bp)
 
-    # app.add_url_rule('/', endpoint='index')
+    app.add_url_rule('/', endpoint='admin.index')
+
+    @app.errorhandler(404)
+    def page_not_found(e):
+        return render_template('error.html', code=404)
+
+    @app.errorhandler(500)
+    def internal_server_error(e):
+        return render_template('error.html', code=500)
 
     return app
