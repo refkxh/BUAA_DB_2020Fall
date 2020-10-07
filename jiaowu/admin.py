@@ -31,14 +31,14 @@ def info_stu():
                 return redirect(url_for('admin.info_stu'))
         if len(str_select) == 0:
             return redirect(url_for('admin.info_stu'))
-        sql = 'SELECT sno, sname, ssex, sid, sgrade, sdept, stel, smail'\
-              ' FROM student WHERE {} ORDER BY sno'.format(str_select[:-4])
+        sql = 'select sno, sname, ssex, sid, sgrade, sdept, stel, smail'\
+              ' from student where {} order by sno'.format(str_select[:-4])
         cursor.execute(sql)
     else:
         cursor.execute(
-            'SELECT sno, sname, ssex, sid, sgrade, sdept, stel, smail'
-            ' FROM student'
-            ' ORDER BY sno'
+            'select sno, sname, ssex, sid, sgrade, sdept, stel, smail'
+            ' from student'
+            ' order by sno'
         )
     students = cursor.fetchall()
     cursor.close()
@@ -78,8 +78,8 @@ def create_stu():
             db = get_db()
             cursor = db.cursor()
             cursor.execute(
-                'INSERT INTO student (sno, spwd, sname, ssex, sid, sgrade, sdept, stel, smail)'
-                ' VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)',
+                'insert into student (sno, spwd, sname, ssex, sid, sgrade, sdept, stel, smail)'
+                ' values (%s, %s, %s, %s, %s, %s, %s, %s, %s)',
                 (sno, generate_password_hash(spwd), sname, ssex, sid, sgrade, sdept, stel, smail)
             )
             db.commit()
@@ -120,9 +120,9 @@ def update_stu(sno):
 
         if valid:
             cursor.execute(
-                'UPDATE student SET sname = %s, ssex = %s, sid = %s,'
+                'update student set sname = %s, ssex = %s, sid = %s,'
                 ' sgrade = %s, sdept = %s, stel = %s, smail = %s'
-                ' WHERE sno = %s',
+                ' where sno = %s',
                 (sname, ssex, sid, sgrade, sdept, stel, smail, sno)
             )
 
@@ -130,8 +130,8 @@ def update_stu(sno):
                 try:
                     validators.Student.spwd(spwd)
                     cursor.execute(
-                        'UPDATE student SET spwd = %s'
-                        ' WHERE sno = %s',
+                        'update student set spwd = %s'
+                        ' where sno = %s',
                         (generate_password_hash(spwd), sno)
                     )
                 except validators.ValidateException as e:
@@ -143,9 +143,9 @@ def update_stu(sno):
             return redirect(url_for('admin.update_stu', sno=sno))
     else:
         cursor.execute(
-            'SELECT sno, sname, ssex, sid, sgrade, sdept, stel, smail'
-            ' FROM student'
-            ' WHERE sno = %s',
+            'select sno, sname, ssex, sid, sgrade, sdept, stel, smail'
+            ' from student'
+            ' where sno = %s',
             (sno,)
         )
         student = cursor.fetchone()
@@ -159,7 +159,7 @@ def update_stu(sno):
 def delete_stu(sno):
     db = get_db()
     cursor = db.cursor()
-    cursor.execute('DELETE FROM student WHERE sno = %s', (sno,))
+    cursor.execute('delete from student where sno = %s', (sno,))
     db.commit()
     cursor.close()
     flash('删除成功！')

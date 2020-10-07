@@ -27,9 +27,9 @@ class Student:
         db = get_db()
         cursor = db.cursor()
         cursor.execute(
-            'SELECT sno'
-            ' FROM student'
-            ' WHERE sno = %s',
+            'select sno'
+            ' from student'
+            ' where sno = %s',
             (input_str,)
         )
         student = cursor.fetchone()
@@ -69,9 +69,9 @@ class Student:
         db = get_db()
         cursor = db.cursor(dictionary=True)
         cursor.execute(
-            'SELECT sno'
-            ' FROM student'
-            ' WHERE sid = %s',
+            'select sno'
+            ' from student'
+            ' where sid = %s',
             (input_str,)
         )
         student = cursor.fetchone()
