@@ -29,8 +29,6 @@ def create_app():
     from . import admin
     app.register_blueprint(admin.bp)
 
-    app.add_url_rule('/', endpoint='admin.index')
-
     @app.errorhandler(404)
     def page_not_found(e):
         return render_template('error.html', code=404)
@@ -38,5 +36,7 @@ def create_app():
     @app.errorhandler(500)
     def internal_server_error(e):
         return render_template('error.html', code=500)
+
+    app.add_url_rule('/', endpoint='admin.index')
 
     return app

@@ -30,7 +30,6 @@ def info_stu():
             else:
                 return redirect(url_for('admin.info_stu'))
         if len(str_select) == 0:
-            flash('查询条件不能为空！')
             return redirect(url_for('admin.info_stu'))
         sql = 'SELECT sno, sname, ssex, sid, sgrade, sdept, stel, smail'\
               ' FROM student WHERE {} ORDER BY sno'.format(str_select[:-4])
@@ -85,6 +84,7 @@ def create_stu():
             )
             db.commit()
             cursor.close()
+            flash('创建成功！')
             return redirect(url_for('admin.create_stu'))
 
     return render_template('admin/create_stu.html')
@@ -139,6 +139,7 @@ def update_stu(sno):
 
             db.commit()
             cursor.close()
+            flash('修改成功！')
             return redirect(url_for('admin.update_stu', sno=sno))
     else:
         cursor.execute(
@@ -161,4 +162,5 @@ def delete_stu(sno):
     cursor.execute('DELETE FROM student WHERE sno = %s', (sno,))
     db.commit()
     cursor.close()
+    flash('删除成功！')
     return redirect(url_for('admin.info_stu'))
