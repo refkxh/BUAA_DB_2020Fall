@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     <script type="text/javascript" src="{{ url_for('static', filename='script.js') }}"></script>
     {% for message in get_flashed_messages() %}
-    <div  id="myModal" class="modal" style="display: block">
+    <div id="myModal" class="modal" style="display: block">
         <div class="modal-content">
             <a href = "javascript:void(0)" onclick = "document.getElementById('myModal').style.display='none'">
                 <span class="close">&times;</span>
