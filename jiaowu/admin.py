@@ -107,7 +107,6 @@ def update_stu(sno):
         valid = True
 
         try:
-            validators.Student.spwd(spwd)
             validators.Student.sname(sname)
             validators.Student.ssex(ssex)
             validators.Student.sid(sid)
@@ -121,11 +120,23 @@ def update_stu(sno):
 
         if valid:
             cursor.execute(
-                'UPDATE student SET spwd = %s, sname = %s, '
-                ' ssex = %s, sid = %s, sgrade = %s, sdept = %s, stel = %s, smail = %s'
+                'UPDATE student SET sname = %s, ssex = %s, sid = %s,'
+                ' sgrade = %s, sdept = %s, stel = %s, smail = %s'
                 ' WHERE sno = %s',
-                (generate_password_hash(spwd), sname, ssex, sid, sgrade, sdept, stel, smail, sno)
+                (sname, ssex, sid, sgrade, sdept, stel, smail, sno)
             )
+
+            if len(spwd > 0):
+                try:
+                    validators.Student.spwd(spwd)
+                    cursor.execute(
+                        'UPDATE student SET spwd = %s'
+                        ' WHERE sno = %s',
+                        (generate_password_hash(spwd), sno)
+                    )
+                except validators.ValidateException as e:
+                    flash(e.info)
+
             db.commit()
             cursor.close()
             return redirect(url_for('admin.update_stu', sno=sno))
