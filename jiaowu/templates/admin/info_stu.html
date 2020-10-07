@@ -4,13 +4,13 @@
 {% endblock %}
 
 {% block Title%}
-学生信息管理
+学生信息查询
 {% endblock %}
 
 {% block content%}
 <div class="content_whole">
     <div class="content_form">
-        <form action="{{ url_for('admin.info_stu') }}">
+        <form action="{{ url_for('admin.info_stu') }}" method="post">
             学号: <input type="text" name="sno" value=""><br>
             姓名: <input type="text" name="sname" value=""><br>
             年级: <input type="text" name="sgrade" value=""><br>
@@ -27,33 +27,33 @@
                 <th>姓名</th>
                 <th>性别</th>
                 <th>年级</th>
-                <th>课程代码</th>
-                <th>课程名称</th>
-                <th>成绩</th>
                 <th>操作</th>
+
             </tr>
             </thead>
             <tbody>
             <tr>
-                <td>18373126</td>
-                <td>刘紫阳</td>
-                <td>男</td>
-                <td>大三</td>
-                <td>12345</td>
-                <td>数据库</td>
-                <td>100</td>
-                <td ><a style="color: #5474fe" href="">修改</a> &nbsp; <a style="color:#fc3c3a" href="">删除</a></td>
+                <form action="{{ url_for('admin.create_stu') }}" method="post">
+                    <td> <input type="text" name="sno" value=""></td>
+                    <td><input type="text" name="sname" value=""></td>
+                    <td><input type="text" name="sgrade" value=""></td>
+                    <td><input type="text" name="sname" value=""></td>
+                    <td><a style="color: #5474fe" href="{{ url_for('admin.create_stu',sno=info['sno']) }}">插入&nbsp;</a></td>
+                </form>
             </tr>
+
+            {% for info in students %}
             <tr>
-                <td>18373127</td>
-                <td>刘紫阳1</td>
-                <td>男</td>
-                <td>大三</td>
-                <td>12345</td>
-                <td>数据库</td>
-                <td>60</td>
-                <td ><a style="color: #5474fe" href="">修改</a> &nbsp; <a style="color:#fc3c3a" href="">删除</a></td>
+                <td>{{ info['sno'] }}</td>
+                <td>{{ info['sname'] }}</td>
+                <td>{{ info['ssex'] }}</td>
+                <td>{{ info['sgradee'] }}</td>
+                <td><a style="color: #5474fe" href="{{ url_for('admin.update_stu',sno=info['sno']) }}">修改</a>
+                    &nbsp; <a style="color:#fc3c3a" href="{{ url_for('admin.delete_stu',sno=info['sno']) }}">删除</a></td>
             </tr>
+            {% endfor %}
+
+
             </tbody>
         </table>
     </div>

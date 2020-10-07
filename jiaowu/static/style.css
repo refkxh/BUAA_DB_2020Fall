@@ -4,6 +4,45 @@ body {
     padding: 0px;
 }
 
+
+/* 弹窗 (background) */
+.modal {
+    display: none; /* 默认隐藏 */
+    position: fixed; /* 固定定位 */
+    z-index: 1; /* 设置在顶层 */
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgb(0,0,0);
+    background-color: rgba(0,0,0,0.4);
+}
+
+/* 弹窗内容 */
+.modal-content {
+    background-color: #fefefe;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+}
+
+/* 关闭按钮 */
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
 a:link {
     color: #FFFFFF;
     text-decoration: none;
@@ -58,12 +97,14 @@ li {
     line-height: 80px;
     float: right;
 }
+
 .base_top_right2 {
     height: 100%;
     width: 100px;
     line-height: 80px;
     float: right;
 }
+
 .base_body {
     height: 674px;
     width: 100%;
@@ -127,7 +168,7 @@ li {
     border-left: 4px solid #2268c3;
 }
 
-.content_whole{
+.content_whole {
     height: 98%;
     width: 95%;
     margin-left: 33px;
@@ -135,13 +176,14 @@ li {
     overflow: scroll;
 }
 
-.content_form{
+.content_form {
     padding-left: 50px;
     padding-top: 30px;
     padding-right: 900px;
 }
 
-.content_table{
+.content_table {
     padding-top: 20px;
     padding-left: 50px;
+    padding-right: 50px;
 }

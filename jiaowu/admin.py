@@ -40,6 +40,7 @@ def info_stu():
         )
     students = cursor.fetchall()
     cursor.close()
+
     return render_template('admin/info_stu.html', students=students)
 
 
