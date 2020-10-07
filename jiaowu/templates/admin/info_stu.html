@@ -32,22 +32,13 @@
             </tr>
             </thead>
             <tbody>
-            <tr>
-                <form action="{{ url_for('admin.create_stu') }}" method="post">
-                    <td> <input type="text" name="sno" value=""></td>
-                    <td><input type="text" name="sname" value=""></td>
-                    <td><input type="text" name="sgrade" value=""></td>
-                    <td><input type="text" name="sname" value=""></td>
-                    <td><a style="color: #5474fe" href="{{ url_for('admin.create_stu',sno=info['sno']) }}">插入&nbsp;</a></td>
-                </form>
-            </tr>
 
             {% for info in students %}
             <tr>
                 <td>{{ info['sno'] }}</td>
                 <td>{{ info['sname'] }}</td>
                 <td>{{ info['ssex'] }}</td>
-                <td>{{ info['sgradee'] }}</td>
+                <td>{{ info['sgrade'] }}</td>
                 <td><a style="color: #5474fe" href="{{ url_for('admin.update_stu',sno=info['sno']) }}">修改</a>
                     &nbsp; <a style="color:#fc3c3a" href="{{ url_for('admin.delete_stu',sno=info['sno']) }}">删除</a></td>
             </tr>
