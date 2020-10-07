@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/picnic">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <title>登录</title>
+</head>
+<body>
+<div class="login_whole">
+    <div class="login_table">
+        <div class="login_table_head"></div>
+        <div class="login_form">
+            <form action="" method="post">
+                账号: <input type="text" name="id" value="" placeholder="请输入账号"><br>
+                密码: <input type="password" name="pwd" value="" placeholder="请输入密码"><br>
+                身份：
+                <select name="identity">
+                    <option>学生</option>
+                    <option>管理员</option>
+                </select>
+                <br><br><br>
+                <input type="submit" style="width: 100%" value="登录">
+
+            </form>
+        </div>
+    </div>
+
+</div>
+</body>
+</html>
