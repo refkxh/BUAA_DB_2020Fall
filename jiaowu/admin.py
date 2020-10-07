@@ -126,7 +126,7 @@ def update_stu(sno):
                 (sname, ssex, sid, sgrade, sdept, stel, smail, sno)
             )
 
-            if len(spwd > 0):
+            if len(spwd) > 0:
                 try:
                     validators.Student.spwd(spwd)
                     cursor.execute(
