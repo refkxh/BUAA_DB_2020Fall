@@ -22,20 +22,20 @@ def info_stu():
         for key in request.form.keys():
             value = request.form[key]
             if type(value) == str:
-                str_select += key + '=\'' + value + '\' and '
+                if len(value) > 0:
+                    str_select += key + '=\'' + value + '\' and '
             else:
-                flash('非法查询条件')
                 return redirect(url_for('admin.info_stu'))
         if len(str_select) == 0:
             flash('查询条件不能为空！')
             return redirect(url_for('admin.info_stu'))
         sql = 'SELECT sno, sname, ssex, sid, sgrade, sdept, stel, smail'\
-              ' FROM Student WHERE {} ORDER BY sno'.format(str_select[:-4])
+              ' FROM student WHERE {} ORDER BY sno'.format(str_select[:-4])
         cursor.execute(sql)
     else:
         cursor.execute(
             'SELECT sno, sname, ssex, sid, sgrade, sdept, stel, smail'
-            ' FROM Student'
+            ' FROM student'
             ' ORDER BY sno'
         )
     students = cursor.fetchall()
@@ -45,8 +45,8 @@ def info_stu():
 
 @bp.route('/create_stu', methods=('GET', 'POST'))
 def create_stu():
-    '''if request.method == 'POST':
-        title = request.form['title']
+    if request.method == 'POST':
+        '''title = request.form['title']
         body = request.form['body']
         error = None
 
@@ -59,23 +59,22 @@ def create_stu():
             db = get_db()
             cursor = db.cursor()
             cursor.execute(
-                'INSERT INTO post (title, body, author_id)'
-                ' VALUES (%s, %s, %s)',
+                'INSERT INTO student (sno, spwd, sname, ssex, sid, sgrade, sdept, stel, smail)'
+                ' VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)',
                 (title, body, g.user[0])
             )
             db.commit()
             cursor.close()
-            return redirect(url_for('blog.index'))
+            return redirect(url_for('admin.create_stu'))'''
 
-    return render_template('blog/create.html')'''
+    return render_template('admin/create_stu.html')
 
 
 @bp.route('/update_stu/<int:sno>', methods=('GET', 'POST'))
 def update_stu(sno):
-    '''post = get_post(id)
-
+    # get stu by sno
     if request.method == 'POST':
-        title = request.form['title']
+        '''title = request.form['title']
         body = request.form['body']
         error = None
 
@@ -94,18 +93,16 @@ def update_stu(sno):
             )
             db.commit()
             cursor.close()
-            return redirect(url_for('blog.index'))
+            return redirect(url_for('admin.update_stu', sno=sno))'''
 
-    return render_template('blog/update.html', post=post)'''
+    #return render_template('admin/update_stu.html', student=student)
 
 
 @bp.route('/delete_stu/<int:sno>', methods=('POST',))
-def delete(sno):
-    '''get_post(id)
+def delete_stu(sno):
     db = get_db()
     cursor = db.cursor()
-    cursor.execute('DELETE FROM post WHERE id = %s', (id,))
+    cursor.execute('DELETE FROM student WHERE sno = %s', (sno,))
     db.commit()
     cursor.close()
-    return redirect(url_for('blog.index'))'''
-
+    return redirect(url_for('admin.info_stu'))

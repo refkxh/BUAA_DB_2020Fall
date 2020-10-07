@@ -1,7 +1,7 @@
-drop table if exists Student;
-drop table if exists Course;
+drop table if exists student;
+drop table if exists course;
 
-create table Student
+create table student
 (
     sno    varchar(10) primary key,
     spwd   varchar(128) not null,
@@ -14,7 +14,7 @@ create table Student
     smail  varchar(30)
 );
 
-create table Course
+create table course
 (
     cno     int auto_increment primary key,
     cname   varchar(32) not null,
