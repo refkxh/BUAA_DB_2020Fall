@@ -13,8 +13,8 @@
         <form action="{{ url_for('admin.info_stu') }}" method="post">
             学号: <input type="text" name="sno" value=""><br>
             姓名: <input type="text" name="sname" value=""><br>
-            年级: <input type="text" name="sgrade" value=""><br>
-            院系: <input type="text" name="sdept" value=""><br>
+            年级: <input type="text" name="sgrade" value="" placeholder="示例：大一"><br>
+            院系: <input type="text" name="sdept" value="" placeholder="示例：计算机学院"><br>
             <input type="submit" value="查询">
         </form>
     </div>
