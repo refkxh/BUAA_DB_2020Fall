@@ -90,12 +90,11 @@ def create_stu():
     return render_template('admin/create_stu.html')
 
 
-@bp.route('/update_stu/<int:sno>', methods=('GET', 'POST'))
+@bp.route('/update_stu/<sno>', methods=('GET', 'POST'))
 def update_stu(sno):
     db = get_db()
     cursor = db.cursor(dictionary=True)
     if request.method == 'POST':
-        new_sno = request.form['sno']
         spwd = request.form['spwd']
         sname = request.form['sname']
         ssex = request.form['ssex']
@@ -108,7 +107,6 @@ def update_stu(sno):
         valid = True
 
         try:
-            validators.Student.sno(new_sno)
             validators.Student.spwd(spwd)
             validators.Student.sname(sname)
             validators.Student.ssex(ssex)
@@ -123,10 +121,10 @@ def update_stu(sno):
 
         if valid:
             cursor.execute(
-                'UPDATE student SET sno = %s, spwd = %s, sname = %s, '
+                'UPDATE student SET spwd = %s, sname = %s, '
                 ' ssex = %s, sid = %s, sgrade = %s, sdept = %s, stel = %s, smail = %s'
                 ' WHERE sno = %s',
-                (new_sno, generate_password_hash(spwd), sname, ssex, sid, sgrade, sdept, stel, smail, sno)
+                (generate_password_hash(spwd), sname, ssex, sid, sgrade, sdept, stel, smail, sno)
             )
             db.commit()
             cursor.close()
@@ -145,7 +143,7 @@ def update_stu(sno):
         return render_template('admin/update_stu.html', student=student)
 
 
-@bp.route('/delete_stu/<int:sno>', methods=('POST',))
+@bp.route('/delete_stu/<sno>', methods=('GET',))
 def delete_stu(sno):
     db = get_db()
     cursor = db.cursor()
