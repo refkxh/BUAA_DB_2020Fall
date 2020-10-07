@@ -39,15 +39,15 @@
 
             {% for info in students %}
             <tr>
-                <td>{{ info['sno'] }}</td>
-                <td>{{ info['sname'] }}</td>
-                <td>{{ info['ssex'] }}</td>
-                <td>{{ info['sgrade'] }}</td>
-                <td>{{ info['sdept'] }}</td>
-                <td>{{ info['sid'] }}</td>
-                <td>{{ info['stel'] }}</td>
-                <td>{{ info['smail'] }}</td>
-                <td><a style="color: #5474fe" href="{{ url_for('admin.update_stu',sno=info['sno']) }}">修改</a>
+                <td nowrap="nowrap">{{ info['sno'] }}</td>
+                <td nowrap="nowrap">{{ info['sname'] }}</td>
+                <td nowrap="nowrap">{{ info['ssex'] }}</td>
+                <td nowrap="nowrap">{{ info['sgrade'] }}</td>
+                <td nowrap="nowrap">{{ info['sdept'] }}</td>
+                <td nowrap="nowrap">{{ info['sid'] }}</td>
+                <td nowrap="nowrap">{{ info['stel'] }}</td>
+                <td nowrap="nowrap">{{ info['smail'] }}</td>
+                <td nowrap="nowrap"><a style="color: #5474fe" href="{{ url_for('admin.update_stu',sno=info['sno']) }}">修改</a>
                     &nbsp; <a style="color:#fc3c3a" href="{{ url_for('admin.delete_stu',sno=info['sno']) }}">删除</a></td>
             </tr>
             {% endfor %}
