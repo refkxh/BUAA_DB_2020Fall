@@ -59,21 +59,21 @@ class Student:
             raise ValidateException("性别取值必须为“男”或“女”！")
 
     @staticmethod
-    def sid(input_str):
+    def sid(input_str, cur_sno=None):
         if not str.isdigit(input_str) or len(input_str) != 18:
             raise ValidateException("身份证号不合法！")
 
         db = get_db()
-        cursor = db.cursor()
+        cursor = db.cursor(dictionary=True)
         cursor.execute(
-            'SELECT sid'
+            'SELECT sno'
             ' FROM student'
             ' WHERE sid = %s',
             (input_str,)
         )
         student = cursor.fetchone()
         cursor.close()
-        if student is not None:
+        if student is not None and student['sno'] != cur_sno:
             raise ValidateException("身份证号不能重复！")
 
     @staticmethod

@@ -109,7 +109,7 @@ def update_stu(sno):
         try:
             validators.Student.sname(sname)
             validators.Student.ssex(ssex)
-            validators.Student.sid(sid)
+            validators.Student.sid(sid, cur_sno=sno)
             validators.Student.sgrade(sgrade)
             validators.Student.sdept(sdept)
             validators.Student.stel(stel)
