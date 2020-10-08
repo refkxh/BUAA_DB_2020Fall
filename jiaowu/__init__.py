@@ -1,6 +1,9 @@
 import os
 
-from flask import Flask, render_template
+from flask import Flask, redirect, render_template, url_for
+from flask_login import current_user
+
+from werkzeug.exceptions import abort
 
 
 def create_app():
@@ -26,11 +29,9 @@ def create_app():
     from . import db_base
     db_base.init_app(app)
 
-    from . import admin
-    app.register_blueprint(admin.bp)
-
-    from . import auth
-    app.register_blueprint(auth.bp)
+    @app.errorhandler(400)
+    def page_not_found(e):
+        return render_template('error.html', code=400)
 
     @app.errorhandler(404)
     def page_not_found(e):
@@ -40,6 +41,21 @@ def create_app():
     def internal_server_error(e):
         return render_template('error.html', code=500)
 
-    app.add_url_rule('/', endpoint='admin.index')
+    from . import auth
+    auth.login_manager.init_app(app)
+    app.register_blueprint(auth.bp)
+
+    from . import admin
+    app.register_blueprint(admin.bp)
+
+    @app.route('/', methods=('GET',))
+    def index():
+        # if not current_user.is_authenticated:
+        #     return redirect(url_for('auth.login'))
+        # elif current_user.status == 'Admin':
+        #     return redirect(url_for('admin.index'))
+        # else:
+        #     abort(500)
+        return redirect(url_for('admin.index'))
 
     return app
