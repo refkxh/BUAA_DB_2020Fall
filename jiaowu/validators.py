@@ -117,9 +117,6 @@ class Course:
 
     @staticmethod
     def ctype(input_str):
-        if len(input_str) == 0:
-            raise ValidateException("课程类型不能为空！")
-
         if len(input_str) > 10:
             raise ValidateException("课程类型过长！")
 

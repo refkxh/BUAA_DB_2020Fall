@@ -228,8 +228,8 @@ def create_course():
             db = get_db()
             cursor = db.cursor()
             cursor.execute(
-                'insert into course (cno, cname, ctype, ccredit, cdept, ccap, cleft)'
-                ' values (DEFAULT, %s, %s, %s, %s, %s, DEFAULT)',
+                'insert into course (cname, ctype, ccredit, cdept, ccap)'
+                ' values (%s, %s, %s, %s, %s)',
                 (cname, ctype, ccredit, cdept, ccap)
             )
             db.commit()

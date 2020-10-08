@@ -8,6 +8,7 @@
 
 - flask >= 1.0
 - mysql-connector-python
+- flask-login
 
 建议使用virtualenv配置运行环境。
 
