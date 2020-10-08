@@ -1,81 +1,86 @@
 {% extends "base.html" %}
-{% block title%}
-学生信息查询和修改
+{% block title %}
+    学生信息查询和修改
 {% endblock %}
 
-{% block Title%}
-学生信息查询和修改
+{% block Title %}
+    学生信息查询和修改
 {% endblock %}
 
-{% block content%}
-<div class="content_whole">
-    <div class="content_form">
-        <form action="{{ url_for('admin.info_stu') }}" method="post">
-            学号: <input type="text" name="sno" value=""><br>
-            姓名: <input type="text" name="sname" value=""><br>
-            年级: <input type="text" name="sgrade" value="" placeholder="示例：大一"><br>
-            院系: <input type="text" name="sdept" value="" placeholder="示例：计算机学院"><br>
-            <input type="submit" value="查询">
-        </form>
+{% block content %}
+    <div class="content_whole">
+        <div class="content_form">
+            <form action="{{ url_for('admin.info_stu') }}" method="post">
+                学号: <input type="text" name="sno" value=""><br>
+                姓名: <input type="text" name="sname" value=""><br>
+                年级: <input type="text" name="sgrade" value="" placeholder="示例：大一"><br>
+                院系: <input type="text" name="sdept" value="" placeholder="示例：计算机学院"><br><br>
+                <input type="submit" value="查询"><br>
+            </form>
+        </div>
+
+        <div class="content_table">
+            <table class="primary">
+                <thead>
+                <tr>
+                    <th>学号</th>
+                    <th>姓名</th>
+                    <th>性别</th>
+                    <th>年级</th>
+                    <th>院系</th>
+                    <th>身份证</th>
+                    <th>手机号</th>
+                    <th>邮箱</th>
+                    <th>操作</th>
+
+                </tr>
+                </thead>
+                <tbody>
+
+                {% for info in students %}
+                    <tr>
+                        <td nowrap="nowrap">{{ info['sno'] }}</td>
+                        <td nowrap="nowrap">{{ info['sname'] }}</td>
+                        <td nowrap="nowrap">{{ info['ssex'] }}</td>
+                        <td nowrap="nowrap">{{ info['sgrade'] }}</td>
+                        <td nowrap="nowrap">{{ info['sdept'] }}</td>
+                        <td nowrap="nowrap">{{ info['sid'] }}</td>
+                        <td nowrap="nowrap">{{ info['stel'] }}</td>
+                        <td nowrap="nowrap">{{ info['smail'] }}</td>
+                        <td nowrap="nowrap"><a style="color: #5474fe"
+                                               href="{{ url_for('admin.update_stu',sno=info['sno']) }}">修改</a>
+                            &nbsp; <a style="color:#fc3c3a"
+                                      href="{{ url_for('admin.delete_stu',sno=info['sno']) }}">删除</a></td>
+                    </tr>
+                {% endfor %}
+
+
+                </tbody>
+            </table>
+        </div>
+
     </div>
-
-    <div class="content_table">
-        <table class="primary">
-            <thead>
-            <tr>
-                <th>学号</th>
-                <th>姓名</th>
-                <th>性别</th>
-                <th>年级</th>
-                <th>院系</th>
-                <th>身份证</th>
-                <th>手机号</th>
-                <th>邮箱</th>
-                <th>操作</th>
-
-            </tr>
-            </thead>
-            <tbody>
-
-            {% for info in students %}
-            <tr>
-                <td nowrap="nowrap">{{ info['sno'] }}</td>
-                <td nowrap="nowrap">{{ info['sname'] }}</td>
-                <td nowrap="nowrap">{{ info['ssex'] }}</td>
-                <td nowrap="nowrap">{{ info['sgrade'] }}</td>
-                <td nowrap="nowrap">{{ info['sdept'] }}</td>
-                <td nowrap="nowrap">{{ info['sid'] }}</td>
-                <td nowrap="nowrap">{{ info['stel'] }}</td>
-                <td nowrap="nowrap">{{ info['smail'] }}</td>
-                <td nowrap="nowrap"><a style="color: #5474fe" href="{{ url_for('admin.update_stu',sno=info['sno']) }}">修改</a>
-                    &nbsp; <a style="color:#fc3c3a" href="{{ url_for('admin.delete_stu',sno=info['sno']) }}">删除</a></td>
-            </tr>
-            {% endfor %}
-
-
-            </tbody>
-        </table>
-    </div>
-
-</div>
 {% endblock %}
 
 
 {% block nav %}
+    <div class="page_now">
+        <a href="{{ url_for('admin.info_stu') }}">
+            <li>学生信息查询和修改</li>
+        </a>
+    </div>
 
-<li>
-    <div class="page_now"><a href="{{ url_for('admin.info_stu') }}">学生信息查询和修改</a></div>
-</li>
-<a href="{{ url_for('admin.create_stu') }}">
-    <li>新建学生</li>
-</a>
-<a href="#">
-    <li>学籍管理</li>
-</a>
-<a href="#">
-    <li>国奖群成员查询</li>
-</a>
-<a href="#">
-    <li>退学办理</li>
-</a>
+    <a href="{{ url_for('admin.create_stu') }}">
+        <li>新建学生</li>
+    </a>
+
+
+    <a href="{{ url_for('admin.info_course') }}">
+        <li>课程信息查询和修改</li>
+    </a>
+
+    <a href="{{ url_for('admin.create_course') }}">
+        <li>新建课程</li>
+    </a>
+
 {% endblock %}

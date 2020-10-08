@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% block title %}
+    新建课程
+{% endblock %}
+
+{% block Title %}
+    新建课程
+{% endblock %}
+
+{% block content %}
+    <div class="content_whole">
+
+        <div class="content_form">
+            <form action="{{ url_for('admin.create_course') }}" method="post">
+                课程名称: <input type="text" name="cname" value="" placeholder="请输入课程名全称"><br>
+                课程类型: <input type="text" name="ctype" value=""><br>
+                院系: <input type="text" name="cdept" value="" placeholder="填写学院全称。示例：计算机学院"><br>
+                学分: <input type="text" name="ccredit" value="" placeholder=""><br>
+                课程容量: <input type="text" name="ccap" value="" placeholder=""><br>
+                <input type="submit" value="新建">
+            </form>
+        </div>
+
+    </div>
+{% endblock %}
+
+
+{% block nav %}
+
+    <a href="{{ url_for('admin.info_stu') }}">
+        <li>学生信息查询和修改</li>
+    </a>
+
+
+    <a href="{{ url_for('admin.create_stu') }}">
+        <li>新建学生</li>
+    </a>
+
+
+    <a href="{{ url_for('admin.info_course') }}">
+        <li>课程信息查询和修改</li>
+    </a>
+
+    <div class="page_now">
+        <a href="{{ url_for('admin.create_course') }}">
+            <li>新建课程</li>
+        </a>
+    </div>
+{% endblock %}
