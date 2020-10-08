@@ -28,7 +28,7 @@ def info_stu():
                 if len(value) > 0:
                     str_select += key + ' LIKE \'%' + value + '%\' and '
             else:
-                return redirect(url_for('admin.info_stu'))
+                abort(500)
         if len(str_select) == 0:
             return redirect(url_for('admin.info_stu'))
         sql = 'select sno, sname, ssex, sid, sgrade, sdept, stel, smail' \
