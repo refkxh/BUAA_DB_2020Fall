@@ -22,5 +22,5 @@ create table course
     ccredit int         not null,
     cdept   varchar(32),
     ccap    int         not null,
-    cselect   int         not null default 0
+    cselect   int         not null default '0'
 );
