@@ -176,6 +176,9 @@ def info_course():
             value = request.form[key]
             if key == 'cno':
                 if len(value) > 0:
+                    if not str.isdigit(value):
+                        flash('课程号只能为数字！')
+                        return redirect(url_for('admin.info_course'))
                     str_select += key + '=' + value + ' and '
             else:
                 if type(value) == str:
