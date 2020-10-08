@@ -105,6 +105,7 @@ class Student:
         if not re.match(r'^\w+@(\w+\.\w+)$', input_str):
             raise ValidateException("邮件地址不合法！")
 
+
 class Course:
     @staticmethod
     def cname(input_str):
@@ -128,7 +129,7 @@ class Course:
             raise ValidateException("学分不能为空！")
         if not str.isdigit(input_str):
             raise ValidateException("学分不合法！")
-        if int(input_str)>114514:
+        if int(input_str) > 256:
             raise ValidateException("学分过大！")
 
     @staticmethod
@@ -142,6 +143,6 @@ class Course:
             raise ValidateException("容量不能为空！")
         if not str.isdigit(input_str):
             raise ValidateException("容量不合法！")
-        if int(input_str) > 114514:
+        if int(input_str) > 8192:
             raise ValidateException("容量过大！")
 

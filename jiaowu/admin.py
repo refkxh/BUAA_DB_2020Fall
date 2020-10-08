@@ -178,7 +178,7 @@ def info_course():
                 if len(value) > 0:
                     str_select += key + ' LIKE \'%' + value + '%\' and '
             else:
-                return redirect(url_for('admin.info_course'))
+                abort(500)
         if len(str_select) == 0:
             return redirect(url_for('admin.info_course'))
         sql = 'select *' \
@@ -221,8 +221,8 @@ def create_course():
             db = get_db()
             cursor = db.cursor()
             cursor.execute(
-                'insert into course (DEFAULT,cname,ctype,ccredit,cdept,ccap,DEFAULT)'
-                ' values (%s, %s, %s, %s, %s)',
+                'insert into course (cno, cname, ctype, ccredit, cdept, ccap, cleft)'
+                ' values (DEFAULT, %s, %s, %s, %s, %s, DEFAULT)',
                 (cname, ctype, ccredit, cdept, ccap)
             )
             db.commit()
@@ -261,7 +261,7 @@ def update_course(cno):
             cursor.execute(
                 'update course set cname = %s, ctype = %s, ccredit = %s,'
                 ' cdept = %s, ccap = %s'
-                ' where cno = %d',
+                ' where cno = %s',
                 (cname, ctype, ccredit, cdept, ccap, cno)
             )
             db.commit()
@@ -272,7 +272,7 @@ def update_course(cno):
         cursor.execute(
             'select *'
             ' from course'
-            ' where cno = %d',
+            ' where cno = %s',
             (cno,)
         )
         course = cursor.fetchone()
@@ -286,7 +286,7 @@ def update_course(cno):
 def delete_course(cno):
     db = get_db()
     cursor = db.cursor()
-    cursor.execute('delete from course where cno = %d', (cno,))
+    cursor.execute('delete from course where cno = %s', (cno,))
     db.commit()
     cursor.close()
     flash('删除成功！')
