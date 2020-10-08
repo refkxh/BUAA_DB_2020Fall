@@ -1,16 +1,16 @@
 {% extends "base.html" %}
 {% block title %}
-    学生信息查询和修改
+    学生信息管理
 {% endblock %}
 
 {% block Title %}
-    学生信息查询和修改
+    学生信息管理
 {% endblock %}
 
 {% block content %}
     <div class="content_whole">
 
-        <div class="content_table">
+        <div class="content_table1">
             <form method="post" action="{{ url_for('admin.update_stu',sno=student['sno']) }}">
                 <label>学号</label>
                 <h3>{{ student['sno'] }}</h3>
@@ -58,20 +58,12 @@
 
     <div class="page_now">
         <a href="{{ url_for('admin.info_stu') }}">
-            <li>学生信息查询和修改</li>
+            <li>学生信息管理</li>
         </a>
     </div>
 
-    <a href="{{ url_for('admin.create_stu') }}">
-        <li>新建学生</li>
-    </a>
-
-
     <a href="{{ url_for('admin.info_course') }}">
-        <li>课程信息查询和修改</li>
+        <li>课程信息管理</li>
     </a>
 
-    <a href="{{ url_for('admin.create_course') }}">
-        <li>新建课程</li>
-    </a>
 {% endblock %}

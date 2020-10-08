@@ -1,16 +1,16 @@
 {% extends "base.html" %}
 {% block title %}
-    学生信息查询和修改
+    学生信息管理
 {% endblock %}
 
 {% block Title %}
-    学生信息查询和修改
+    学生信息管理
 {% endblock %}
 
 {% block content %}
     <div class="content_whole">
 
-        <div class="content_table">
+        <div class="content_table1">
             <form method="post" action="{{ url_for('admin.update_course',cno=course['cno']) }}">
 
                 <label>课程名称</label>
@@ -19,7 +19,7 @@
 
                 <label>课程类型</label>
                 <input name="ctype" type="text"
-                       value="{{ request.form['ctype'] or course['ctype'] }}" >
+                       value="{{ request.form['ctype'] or course['ctype'] }}">
 
                 <label>学分</label>
                 <input name="ccredit" type="text"
@@ -27,7 +27,7 @@
 
                 <label>院系</label>
                 <input name="cdept" type="text"
-                       value="{{ request.form['cdept'] or course['cdept'] }}" >
+                       value="{{ request.form['cdept'] or course['cdept'] }}">
 
                 <label>课程容量</label>
                 <input name="ccap" type="text"
@@ -45,22 +45,14 @@
 {% block nav %}
 
     <a href="{{ url_for('admin.info_stu') }}">
-        <li>学生信息查询和修改</li>
-    </a>
-
-
-    <a href="{{ url_for('admin.create_stu') }}">
-        <li>新建学生</li>
-    </a>
-
-
-    <a href="{{ url_for('admin.info_course') }}">
-        <li>课程信息查询和修改</li>
+        <li>学生信息管理</li>
     </a>
 
     <div class="page_now">
-        <a href="{{ url_for('admin.create_course') }}">
-            <li>新建课程</li>
+        <a href="{{ url_for('admin.info_course') }}">
+            <li>课程信息管理</li>
         </a>
     </div>
+
+
 {% endblock %}

@@ -174,26 +174,70 @@ li {
     margin-left: 33px;
     margin-right: 33px;
     background-color: white;
+
+}
+
+.content_head_box {
+    padding-left: 15px;
+    padding-top: 19px;
+    height: 70px;
+
+}
+.content_form_and_table_box{
+    height: 504px;
+    width: 100%;
+}
+
+.content_form_box {
+    padding: 20px 10px;
+    width: 25%;
+    float: left;
+    height: 504px;
+}
+
+.content_table_box {
+    padding: 20px 10px;
+    width: 75%;
+    float: left;
+    height: 504px;
+
+}
+.content_form{
+    background-color: #f5f6f8;
+    padding: 55px 30px;
+    height: 100%;
+}
+
+.content_form1{
+    padding-left: 30px;
+    padding-top: 30px;
+    padding-right: 900px;
+    height: 100%;
     overflow: scroll;
 }
 
-.content_form {
-    padding-left: 50px;
-    padding-top: 30px;
-    padding-right: 900px;
+
+.content_table{
+    background-color: #f5f6f8;
+    height: 100%;
+    padding: 20px 20px;
+    overflow: scroll;
 }
 
-.content_table {
-    padding-top: 20px;
-    padding-left: 50px;
-    padding-right: 10px;
+.content_table1{
+    padding-left: 30px;
+    padding-top: 30px;
+    padding-right: 900px;
+    height: 100%;
+    overflow: scroll;
 }
+
 
 .td {
     white-space: nowrap;
 }
 
-.login_whole{
+.login_whole {
     margin: 0px;
     padding: 0px;
     width: 100%;
@@ -201,23 +245,23 @@ li {
     background-image: url("login.jpg");
 }
 
-.login_table{
+.login_table {
     height: 500px;
     width: 500px;
     position: absolute;
-    right:150px;
-    top:150px;
+    right: 150px;
+    top: 150px;
     background-color: aliceblue;
 }
 
-.login_table_head{
+.login_table_head {
     height: 100px;
     width: 100%;
     background-image: url("login_table.png");
     background-size: cover;
 }
 
-.login_form{
+.login_form {
     padding: 50px 30px 50px 30px;
     height: 400px;
     width: 100%;

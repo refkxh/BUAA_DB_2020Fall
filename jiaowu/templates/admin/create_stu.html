@@ -10,7 +10,7 @@
 {% block content %}
     <div class="content_whole">
 
-        <div class="content_form">
+        <div class="content_form1">
             <form action="{{ url_for('admin.create_stu') }}" method="post">
                 学号: <input type="text" name="sno" value="" placeholder="学号一经确认无法修改"><br>
                 密码: <input type="password" name="spwd" value="" placeholder="密码不少于六个字符"><br>
@@ -35,21 +35,15 @@
 
 {% block nav %}
 
-    <a href="{{ url_for('admin.info_stu') }}">
-        <li>学生信息查询和修改</li>
-    </a>
-
     <div class="page_now">
-        <a href="{{ url_for('admin.create_stu') }}">
-            <li>新建学生</li>
+        <a href="{{ url_for('admin.info_stu') }}">
+            <li>学生信息管理</li>
         </a>
     </div>
 
     <a href="{{ url_for('admin.info_course') }}">
-        <li>课程信息查询和修改</li>
+        <li>课程信息管理</li>
     </a>
 
-    <a href="{{ url_for('admin.create_course') }}">
-        <li>新建课程</li>
-    </a>
+
 {% endblock %}
