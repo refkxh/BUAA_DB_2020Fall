@@ -174,11 +174,15 @@ def info_course():
         str_select = ''
         for key in request.form.keys():
             value = request.form[key]
-            if type(value) == str:
+            if key == 'cno':
                 if len(value) > 0:
-                    str_select += key + ' LIKE \'%' + value + '%\' and '
+                    str_select += key + '=' + value + ' and '
             else:
-                abort(500)
+                if type(value) == str:
+                    if len(value) > 0:
+                        str_select += key + ' LIKE \'%' + value + '%\' and '
+                else:
+                    abort(500)
         if len(str_select) == 0:
             return redirect(url_for('admin.info_course'))
         sql = 'select *' \
