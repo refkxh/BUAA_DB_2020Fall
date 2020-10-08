@@ -104,3 +104,44 @@ class Student:
 
         if not re.match(r'^\w+@(\w+\.\w+)$', input_str):
             raise ValidateException("邮件地址不合法！")
+
+class Course:
+    @staticmethod
+    def cname(input_str):
+        if len(input_str) == 0:
+            raise ValidateException("课程名不能为空！")
+
+        if len(input_str) > 32:
+            raise ValidateException("课程名过长！")
+
+    @staticmethod
+    def ctype(input_str):
+        if len(input_str) == 0:
+            raise ValidateException("课程类型不能为空！")
+
+        if len(input_str) > 10:
+            raise ValidateException("课程类型过长！")
+
+    @staticmethod
+    def ccredit(input_str):
+        if len(input_str) == 0:
+            raise ValidateException("学分不能为空！")
+        if not str.isdigit(input_str):
+            raise ValidateException("学分不合法！")
+        if int(input_str)>114514:
+            raise ValidateException("学分过大！")
+
+    @staticmethod
+    def cdept(input_str):
+        if len(input_str) > 32:
+            raise ValidateException("院系信息过长！")
+
+    @staticmethod
+    def ccap(input_str):
+        if len(input_str) == 0:
+            raise ValidateException("容量不能为空！")
+        if not str.isdigit(input_str):
+            raise ValidateException("容量不合法！")
+        if int(input_str) > 114514:
+            raise ValidateException("容量过大！")
+

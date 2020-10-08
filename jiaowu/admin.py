@@ -31,7 +31,7 @@ def info_stu():
                 return redirect(url_for('admin.info_stu'))
         if len(str_select) == 0:
             return redirect(url_for('admin.info_stu'))
-        sql = 'select sno, sname, ssex, sid, sgrade, sdept, stel, smail'\
+        sql = 'select sno, sname, ssex, sid, sgrade, sdept, stel, smail' \
               ' from student where {} order by sno'.format(str_select[:-4])
         cursor.execute(sql)
     else:
@@ -164,3 +164,130 @@ def delete_stu(sno):
     cursor.close()
     flash('删除成功！')
     return redirect(url_for('admin.info_stu'))
+
+
+@bp.route('/info_course', methods=('GET', 'POST'))
+def info_course():
+    db = get_db()
+    cursor = db.cursor(dictionary=True)
+    if request.method == 'POST':
+        str_select = ''
+        for key in request.form.keys():
+            value = request.form[key]
+            if type(value) == str:
+                if len(value) > 0:
+                    str_select += key + ' LIKE \'%' + value + '%\' and '
+            else:
+                return redirect(url_for('admin.info_course'))
+        if len(str_select) == 0:
+            return redirect(url_for('admin.info_course'))
+        sql = 'select *' \
+              ' from course where {} order by cno'.format(str_select[:-4])
+        cursor.execute(sql)
+    else:
+        cursor.execute(
+            'select *'
+            ' from course'
+            ' order by cno'
+        )
+    courses = cursor.fetchall()
+    cursor.close()
+    return render_template('admin/info_course.html', courses=courses)
+
+
+@bp.route('/create_course', methods=('GET', 'POST'))
+def create_course():
+    if request.method == 'POST':
+        cname = request.form['cname']
+        ctype = request.form['ctype']
+        ccredit = request.form['ccredit']
+        cdept = request.form['cdept']
+        ccap = request.form['ccap']
+
+        valid = True
+
+        try:
+            validators.Course.cname(cname)
+            validators.Course.ctype(ctype)
+            validators.Course.ccredit(ccredit)
+            validators.Course.cdept(cdept)
+            validators.Course.ccap(ccap)
+
+        except validators.ValidateException as e:
+            valid = False
+            flash(e.info)
+
+        if valid:
+            db = get_db()
+            cursor = db.cursor()
+            cursor.execute(
+                'insert into course (DEFAULT,cname,ctype,ccredit,cdept,ccap,DEFAULT)'
+                ' values (%s, %s, %s, %s, %s)',
+                (cname, ctype, ccredit, cdept, ccap)
+            )
+            db.commit()
+            cursor.close()
+            flash('创建成功！')
+            return redirect(url_for('admin.create_course'))
+
+    return render_template('admin/create_course.html')
+
+
+@bp.route('/update_course/<int:cno>', methods=('GET', 'POST'))
+def update_course(cno):
+    db = get_db()
+    cursor = db.cursor(dictionary=True)
+    if request.method == 'POST':
+        cname = request.form['cname']
+        ctype = request.form['ctype']
+        ccredit = request.form['ccredit']
+        cdept = request.form['cdept']
+        ccap = request.form['ccap']
+
+        valid = True
+
+        try:
+            validators.Course.cname(cname)
+            validators.Course.ctype(ctype)
+            validators.Course.ccredit(ccredit)
+            validators.Course.cdept(cdept)
+            validators.Course.ccap(ccap)
+
+        except validators.ValidateException as e:
+            valid = False
+            flash(e.info)
+
+        if valid:
+            cursor.execute(
+                'update course set cname = %s, ctype = %s, ccredit = %s,'
+                ' cdept = %s, ccap = %s'
+                ' where cno = %d',
+                (cname, ctype, ccredit, cdept, ccap, cno)
+            )
+            db.commit()
+            cursor.close()
+            flash('修改成功！')
+            return redirect(url_for('admin.update_course', cno=cno))
+    else:
+        cursor.execute(
+            'select *'
+            ' from course'
+            ' where cno = %d',
+            (cno,)
+        )
+        course = cursor.fetchone()
+        cursor.close()
+        if course is None:
+            abort(404)
+        return render_template('admin/update_course.html', course=course)
+
+
+@bp.route('/delete_course/<int:cno>', methods=('GET',))
+def delete_course(cno):
+    db = get_db()
+    cursor = db.cursor()
+    cursor.execute('delete from course where cno = %d', (cno,))
+    db.commit()
+    cursor.close()
+    flash('删除成功！')
+    return redirect(url_for('admin.info_course'))
