@@ -247,19 +247,18 @@ li {
 
 .login_table {
     height: 500px;
-    width: 500px;
+    width: 400px;
     position: absolute;
-    right: 150px;
+    right: 200px;
     top: 150px;
     background-color: aliceblue;
 }
 
 .login_table_head {
     height: 100px;
-    width: 100%;
-    background-image: url("login_table.png");
     background-size: cover;
 }
+
 
 .login_form {
     padding: 50px 30px 50px 30px;
