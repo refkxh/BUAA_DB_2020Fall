@@ -5,11 +5,11 @@ create table student
 (
     sno    varchar(10) primary key,
     spwd   varchar(128) not null,
-    sname  nvarchar(16) not null,
-    ssex   nchar(1)     not null check (ssex in ('男', '女')),
+    sname  varchar(32)  not null,
+    ssex   char(2)      not null check (ssex in ('男', '女')),
     sid    char(18)     not null unique,
-    sgrade nvarchar(10),
-    sdept  nvarchar(32),
+    sgrade varchar(10),
+    sdept  varchar(32),
     stel   varchar(11),
     smail  varchar(32)
 );
@@ -17,10 +17,10 @@ create table student
 create table course
 (
     cno     int auto_increment primary key,
-    cname   nvarchar(16) not null,
-    ctype   nvarchar(5),
-    ccredit int          not null,
-    cdept   nvarchar(16),
-    ccap    int          not null,
-    cselect int          not null default '0'
+    cname   varchar(32) not null,
+    ctype   varchar(10),
+    ccredit int         not null,
+    cdept   varchar(32),
+    ccap    int         not null,
+    cselect int         not null default '0'
 );
