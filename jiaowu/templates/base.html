@@ -5,6 +5,8 @@
     <title>{% block title%}{% endblock %}</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/picnic">
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" type="text/css" href="//at.alicdn.com/t/font_2119812_6xaagrksqbt.css">
+    <link rel="stylesheet" type="text/css" href="../static/iconfont/iconfont.css">
     <script type="text/javascript" src="{{ url_for('static', filename='script.js') }}"></script>
     {% for message in get_flashed_messages() %}
     <div id="myModal" class="modal" style="display: block">

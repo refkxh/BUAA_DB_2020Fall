@@ -70,15 +70,14 @@
 
 {% block nav %}
 
+
     <a href="{{ url_for('admin.info_stu') }}">
-        <li>学生信息管理</li>
+        <li><i class="iconfont icon-xueshengdangan1"></i>&nbsp;&nbsp;学生信息管理</li>
     </a>
 
-    <div class="page_now">
-        <a href="{{ url_for('admin.info_course') }}">
-            <li>课程信息管理</li>
-        </a>
-    </div>
-
-
+    <a href="{{ url_for('admin.info_course') }}">
+        <li>
+            <div class="page_now"><i class="iconfont icon-biaoqiankuozhan_kecheng-136"></i>&nbsp;&nbsp;课程信息管理</div>
+        </li>
+    </a>
 {% endblock %}

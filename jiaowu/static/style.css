@@ -4,6 +4,15 @@ body {
     padding: 0px;
 }
 
+@font-face {
+  font-family: 'iconfont';  /* project id 2119812 */
+  src: url('//at.alicdn.com/t/font_2119812_3kdp9s1jl86.eot');
+  src: url('//at.alicdn.com/t/font_2119812_3kdp9s1jl86.eot?#iefix') format('embedded-opentype'),
+  url('//at.alicdn.com/t/font_2119812_3kdp9s1jl86.woff2') format('woff2'),
+  url('//at.alicdn.com/t/font_2119812_3kdp9s1jl86.woff') format('woff'),
+  url('//at.alicdn.com/t/font_2119812_3kdp9s1jl86.ttf') format('truetype'),
+  url('//at.alicdn.com/t/font_2119812_3kdp9s1jl86.svg#iconfont') format('svg');
+}
 
 /* 弹窗 (background) */
 .modal {
@@ -93,7 +102,7 @@ li {
 
 .base_top_right1 {
     height: 100%;
-    width: 250px;
+    width: 180px;
     line-height: 80px;
     float: right;
 }
@@ -183,7 +192,8 @@ li {
     height: 70px;
 
 }
-.content_form_and_table_box{
+
+.content_form_and_table_box {
     height: 504px;
     width: 100%;
 }
@@ -202,13 +212,14 @@ li {
     height: 504px;
 
 }
-.content_form{
+
+.content_form {
     background-color: #f5f6f8;
     padding: 55px 30px;
     height: 100%;
 }
 
-.content_form1{
+.content_form1 {
     padding-left: 30px;
     padding-top: 30px;
     padding-right: 900px;
@@ -217,14 +228,14 @@ li {
 }
 
 
-.content_table{
+.content_table {
     background-color: #f5f6f8;
     height: 100%;
     padding: 20px 20px;
     overflow: scroll;
 }
 
-.content_table1{
+.content_table1 {
     padding-left: 30px;
     padding-top: 30px;
     padding-right: 900px;
