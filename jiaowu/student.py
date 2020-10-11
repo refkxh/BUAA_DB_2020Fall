@@ -18,4 +18,4 @@ bp = Blueprint('student', __name__, url_prefix='/student')
 @bp.route('/', methods=('GET',))
 @check_permission('Student', False)
 def index():
-    return '还没做，莫着急。<br/>sno: {}'.format(current_user.sno)
+    return '还没做，莫着急。<br/>sno: {}'.format(current_user.no)
