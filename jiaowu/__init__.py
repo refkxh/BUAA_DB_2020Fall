@@ -30,7 +30,7 @@ def create_app():
     db_base.init_app(app)
 
     @app.errorhandler(400)
-    def page_not_found(e):
+    def bad_request(e):
         return render_template('error.html', code=400)
 
     @app.errorhandler(404)
