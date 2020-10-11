@@ -102,17 +102,30 @@ li {
 
 .base_top_right1 {
     height: 100%;
-    width: 180px;
+    width: 150px;
     line-height: 80px;
     float: right;
+    text-align: center;
+    vertical-align: middle;
 }
 
 .base_top_right2 {
-    height: 100%;
     width: 100px;
-    line-height: 80px;
+    line-height: 30px;
+    margin-top: 13px;
+    margin-right: 10px;
+    vertical-align: middle;
     float: right;
+    text-align: center;
+
 }
+
+.base_top_right2 button{
+    background-color:#2368c3 ;
+    border-radius: 25px;
+    border: #BBBBBB solid 1px;
+}
+
 
 .base_body {
     height: 674px;

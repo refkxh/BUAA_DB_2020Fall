@@ -27,7 +27,9 @@
             <li>教务管理系统</li>
         </div>
         <div class="base_top_right2">
-            <a href="{{ url_for('auth.logout') }}">登出</a>
+            <a href="{{ url_for('auth.logout') }}">
+                <button> 登出 &nbsp;<i class="iconfont icon-dengchu"></i></button>
+            </a>
         </div>
 
         <div class="base_top_right1">
@@ -35,7 +37,6 @@
                 欢迎&ensp;&ensp;&ensp;<b>{{ current_user.name }}</b>
             {% endif %}
         </div>
-
 
 
     </div>
