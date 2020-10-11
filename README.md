@@ -6,8 +6,10 @@
 
 ## Requirements
 
+- Internet connection
 - flask >= 1.0
 - mysql-connector-python
+- flask-login
 
 建议使用virtualenv配置运行环境。
 
@@ -25,3 +27,7 @@ flask init-db
 ```
 
 完成后执行flask run，根据提示在浏览器中访问链接（一般是http://127.0.0.1:5000/）即可。
+
+默认管理用户名：refkxh
+
+默认管理密码：admin

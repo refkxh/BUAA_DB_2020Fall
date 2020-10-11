@@ -1,0 +1,83 @@
+{% extends "base1.html" %}
+{% block title %}
+    课程信息管理
+{% endblock %}
+
+{% block Title %}
+    课程信息管理
+{% endblock %}
+
+{% block button %}
+    <a href="{{ url_for('admin.create_stu') }}">
+        <button>新建课程</button>
+    </a>
+{% endblock %}
+
+{% block form %}
+    <div class="content_form">
+
+        <form action="{{ url_for('admin.info_course') }}" method="post">
+            课程名称: <input type="text" name="cname" value=""><br>
+            课程号: <input type="text" name="cno" value=""><br>
+            课程类型: <input type="text" name="ctype" value="" placeholder="示例：必修"><br>
+            院系: <input type="text" name="cdept" value="" placeholder="示例：计算机学院"><br><br>
+            <input type="submit" value="查询"><br>
+        </form>
+    </div>
+
+{% endblock %}
+
+{% block table %}
+    <div class="content_table">
+        <table class="primary">
+            <thead>
+            <tr>
+                <th nowrap="nowrap">课程名称</th>
+                <th nowrap="nowrap">课程号</th>
+                <th nowrap="nowrap">课程类型</th>
+                <th nowrap="nowrap">学分</th>
+                <th nowrap="nowrap">院系</th>
+                <th nowrap="nowrap">课程容量</th>
+                <th nowrap="nowrap">操作</th>
+
+            </tr>
+            </thead>
+            <tbody>
+
+            {% for info in courses %}
+                <tr>
+                    <td nowrap="nowrap">{{ info['cname'] }}</td>
+                    <td nowrap="nowrap">{{ info['cno'] }}</td>
+                    <td nowrap="nowrap">{{ info['ctype'] }}</td>
+                    <td nowrap="nowrap">{{ info['ccredit'] }}</td>
+                    <td nowrap="nowrap">{{ info['cdept'] }}</td>
+                    <td nowrap="nowrap">{{ info['ccap'] }}</td>
+                    <td nowrap="nowrap"><a style="color: #5474fe"
+                                           href="{{ url_for('admin.update_course',cno=info['cno']) }}">修改</a>
+                        &nbsp; <a style="color:#fc3c3a"
+                                  href="{{ url_for('admin.delete_course',cno=info['cno']) }}">删除</a></td>
+                </tr>
+            {% endfor %}
+
+            </tbody>
+        </table>
+
+    </div>
+
+
+{% endblock %}
+
+
+{% block nav %}
+
+
+    <a href="{{ url_for('admin.info_stu') }}">
+        <li><i class="iconfont icon-xueshengdangan1"></i>&nbsp;&nbsp;学生信息管理</li>
+    </a>
+
+    <a href="{{ url_for('admin.info_course') }}">
+        <li>
+            <div class="page_now"><i class="iconfont icon-biaoqiankuozhan_kecheng-136"></i>&nbsp;&nbsp;课程信息管理</div>
+        </li>
+    </a>
+{% endblock %}

@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+{% block title %}
+    学生信息管理
+{% endblock %}
+
+{% block Title %}
+    学生信息管理
+{% endblock %}
+
+{% block content %}
+    <div class="content_whole">
+
+        <div class="content_table1">
+            <form method="post" action="{{ url_for('admin.update_course',cno=course['cno']) }}">
+
+                <label>课程名称</label>
+                <input name="cname" type="text"
+                       value="{{ request.form['cname'] or course['cname'] }}" required>
+
+                <label>课程类型</label>
+                <input name="ctype" type="text"
+                       value="{{ request.form['ctype'] or course['ctype'] }}">
+
+                <label>学分</label>
+                <input name="ccredit" type="text"
+                       value="{{ request.form['ccredit'] or course['ccredit'] }}" required>
+
+                <label>院系</label>
+                <input name="cdept" type="text"
+                       value="{{ request.form['cdept'] or course['cdept'] }}">
+
+                <label>课程容量</label>
+                <input name="ccap" type="text"
+                       value="{{ request.form['ccap'] or course['ccap'] }}" required>
+
+
+                <input type="submit" value="保存">
+            </form>
+        </div>
+
+    </div>
+{% endblock %}
+
+
+{% block nav %}
+
+    <a href="{{ url_for('admin.info_stu') }}">
+        <li><i class="iconfont icon-xueshengdangan1"></i>&nbsp;&nbsp;学生信息管理</li>
+    </a>
+
+    <a href="{{ url_for('admin.info_course') }}">
+        <li>
+            <div class="page_now"><i class="iconfont icon-biaoqiankuozhan_kecheng-136"></i>&nbsp;&nbsp;课程信息管理</div>
+        </li>
+    </a>
+
+
+{% endblock %}

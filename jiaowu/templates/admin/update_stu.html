@@ -1,49 +1,49 @@
 {% extends "base.html" %}
 {% block title %}
-    学生信息查询和修改
+    学生信息管理
 {% endblock %}
 
 {% block Title %}
-    学生信息查询和修改
+    学生信息管理
 {% endblock %}
 
 {% block content %}
     <div class="content_whole">
 
-        <div class="content_table">
+        <div class="content_table1">
             <form method="post" action="{{ url_for('admin.update_stu',sno=student['sno']) }}">
-                <label >学号</label>
+                <label>学号</label>
                 <h3>{{ student['sno'] }}</h3>
-                <label >姓名</label>
+                <label>姓名</label>
                 <input name="sname" type="text"
                        value="{{ request.form['sname'] or student['sname'] }}" required>
 
-                <label >密码</label>
+                <label>密码</label>
                 <input name="spwd" type="password" placeholder="请填写新密码（留白视为不修改）"
                        value="">
 
-                <label >性别</label>
-                <input name="ssex"  type="text"
+                <label>性别</label>
+                <input name="ssex" type="text"
                        value="{{ request.form['ssex'] or student['ssex'] }}" required>
 
-                <label >年级</label>
-                <input name="sgrade"  type="text"
+                <label>年级</label>
+                <input name="sgrade" type="text"
                        value="{{ request.form['sgrade'] or student['sgrade'] }}" required>
 
-                <label >院系</label>
-                <input name="sdept"  type="text"
+                <label>院系</label>
+                <input name="sdept" type="text"
                        value="{{ request.form['sdept'] or student['sdept'] }}" required>
 
-                <label >身份证</label>
-                <input name="sid"  type="text"
+                <label>身份证</label>
+                <input name="sid" type="text"
                        value="{{ request.form['sid'] or student['sid'] }}" required>
 
-                <label >手机号</label>
+                <label>手机号</label>
                 <input name="stel" type="text"
                        value="{{ request.form['stel'] or student['stel'] }}" required>
 
-                <label >邮箱</label>
-                <input name="smail"  type="text"
+                <label>邮箱</label>
+                <input name="smail" type="text"
                        value="{{ request.form['smail'] or student['smail'] }}" required>
 
                 <input type="submit" value="保存">
@@ -56,19 +56,15 @@
 
 {% block nav %}
 
-    <li>
-        <div class="page_now"><a href="{{ url_for('admin.info_stu') }}">学生信息查询和修改</a></div>
-    </li>
-    <a href="{{ url_for('admin.create_stu') }}">
-        <li>新建学生</li>
+    <a href="{{ url_for('admin.info_stu') }}">
+        <li>
+            <div class="page_now"><i class="iconfont icon-xueshengdangan1"></i>&nbsp;&nbsp;学生信息管理</div>
+        </li>
     </a>
-    <a href="#">
-        <li>学籍管理</li>
+
+    <a href="{{ url_for('admin.info_course') }}">
+
+        <li> <i class="iconfont icon-biaoqiankuozhan_kecheng-136"></i>&nbsp;&nbsp;课程信息管理</li>
     </a>
-    <a href="#">
-        <li>国奖群成员查询</li>
-    </a>
-    <a href="#">
-        <li>退学办理</li>
-    </a>
+
 {% endblock %}

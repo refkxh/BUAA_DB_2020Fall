@@ -5,19 +5,30 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/picnic">
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     <title>登录</title>
+    <script type="text/javascript" src="{{ url_for('static', filename='script.js') }}"></script>
+    {% for message in get_flashed_messages() %}
+    <div id="myModal" class="modal" style="display: block">
+        <div class="modal-content">
+            <a href = "javascript:void(0)" onclick = "document.getElementById('myModal').style.display='none'">
+                <span class="close">&times;</span>
+            </a>
+            <p>{{message}}</p>
+        </div>
+    </div>
+    {% endfor %}
 </head>
 <body>
 <div class="login_whole">
     <div class="login_table">
-        <div class="login_table_head"></div>
+        <div class="login_table_head"><img src="../../static/login_table1.png" width="100%" height="100%"/></div>
         <div class="login_form">
-            <form action="" method="post">
-                账号: <input type="text" name="id" value="" placeholder="请输入账号"><br>
-                密码: <input type="password" name="pwd" value="" placeholder="请输入密码"><br>
+            <form action="{{ url_for('auth.login') }}" method="post">
+                学工号: <input type="text" name="id" value=""  placeholder="请输入学工号" required><br>
+                密码: <input type="password" name="pwd" value="" placeholder="请输入密码" required><br>
                 身份：
                 <select name="identity">
-                    <option>学生</option>
-                    <option>管理员</option>
+                    <option value ="S">学生</option>
+                    <option value ="A">教务管理员</option>
                 </select>
                 <br><br><br>
                 <input type="submit" style="width: 100%" value="登录">

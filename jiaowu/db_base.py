@@ -5,6 +5,8 @@ from flask import current_app, g
 from flask.cli import with_appcontext
 from .sql_utils import sql_file_to_list
 
+from werkzeug.security import generate_password_hash
+
 
 def get_db():
     if 'db' not in g:
@@ -35,6 +37,12 @@ def init_db():
 
     for sql in sql_file_to_list('schema.sql'):
         cursor.execute(sql)
+
+    cursor.execute(
+        'insert into admin (ano, apwd, aname, atel, amail)'
+        ' values (%s, %s, %s, %s, %s)',
+        ('refkxh', generate_password_hash('admin'), '孔祥浩', '12345678901', 'refkxh@outlook.com')
+    )
 
     db.commit()
     cursor.close()

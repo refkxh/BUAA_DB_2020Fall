@@ -1,53 +1,50 @@
 {% extends "base.html" %}
-{% block title%}
-新建学生
+{% block title %}
+    新建学生
 {% endblock %}
 
-{% block Title%}
-新建学生
+{% block Title %}
+    新建学生
 {% endblock %}
 
-{% block content%}
-<div class="content_whole">
+{% block content %}
+    <div class="content_whole">
 
-    <div class="content_form">
-        <form action="{{ url_for('admin.create_stu') }}" method="post">
-            学号: <input type="text" name="sno" value="" placeholder="学号一经确认无法修改"><br>
-            密码: <input type="password" name="spwd" value="" placeholder="密码不少于六个字符"><br>
-            姓名: <input type="text" name="sname" value=""><br>
-            性别：
-            <select name="ssex">
+        <div class="content_form1">
+            <form action="{{ url_for('admin.create_stu') }}" method="post">
+                学号: <input type="text" name="sno" value="" placeholder="学号一经确认无法修改"><br>
+                密码: <input type="password" name="spwd" value="" placeholder="密码不少于六个字符"><br>
+                姓名: <input type="text" name="sname" value=""><br>
+                性别：
+                <select name="ssex">
                     <option>男</option>
                     <option>女</option>
-            </select>
-            年级: <input type="text" name="sgrade" value="" placeholder="示例：大一"><br>
-            院系: <input type="text" name="sdept" value="" placeholder="填写学院全称。示例：计算机学院"><br>
-            身份证: <input type="text" name="sid" value=""><br>
-            手机号：<input type="text" name="stel" value=""><br>
-            邮箱: <input type="text" name="smail" value=""><br>
-            <input type="submit" value="新建">
-        </form>
-    </div>
+                </select>
+                年级: <input type="text" name="sgrade" value="" placeholder="示例：大一"><br>
+                院系: <input type="text" name="sdept" value="" placeholder="填写学院全称。示例：计算机学院"><br>
+                身份证: <input type="text" name="sid" value=""><br>
+                手机号：<input type="text" name="stel" value=""><br>
+                邮箱: <input type="text" name="smail" value=""><br>
+                <input type="submit" value="新建">
+            </form>
+        </div>
 
-</div>
+    </div>
 {% endblock %}
 
 
 {% block nav %}
-<a href="{{ url_for('admin.info_stu') }}">
-    <li>学生信息查询和修改</li>
-</a>
-<li>
-    <div class="page_now"><a href="{{ url_for('admin.create_stu') }}">新建学生</a></div>
-</li>
 
-<a href="#">
-    <li>学籍管理</li>
-</a>
-<a href="#">
-    <li>国奖群成员查询</li>
-</a>
-<a href="#">
-    <li>退学办理</li>
-</a>
+    <a href="{{ url_for('admin.info_stu') }}">
+        <li>
+            <div class="page_now"><i class="iconfont icon-xueshengdangan1"></i>&nbsp;&nbsp;学生信息管理</div>
+        </li>
+    </a>
+
+    <a href="{{ url_for('admin.info_course') }}">
+
+        <li> <i class="iconfont icon-biaoqiankuozhan_kecheng-136"></i>&nbsp;&nbsp;课程信息管理</li>
+    </a>
+
+
 {% endblock %}

@@ -12,6 +12,56 @@ class ValidateException(Exception):
         return self.info
 
 
+def pwd(input_str):
+    if len(input_str) == 0:
+        raise ValidateException("密码不能为空！")
+
+    if len(input_str) < 6:
+        raise ValidateException("密码不能少于6位！")
+
+    if len(input_str) > 128:
+        raise ValidateException("密码过长！")
+
+
+def name(input_str):
+    if len(input_str) == 0:
+        raise ValidateException("姓名不能为空！")
+
+    if len(input_str) > 32:
+        raise ValidateException("姓名过长！")
+
+
+def sex(input_str):
+    if input_str != "男" and input_str != "女":
+        raise ValidateException("性别取值必须为“男”或“女”！")
+
+
+def dept(input_str):
+    if len(input_str) > 32:
+        raise ValidateException("院系信息过长！")
+
+
+def tel(input_str):
+    if len(input_str) == 0:
+        return
+
+    if not str.isdigit(input_str) or len(input_str) != 11:
+        raise ValidateException("手机号码不合法！")
+
+
+def mail(input_str):
+    if len(input_str) == 0:
+        return
+
+    if not re.match(r'^\w+@(\w+\.\w+)$', input_str):
+        raise ValidateException("邮件地址不合法！")
+
+
+def grade(input_str):
+    if len(input_str) > 10:
+        raise ValidateException("年级信息过长！")
+
+
 class Student:
     @staticmethod
     def sno(input_str):
@@ -39,27 +89,15 @@ class Student:
 
     @staticmethod
     def spwd(input_str):
-        if len(input_str) == 0:
-            raise ValidateException("密码不能为空！")
-
-        if len(input_str) < 6:
-            raise ValidateException("密码不能少于6位！")
-
-        if len(input_str) > 128:
-            raise ValidateException("密码过长！")
+        pwd(input_str)
 
     @staticmethod
     def sname(input_str):
-        if len(input_str) == 0:
-            raise ValidateException("姓名不能为空！")
-
-        if len(input_str) > 32:
-            raise ValidateException("姓名过长！")
+        name(input_str)
 
     @staticmethod
     def ssex(input_str):
-        if input_str != "男" and input_str != "女":
-            raise ValidateException("性别取值必须为“男”或“女”！")
+        sex(input_str)
 
     @staticmethod
     def sid(input_str, cur_sno=None):
@@ -81,29 +119,20 @@ class Student:
 
     @staticmethod
     def sgrade(input_str):
-        if len(input_str) > 10:
-            raise ValidateException("年级信息过长！")
+        grade(input_str)
 
     @staticmethod
     def sdept(input_str):
-        if len(input_str) > 32:
-            raise ValidateException("院系信息过长！")
+        dept(input_str)
 
     @staticmethod
     def stel(input_str):
-        if len(input_str) == 0:
-            return
-
-        if not str.isdigit(input_str) or len(input_str) != 11:
-            raise ValidateException("手机号码不合法！")
+        tel(input_str)
 
     @staticmethod
     def smail(input_str):
-        if len(input_str) == 0:
-            return
+        mail(input_str)
 
-        if not re.match(r'^\w+@(\w+\.\w+)$', input_str):
-            raise ValidateException("邮件地址不合法！")
 
 class Course:
     @staticmethod
@@ -116,9 +145,6 @@ class Course:
 
     @staticmethod
     def ctype(input_str):
-        if len(input_str) == 0:
-            raise ValidateException("课程类型不能为空！")
-
         if len(input_str) > 10:
             raise ValidateException("课程类型过长！")
 
@@ -128,13 +154,12 @@ class Course:
             raise ValidateException("学分不能为空！")
         if not str.isdigit(input_str):
             raise ValidateException("学分不合法！")
-        if int(input_str)>114514:
+        if int(input_str) > 256:
             raise ValidateException("学分过大！")
 
     @staticmethod
     def cdept(input_str):
-        if len(input_str) > 32:
-            raise ValidateException("院系信息过长！")
+        dept(input_str)
 
     @staticmethod
     def ccap(input_str):
@@ -142,6 +167,6 @@ class Course:
             raise ValidateException("容量不能为空！")
         if not str.isdigit(input_str):
             raise ValidateException("容量不合法！")
-        if int(input_str) > 114514:
+        if int(input_str) > 8192:
             raise ValidateException("容量过大！")
 
