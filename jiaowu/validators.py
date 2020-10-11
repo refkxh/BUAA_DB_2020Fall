@@ -170,3 +170,44 @@ class Course:
         if int(input_str) > 8192:
             raise ValidateException("容量过大！")
 
+
+class Admin:
+    @staticmethod
+    def ano(input_str):
+        if len(input_str) == 0:
+            raise ValidateException("管理号不能为空！")
+
+        if len(input_str) > 10:
+            raise ValidateException("管理号过长！")
+
+        if not str.isalnum(input_str):
+            raise ValidateException("管理号只能由字母和数字组成！")
+
+        db = get_db()
+        cursor = db.cursor()
+        cursor.execute(
+            'select ano'
+            ' from admin'
+            ' where ano = %s',
+            (input_str,)
+        )
+        admin = cursor.fetchone()
+        cursor.close()
+        if admin is not None:
+            raise ValidateException("管理号不能重复！")
+
+    @staticmethod
+    def apwd(input_str):
+        pwd(input_str)
+
+    @staticmethod
+    def aname(input_str):
+        name(input_str)
+
+    @staticmethod
+    def atel(input_str):
+        tel(input_str)
+
+    @staticmethod
+    def amail(input_str):
+        mail(input_str)

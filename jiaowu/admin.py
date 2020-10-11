@@ -1,6 +1,7 @@
 from flask import (
     Blueprint, flash, redirect, render_template, request, url_for
 )
+from flask_login import current_user
 from werkzeug.exceptions import abort
 from werkzeug.security import generate_password_hash
 
@@ -309,3 +310,144 @@ def delete_course(cno):
     cursor.close()
     flash('删除成功！')
     return redirect(url_for('admin.info_course'))
+
+
+@bp.route('/info_admin', methods=('GET', 'POST'))
+@check_permission('Admin', False)
+def info_admin():
+    db = get_db()
+    cursor = db.cursor(dictionary=True)
+    if request.method == 'POST':
+        str_select = ''
+        for key in request.form.keys():
+            value = request.form[key]
+            if type(value) == str:
+                if len(value) > 0:
+                    str_select += key + ' LIKE \'%' + value + '%\' and '
+            else:
+                abort(500)
+        if len(str_select) == 0:
+            return redirect(url_for('admin.info_admin'))
+        sql = 'select ano, aname, atel,amail' \
+              ' from admin where {} order by ano'.format(str_select[:-4])
+        cursor.execute(sql)
+    else:
+        cursor.execute(
+            'select ano, aname, atel,amail'
+            ' from admin'
+            ' order by ano'
+        )
+    admins = cursor.fetchall()
+    cursor.close()
+    return render_template('admin/info_admin.html', admins=admins)
+
+
+@bp.route('/create_admin', methods=('GET', 'POST'))
+@check_permission('Admin', False)
+def create_admin():
+    if request.method == 'POST':
+        ano = request.form['ano']
+        apwd = request.form['apwd']
+        aname = request.form['aname']
+        atel = request.form['atel']
+        amail = request.form['amail']
+
+        valid = True
+
+        try:
+            validators.Admin.ano(ano)
+            validators.Admin.apwd(apwd)
+            validators.Admin.aname(aname)
+            validators.Admin.atel(atel)
+            validators.Admin.amail(amail)
+
+        except validators.ValidateException as e:
+            valid = False
+            flash(e.info)
+
+        if valid:
+            db = get_db()
+            cursor = db.cursor()
+            cursor.execute(
+                'insert into admin (ano, apwd, aname,atel, amail)'
+                ' values (%s, %s, %s, %s, %s)',
+                (ano, generate_password_hash(apwd), aname, atel, amail)
+            )
+            db.commit()
+            cursor.close()
+            flash('创建成功！')
+            return redirect(url_for('admin.create_admin'))
+
+    return render_template('admin/create_admin.html')
+
+
+@bp.route('/update_admin/<ano>', methods=('GET', 'POST'))
+@check_permission('Admin', False)
+def update_admin(ano):
+    db = get_db()
+    cursor = db.cursor(dictionary=True)
+    if request.method == 'POST':
+        apwd = request.form['apwd']
+        aname = request.form['aname']
+        atel = request.form['atel']
+        amail = request.form['amail']
+
+        valid = True
+
+        try:
+            validators.Admin.aname(aname)
+            validators.Admin.atel(atel)
+            validators.Admin.amail(amail)
+        except validators.ValidateException as e:
+            valid = False
+            flash(e.info)
+
+        if valid:
+            cursor.execute(
+                'update admin set aname = %s,atel = %s, amail = %s'
+                ' where ano = %s',
+                (aname, atel, amail, ano)
+            )
+
+            if len(apwd) > 0:
+                try:
+                    validators.admin.apwd(apwd)
+                    cursor.execute(
+                        'update admin set apwd = %s'
+                        ' where ano = %s',
+                        (generate_password_hash(apwd), ano)
+                    )
+                except validators.ValidateException as e:
+                    flash(e.info)
+
+            db.commit()
+            cursor.close()
+            flash('修改成功！')
+            return redirect(url_for('admin.update_admin', ano=ano))
+    else:
+        cursor.execute(
+            'select ano, aname, atel, amail'
+            ' from admin'
+            ' where ano = %s',
+            (ano,)
+        )
+        admin = cursor.fetchone()
+        cursor.close()
+        if admin is None:
+            abort(404)
+        return render_template('admin/update_admin.html', admin=admin)
+
+
+@bp.route('/delete_admin/<ano>', methods=('GET',))
+@check_permission('Admin', False)
+def delete_admin(ano):
+    if current_user.no == ano:
+        flash('不能删除当前用户！')
+        return redirect(url_for('admin.info_admin'))
+    db = get_db()
+    cursor = db.cursor()
+    cursor.execute('delete from admin where ano = %s', (ano,))
+    db.commit()
+    cursor.close()
+    flash('删除成功！')
+    return redirect(url_for('admin.info_admin'))
