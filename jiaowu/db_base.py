@@ -47,14 +47,15 @@ def init_db():
     cursor.execute(
         'insert into admin (ano, apwd, aname, atel, amail)'
         ' values (%s, %s, %s, %s, %s)',
-        ('apartment', generate_password_hash('admin'), '龚毓', '8888110', 'g94837848@gmail.com')
+        ('apartment', generate_password_hash('admin'), '龚毓', '12345678902', 'g94837848@gmail.com')
     )
 
     cursor.execute(
         'insert into admin (ano, apwd, aname, atel, amail)'
         ' values (%s, %s, %s, %s, %s)',
-        ('lzy', generate_password_hash('admin'), '刘紫阳', '88885678', '')
+        ('lzy', generate_password_hash('admin'), '刘紫阳', '12345678903', 'a@b.c')
     )
+
     db.commit()
     cursor.close()
 

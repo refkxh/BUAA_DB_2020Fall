@@ -64,8 +64,6 @@ def create_stu():
         stel = request.form['stel']
         smail = request.form['smail']
 
-        valid = True
-
         try:
             validators.Student.sno(sno)
             validators.Student.spwd(spwd)
@@ -76,11 +74,7 @@ def create_stu():
             validators.Student.sdept(sdept)
             validators.Student.stel(stel)
             validators.Student.smail(smail)
-        except validators.ValidateException as e:
-            valid = False
-            flash(e.info)
 
-        if valid:
             db = get_db()
             cursor = db.cursor()
             cursor.execute(
@@ -92,6 +86,8 @@ def create_stu():
             cursor.close()
             flash('创建成功！')
             return redirect(url_for('admin.create_stu'))
+        except validators.ValidateException as e:
+            flash(e.info)
 
     return render_template('admin/create_stu.html')
 
@@ -111,8 +107,6 @@ def update_stu(sno):
         stel = request.form['stel']
         smail = request.form['smail']
 
-        valid = True
-
         try:
             validators.Student.sname(sname)
             validators.Student.ssex(ssex)
@@ -121,11 +115,7 @@ def update_stu(sno):
             validators.Student.sdept(sdept)
             validators.Student.stel(stel)
             validators.Student.smail(smail)
-        except validators.ValidateException as e:
-            valid = False
-            flash(e.info)
 
-        if valid:
             cursor.execute(
                 'update student set sname = %s, ssex = %s, sid = %s,'
                 ' sgrade = %s, sdept = %s, stel = %s, smail = %s'
@@ -148,6 +138,8 @@ def update_stu(sno):
             cursor.close()
             flash('修改成功！')
             return redirect(url_for('admin.update_stu', sno=sno))
+        except validators.ValidateException as e:
+            flash(e.info)
     else:
         cursor.execute(
             'select sno, sname, ssex, sid, sgrade, sdept, stel, smail'
@@ -221,8 +213,6 @@ def create_course():
         cdept = request.form['cdept']
         ccap = request.form['ccap']
 
-        valid = True
-
         try:
             validators.Course.cname(cname)
             validators.Course.ctype(ctype)
@@ -230,11 +220,6 @@ def create_course():
             validators.Course.cdept(cdept)
             validators.Course.ccap(ccap)
 
-        except validators.ValidateException as e:
-            valid = False
-            flash(e.info)
-
-        if valid:
             db = get_db()
             cursor = db.cursor()
             cursor.execute(
@@ -246,6 +231,8 @@ def create_course():
             cursor.close()
             flash('创建成功！')
             return redirect(url_for('admin.create_course'))
+        except validators.ValidateException as e:
+            flash(e.info)
 
     return render_template('admin/create_course.html')
 
@@ -262,8 +249,6 @@ def update_course(cno):
         cdept = request.form['cdept']
         ccap = request.form['ccap']
 
-        valid = True
-
         try:
             validators.Course.cname(cname)
             validators.Course.ctype(ctype)
@@ -271,11 +256,6 @@ def update_course(cno):
             validators.Course.cdept(cdept)
             validators.Course.ccap(ccap)
 
-        except validators.ValidateException as e:
-            valid = False
-            flash(e.info)
-
-        if valid:
             cursor.execute(
                 'update course set cname = %s, ctype = %s, ccredit = %s,'
                 ' cdept = %s, ccap = %s'
@@ -286,6 +266,8 @@ def update_course(cno):
             cursor.close()
             flash('修改成功！')
             return redirect(url_for('admin.update_course', cno=cno))
+        except validators.ValidateException as e:
+            flash(e.info)
     else:
         cursor.execute(
             'select *'
@@ -328,12 +310,12 @@ def info_admin():
                 abort(500)
         if len(str_select) == 0:
             return redirect(url_for('admin.info_admin'))
-        sql = 'select ano, aname, atel,amail' \
+        sql = 'select ano, aname, atel, amail' \
               ' from admin where {} order by ano'.format(str_select[:-4])
         cursor.execute(sql)
     else:
         cursor.execute(
-            'select ano, aname, atel,amail'
+            'select ano, aname, atel, amail'
             ' from admin'
             ' order by ano'
         )
@@ -352,8 +334,6 @@ def create_admin():
         atel = request.form['atel']
         amail = request.form['amail']
 
-        valid = True
-
         try:
             validators.Admin.ano(ano)
             validators.Admin.apwd(apwd)
@@ -361,15 +341,10 @@ def create_admin():
             validators.Admin.atel(atel)
             validators.Admin.amail(amail)
 
-        except validators.ValidateException as e:
-            valid = False
-            flash(e.info)
-
-        if valid:
             db = get_db()
             cursor = db.cursor()
             cursor.execute(
-                'insert into admin (ano, apwd, aname,atel, amail)'
+                'insert into admin (ano, apwd, aname, atel, amail)'
                 ' values (%s, %s, %s, %s, %s)',
                 (ano, generate_password_hash(apwd), aname, atel, amail)
             )
@@ -377,6 +352,8 @@ def create_admin():
             cursor.close()
             flash('创建成功！')
             return redirect(url_for('admin.create_admin'))
+        except validators.ValidateException as e:
+            flash(e.info)
 
     return render_template('admin/create_admin.html')
 
@@ -392,26 +369,20 @@ def update_admin(ano):
         atel = request.form['atel']
         amail = request.form['amail']
 
-        valid = True
-
         try:
             validators.Admin.aname(aname)
             validators.Admin.atel(atel)
             validators.Admin.amail(amail)
-        except validators.ValidateException as e:
-            valid = False
-            flash(e.info)
 
-        if valid:
             cursor.execute(
-                'update admin set aname = %s,atel = %s, amail = %s'
+                'update admin set aname = %s, atel = %s, amail = %s'
                 ' where ano = %s',
                 (aname, atel, amail, ano)
             )
 
             if len(apwd) > 0:
                 try:
-                    validators.admin.apwd(apwd)
+                    validators.Admin.apwd(apwd)
                     cursor.execute(
                         'update admin set apwd = %s'
                         ' where ano = %s',
@@ -424,6 +395,9 @@ def update_admin(ano):
             cursor.close()
             flash('修改成功！')
             return redirect(url_for('admin.update_admin', ano=ano))
+        except validators.ValidateException as e:
+            flash(e.info)
+
     else:
         cursor.execute(
             'select ano, aname, atel, amail'

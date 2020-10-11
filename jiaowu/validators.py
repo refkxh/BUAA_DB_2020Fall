@@ -175,13 +175,13 @@ class Admin:
     @staticmethod
     def ano(input_str):
         if len(input_str) == 0:
-            raise ValidateException("管理号不能为空！")
+            raise ValidateException("教务管理号不能为空！")
 
         if len(input_str) > 10:
-            raise ValidateException("管理号过长！")
+            raise ValidateException("教务管理号过长！")
 
         if not str.isalnum(input_str):
-            raise ValidateException("管理号只能由字母和数字组成！")
+            raise ValidateException("教务管理号只能由字母和数字组成！")
 
         db = get_db()
         cursor = db.cursor()
@@ -194,7 +194,7 @@ class Admin:
         admin = cursor.fetchone()
         cursor.close()
         if admin is not None:
-            raise ValidateException("管理号不能重复！")
+            raise ValidateException("教务管理号不能重复！")
 
     @staticmethod
     def apwd(input_str):
