@@ -25,10 +25,22 @@ class User(UserMixin):
             self.identity = self.__char2identity[identity]
         else:
             self.identity = None
-        assert self.identity in ['Student', 'Admin']
         assert isinstance(no, str)
         self.no = no
         self.id = identity + no
+        if self.identity == 'Student':
+            str_no, str_name = 'sno', 'sname'
+        elif self.identity == 'Admin':
+            str_no, str_name = 'ano', 'aname'
+        else:
+            assert False
+        sql = 'select {} from {} where {} = {}'.format(
+            str_name, self.identity, str_no, '\'' + self.no + '\'')
+        db = get_db()
+        cursor = db.cursor(dictionary=True)
+        cursor.execute(sql)
+        self.name = cursor.fetchone()[str_name]
+        cursor.close()
 
     def validate_pwd(self, pwd):
         if self.identity == 'Student':
@@ -93,7 +105,7 @@ def login():
         flash('登录成功!')
         return redirect(url_for('index'))
     except:
-        flash('登录失败!')
+        flash('学工号或密码错误!')
         return redirect(url_for('auth.login'))
 
 
