@@ -48,14 +48,18 @@ def create_app():
     from . import admin
     app.register_blueprint(admin.bp)
 
+    from . import student
+    app.register_blueprint(student.bp)
+
     @app.route('/', methods=('GET',))
     def index():
-        # if not current_user.is_authenticated:
-        #     return redirect(url_for('auth.login'))
-        # elif current_user.status == 'Admin':
-        #     return redirect(url_for('admin.index'))
-        # else:
-        #     abort(500)
-        return redirect(url_for('admin.index'))
+        if not current_user.is_authenticated:
+            return redirect(url_for('auth.login'))
+        elif current_user.identity == 'Student':
+            return redirect(url_for('student.index', sno=current_user.no))
+        elif current_user.identity == 'Admin':
+            return redirect(url_for('admin.index'))
+        else:
+            abort(500)
 
     return app

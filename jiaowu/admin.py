@@ -4,6 +4,8 @@ from flask import (
 from werkzeug.exceptions import abort
 from werkzeug.security import generate_password_hash
 
+from .auth import check_permission
+
 from jiaowu import validators
 
 from jiaowu.db_base import get_db
@@ -12,11 +14,13 @@ bp = Blueprint('admin', __name__, url_prefix='/admin')
 
 
 @bp.route('/', methods=('GET',))
+@check_permission('Admin', False)
 def index():
     return redirect(url_for('admin.info_stu'))
 
 
 @bp.route('/info_stu', methods=('GET', 'POST'))
+@check_permission('Admin', False)
 def info_stu():
     db = get_db()
     cursor = db.cursor(dictionary=True)
@@ -46,6 +50,7 @@ def info_stu():
 
 
 @bp.route('/create_stu', methods=('GET', 'POST'))
+@check_permission('Admin', False)
 def create_stu():
     if request.method == 'POST':
         sno = request.form['sno']
@@ -91,6 +96,7 @@ def create_stu():
 
 
 @bp.route('/update_stu/<sno>', methods=('GET', 'POST'))
+@check_permission('Admin', False)
 def update_stu(sno):
     db = get_db()
     cursor = db.cursor(dictionary=True)
@@ -156,6 +162,7 @@ def update_stu(sno):
 
 
 @bp.route('/delete_stu/<sno>', methods=('GET',))
+@check_permission('Admin', False)
 def delete_stu(sno):
     db = get_db()
     cursor = db.cursor()
@@ -167,6 +174,7 @@ def delete_stu(sno):
 
 
 @bp.route('/info_course', methods=('GET', 'POST'))
+@check_permission('Admin', False)
 def info_course():
     db = get_db()
     cursor = db.cursor(dictionary=True)
@@ -203,6 +211,7 @@ def info_course():
 
 
 @bp.route('/create_course', methods=('GET', 'POST'))
+@check_permission('Admin', False)
 def create_course():
     if request.method == 'POST':
         cname = request.form['cname']
@@ -241,6 +250,7 @@ def create_course():
 
 
 @bp.route('/update_course/<int:cno>', methods=('GET', 'POST'))
+@check_permission('Admin', False)
 def update_course(cno):
     db = get_db()
     cursor = db.cursor(dictionary=True)
@@ -290,6 +300,7 @@ def update_course(cno):
 
 
 @bp.route('/delete_course/<int:cno>', methods=('GET',))
+@check_permission('Admin', False)
 def delete_course(cno):
     db = get_db()
     cursor = db.cursor()

@@ -4,10 +4,7 @@ from flask import (
 
 from flask_login import LoginManager, login_required, login_user, logout_user, current_user, UserMixin
 
-from werkzeug.exceptions import abort
-from werkzeug.security import check_password_hash, generate_password_hash
-
-from jiaowu import validators
+from werkzeug.security import check_password_hash
 
 from jiaowu.db_base import get_db
 
@@ -21,13 +18,65 @@ login_manager.login_message = '您还未登录。'
 
 
 class User(UserMixin):
-    pass
+    __char2identity = {'S': 'Student', 'A': 'Admin'}
+
+    def __init__(self, identity, no):
+        if identity in self.__char2identity:
+            self.identity = self.__char2identity[identity]
+        else:
+            self.identity = None
+        assert self.identity in ['Student', 'Admin']
+        assert isinstance(no, str)
+        self.no = no
+        self.id = identity + no
+
+    def validate_pwd(self, pwd):
+        if self.identity == 'Student':
+            str_no, str_pwd = 'sno', 'spwd'
+        elif self.identity == 'Admin':
+            str_no, str_pwd = 'ano', 'apwd'
+        else:
+            return False
+        sql = 'select {} from {} where {} = {}'.format(
+            str_pwd, self.identity, str_no, '\'' + self.no + '\'')
+        db = get_db()
+        cursor = db.cursor(dictionary=True)
+        cursor.execute(sql)
+        pwd_dict = cursor.fetchone()
+        cursor.close()
+        if pwd_dict is None:
+            return False
+        return check_password_hash(pwd_dict[str_pwd], pwd)
+
+
+def check_permission(identity, need_certain):
+    def auth_decorator(func):
+        @wraps(func)
+        def wrapped_func(*args, **kwargs):
+            if not current_user.is_authenticated:
+                flash('您还未登录。')
+                return redirect(url_for('index'))
+            try:
+                assert current_user.identity == identity
+                if need_certain:
+                    if identity == 'Student':
+                        assert kwargs['sno'] == current_user.no
+                    elif identity == 'Admin':
+                        assert kwargs['ano'] == current_user.no
+                return func(*args, **kwargs)
+            except:
+                flash('您的权限不足。')
+                return redirect(url_for('index'))
+        return wrapped_func
+    return auth_decorator
 
 
 @login_manager.user_loader
 def load_user(user_id):
-    pass
-    # return User.get(user_id)
+    try:
+        return User(user_id[0], user_id[1:])
+    except:
+        return None
 
 
 @bp.route('/login', methods=('GET', 'POST'))
@@ -37,15 +86,15 @@ def login():
             flash('您已登录。')
             return redirect(url_for('index'))
         return render_template('auth/login.html')
-    # try:
-    #     user = User(request.form['utype'], request.form['uno'])
-    #     assert user.validate_pwd(request.form['upwd'])
-    #     login_user(user)
-    #     flash('登录成功')
-    #     return redirect(url_for('index'))
-    # except:
-    #     flash('登录失败')
-    #     return redirect(url_for('login'))
+    try:
+        user = User(request.form['identity'], request.form['id'])
+        assert user.validate_pwd(request.form['pwd'])
+        login_user(user)
+        flash('登录成功!')
+        return redirect(url_for('index'))
+    except:
+        flash('登录失败!')
+        return redirect(url_for('auth.login'))
 
 
 @bp.route('/logout', methods=('GET',))

@@ -6,6 +6,7 @@
 
 ## Requirements
 
+- Internet connection
 - flask >= 1.0
 - mysql-connector-python
 - flask-login

@@ -1,5 +1,6 @@
 drop table if exists student;
 drop table if exists course;
+drop table if exists admin;
 
 create table student
 (
@@ -23,4 +24,13 @@ create table course
     cdept   varchar(32),
     ccap    int         not null,
     cselect int         not null default '0'
+);
+
+create table admin
+(
+    ano   varchar(10) primary key,
+    apwd  varchar(128) not null,
+    aname varchar(32)  not null,
+    atel  varchar(11),
+    amail varchar(32)
 );
