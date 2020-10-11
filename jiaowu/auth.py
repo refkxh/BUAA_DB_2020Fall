@@ -102,7 +102,6 @@ def login():
         user = User(request.form['identity'], request.form['id'])
         assert user.validate_pwd(request.form['pwd'])
         login_user(user)
-        flash('登录成功!')
         return redirect(url_for('index'))
     except:
         flash('学工号或密码错误!')
@@ -113,5 +112,4 @@ def login():
 @login_required
 def logout():
     logout_user()
-    flash('登出成功！')
     return redirect(url_for('auth.login'))
