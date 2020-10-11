@@ -2,21 +2,21 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>{% block title%}{% endblock %}</title>
+    <title>{% block title %}{% endblock %}</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/picnic">
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     <link rel="stylesheet" type="text/css" href="//at.alicdn.com/t/font_2119812_6xaagrksqbt.css">
     <link rel="stylesheet" type="text/css" href="../static/iconfont/iconfont.css">
     <script type="text/javascript" src="{{ url_for('static', filename='script.js') }}"></script>
     {% for message in get_flashed_messages() %}
-    <div id="myModal" class="modal" style="display: block">
-        <div class="modal-content">
-            <a href = "javascript:void(0)" onclick = "document.getElementById('myModal').style.display='none'">
-                <span class="close">&times;</span>
-            </a>
-            <p>{{message}}</p>
+        <div id="myModal" class="modal" style="display: block">
+            <div class="modal-content">
+                <a href="javascript:void(0)" onclick="document.getElementById('myModal').style.display='none'">
+                    <span class="close">&times;</span>
+                </a>
+                <p>{{ message }}</p>
+            </div>
         </div>
-    </div>
     {% endfor %}
 </head>
 <body>
@@ -26,23 +26,28 @@
         <div class="base_top_left">
             <li>教务管理系统</li>
         </div>
-        <!--<div class="base_top_right2">
-            <a href="#">登出</a>
-        </div>-->
-        <div class="base_top_right1">
-            欢迎&ensp;&ensp;&ensp;<b>管理员</b>
+        <div class="base_top_right2">
+            <a href="{{ url_for('auth.logout') }}">登出</a>
         </div>
+
+        <div class="base_top_right1">
+            {% if current_user.is_authenticated %}
+                欢迎&ensp;&ensp;&ensp;<b>{{ current_user.name }}</b>
+            {% endif %}
+        </div>
+
+
 
     </div>
     <div class="base_body">
         <div class="base_left">
-            {% block nav%}{% endblock %}
+            {% block nav %}{% endblock %}
         </div>
 
         <div class="base_right">
 
             <div class="base_title">
-                <li>&ensp;&ensp;&ensp;{% block Title%}{% endblock %}</li>
+                <li>&ensp;&ensp;&ensp;{% block Title %}{% endblock %}</li>
             </div>
             <div class="base_content">
                 {% block content %}{% endblock %}
