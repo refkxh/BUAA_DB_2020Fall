@@ -30,7 +30,7 @@ def create_app():
     db_base.init_app(app)
 
     @app.errorhandler(400)
-    def page_not_found(e):
+    def bad_request(e):
         return render_template('error.html', code=400)
 
     @app.errorhandler(404)
@@ -56,7 +56,7 @@ def create_app():
         if not current_user.is_authenticated:
             return redirect(url_for('auth.login'))
         elif current_user.identity == 'Student':
-            return redirect(url_for('student.index', sno=current_user.no))
+            return redirect(url_for('student.index'))
         elif current_user.identity == 'Admin':
             return redirect(url_for('admin.index'))
         else:
