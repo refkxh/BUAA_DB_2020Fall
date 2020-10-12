@@ -9,18 +9,19 @@
 
 {% block content %}
     <div class="content_whole">
-
-        <div class="content_form1">
-            <form action="{{ url_for('admin.create_course') }}" method="post">
-                课程名称: <input type="text" name="cname" value="" placeholder="请输入课程名全称"><br>
-                课程类型: <input type="text" name="ctype" value=""><br>
-                院系: <input type="text" name="cdept" value="" placeholder="填写学院全称。示例：计算机学院"><br>
-                学分: <input type="text" name="ccredit" value="" placeholder="请填写整数"><br>
-                课程容量: <input type="text" name="ccap" value="" placeholder=""><br>
-                <input type="submit" value="新建">
-            </form>
+        <div class="content_card_gray" >
+            <div class="content_form1" style="overflow: hidden">
+                <form action="{{ url_for('admin.create_course') }}" method="post">
+                    课程名称:<br> <input type="text" name="cname" value="" placeholder="请输入课程名全称"><br>
+                    课程类型:<br> <input type="text" name="ctype" value=""><br>
+                    院系: <br><input type="text" name="cdept" value="" placeholder="填写学院全称。示例：计算机学院"><br>
+                    学分: <br><input type="text" name="ccredit" value="" placeholder="请填写整数"><br>
+                    课程容量:<br> <input type="text" name="ccap" value="" placeholder=""><br><br>
+                    <input type="submit" value="新建">
+                    <p></p>
+                </form>
+            </div>
         </div>
-
     </div>
 {% endblock %}
 

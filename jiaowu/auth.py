@@ -76,7 +76,7 @@ def check_permission(identity, need_certain):
                     elif identity == 'Admin':
                         assert kwargs['ano'] == current_user.no
             except AssertionError:
-                flash('您的权限不足。')
+                flash('您的权限不匹配。')
                 return redirect(url_for('index'))
             return func(*args, **kwargs)
         return wrapped_func

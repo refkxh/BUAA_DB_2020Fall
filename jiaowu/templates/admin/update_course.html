@@ -9,34 +9,38 @@
 
 {% block content %}
     <div class="content_whole">
+        <div class="content_card_gray">
 
-        <div class="content_table1">
-            <form method="post" action="{{ url_for('admin.update_course',cno=course['cno']) }}">
+            <div class="content_form1" style="overflow-x: hidden">
+                <form method="post" action="{{ url_for('admin.update_course',cno=course['cno']) }}">
 
-                <label>课程名称</label>
-                <input name="cname" type="text"
-                       value="{{ request.form['cname'] or course['cname'] }}" required>
+                    <label>课程名称</label><p></p>
+                    <input name="cname" type="text"
+                           value="{{ request.form['cname'] or course['cname'] }}" required><p></p>
 
-                <label>课程类型</label>
-                <input name="ctype" type="text"
-                       value="{{ request.form['ctype'] or course['ctype'] }}">
+                    <label>课程类型</label><p></p>
+                    <input name="ctype" type="text"
+                           value="{{ request.form['ctype'] or course['ctype'] }}"><p></p>
 
-                <label>学分</label>
-                <input name="ccredit" type="text"
-                       value="{{ request.form['ccredit'] or course['ccredit'] }}" required>
+                    <label>学分</label><p></p>
+                    <input name="ccredit" type="text"
+                           value="{{ request.form['ccredit'] or course['ccredit'] }}" required><p></p>
 
-                <label>院系</label>
-                <input name="cdept" type="text"
-                       value="{{ request.form['cdept'] or course['cdept'] }}">
+                    <label>院系</label><p></p>
+                    <input name="cdept" type="text"
+                           value="{{ request.form['cdept'] or course['cdept'] }}"><p></p>
 
-                <label>课程容量</label>
-                <input name="ccap" type="text"
-                       value="{{ request.form['ccap'] or course['ccap'] }}" required>
+                    <label>课程容量</label><p></p>
+                    <input name="ccap" type="text"
+                           value="{{ request.form['ccap'] or course['ccap'] }}" required><p></p>
 
-
-                <input type="submit" value="保存">
-            </form>
+                    <p></p>
+                    <input type="submit" value="保存">
+                    <p></p>
+                </form>
+            </div>
         </div>
+
 
     </div>
 {% endblock %}

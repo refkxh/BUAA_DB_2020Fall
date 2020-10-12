@@ -17,15 +17,15 @@
     <div class="content_form">
         <form action="{{ url_for('admin.info_admin') }}" method="post">
             工号: <input type="text" name="ano" value=""><br>
-            姓名: <input type="text" name="aname" value=""><br>
+            姓名: <input type="text" name="aname" value=""><br><br>
             <input type="submit" value="查询"><br>
         </form>
     </div>
 {% endblock %}
 
 {% block table %}
-    <div class="content_table">
-        <table class="primary">
+    <div class="content_table" style="overflow-x: hidden" >
+        <table class="primary" width="95%">
             <thead>
             <tr>
                 <th nowrap="nowrap"><a href="#">工号 <!--<i class="iconfont icon-paixu" style="font-size: 16px"></i>--></a></th>

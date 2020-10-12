@@ -1,17 +1,17 @@
 {% extends "base.html" %}
 {% block title %}
-    学生信息管理
+    个人信息管理
 {% endblock %}
 
 {% block Title %}
-    学生信息管理
+    个人信息管理
 {% endblock %}
 
 {% block content %}
     <div class="content_whole">
         <div class="content_card_gray">
             <div class="content_form1" style="overflow-x: hidden">
-                <form method="post" action="{{ url_for('admin.update_stu',sno=student['sno']) }}">
+                <form method="post" action="{{ url_for('student.update_stu',sno=student['sno']) }}">
                     <label>学号</label><p></p>
                     {{ student['sno'] }}<p></p>
                     <label>姓名</label><p></p>
@@ -60,19 +60,12 @@
 
 {% block nav %}
 
-    <a href="{{ url_for('admin.info_stu') }}">
+    <a href="{{ url_for('student.update_stu',sno=student['sno']) }}">
         <li>
-            <div class="page_now"><i class="iconfont icon-xueshengdangan1"></i>&nbsp;&nbsp;学生信息管理</div>
+            <div class="page_now"><i class="iconfont icon-xueshengdangan1"></i>&nbsp;&nbsp;个人信息管理</div>
         </li>
     </a>
 
-    <a href="{{ url_for('admin.info_course') }}">
 
-        <li> <i class="iconfont icon-biaoqiankuozhan_kecheng-136"></i>&nbsp;&nbsp;课程信息管理</li>
-    </a>
-
-    <a href="{{ url_for('admin.info_admin') }}">
-        <li><i class="iconfont icon-guanliyuan"></i>&nbsp;&nbsp;管理员信息管理</li>
-    </a>
 
 {% endblock %}

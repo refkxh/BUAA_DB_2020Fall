@@ -9,30 +9,35 @@
 
 {% block content %}
     <div class="content_whole">
+        <div class="content_card_gray">
+            <div class="content_form1" style="overflow-x: hidden">
+                <form method="post" action="{{ url_for('admin.update_admin',ano=admin['ano']) }}">
+                    <label>工号</label><p></p>
+                    {{ admin['ano'] }}<p></p>
+                    <label>姓名</label><p></p>
+                    <input name="aname" type="text"
+                           value="{{ request.form['aname'] or admin['aname'] }}" required><p></p>
 
-        <div class="content_table1">
-            <form method="post" action="{{ url_for('admin.update_admin',ano=admin['ano']) }}">
-                <label>工号</label>
-                <h3>{{ admin['ano'] }}</h3>
-                <label>姓名</label>
-                <input name="aname" type="text"
-                       value="{{ request.form['aname'] or admin['aname'] }}" required>
+                    <label>密码</label><p></p>
+                    <input name="apwd" type="password" placeholder="请填写新密码（留白视为不修改）"
+                           value=""><p></p>
 
-                <label>密码</label>
-                <input name="apwd" type="password" placeholder="请填写新密码（留白视为不修改）"
-                       value="">
+                    <label>手机号</label><p></p>
+                    <input name="atel" type="text"
+                           value="{{ request.form['atel'] or admin['atel'] }}" required><p></p>
 
-                <label>手机号</label>
-                <input name="atel" type="text"
-                       value="{{ request.form['atel'] or admin['atel'] }}" required>
+                    <label>邮箱</label><p></p>
+                    <input name="amail" type="text"
+                           value="{{ request.form['amail'] or admin['amail'] }}" required><p></p>
+                    <p></p>
 
-                <label>邮箱</label>
-                <input name="amail" type="text"
-                       value="{{ request.form['amail'] or admin['amail'] }}" required>
+                    <input type="submit" value="保存">
+                    <p></p>
+                </form>
+            </div>
 
-                <input type="submit" value="保存">
-            </form>
         </div>
+
 
     </div>
 {% endblock %}
@@ -48,7 +53,7 @@
 
     <a href="{{ url_for('admin.info_course') }}">
 
-        <li> <i class="iconfont icon-biaoqiankuozhan_kecheng-136"></i>&nbsp;&nbsp;课程信息管理</li>
+        <li><i class="iconfont icon-biaoqiankuozhan_kecheng-136"></i>&nbsp;&nbsp;课程信息管理</li>
     </a>
 
     <a href="{{ url_for('admin.info_admin') }}">
