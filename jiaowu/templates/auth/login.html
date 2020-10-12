@@ -22,7 +22,7 @@
 <body>
 <div class="login_whole">
     <div class="login_table">
-        <div class="login_table_head"><img src="../../static/login_table1.png" width="100%" height="100%"/></div>
+        <div class="login_table_head"><img src="{{ url_for('static',filename='login_table1.png') }}" width="100%" height="100%"/></div>
         <div class="login_form">
             <form action="{{ url_for('auth.login') }}" method="post">
                 学工号: <input type="text" name="id" value=""  placeholder="请输入学工号" required><br>

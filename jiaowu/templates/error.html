@@ -51,7 +51,7 @@
             width: 230px;
             height: 150px;
             margin: 30px auto 0px;
-            background: url("../static/err_img_bg.png") no-repeat 0px -30px;
+            background: url("{{ url_for('static',filename='err_img_bg.png') }}") no-repeat 0px -30px;
         }
 
         .content .msg {
@@ -67,7 +67,7 @@
             height: 50px;
             margin-left: 20px;
             margin-top: 30px;
-            background: url("../static/err_img_bg.png") no-repeat 0px -190px;
+            background: url("{{ url_for('static',filename='err_img_bg.png') }}") no-repeat 0px -190px;
             height: 35px;
             display: inline;
             float: left;
@@ -100,14 +100,14 @@
             width: 140px;
             border: 1px solid #BBB;
             height: 28px;
-            background: url("../static/err_img_bg.png") repeat 0px 0px;
+            background: url("{{ url_for('static',filename='err_img_bg.png') }}") repeat 0px 0px;
             display: inline;
             float: left;
             cursor: pointer;
         }
 
         .refresh .refreshImg {
-            background: url("../static/err_img_bg.png") no-repeat 0px -230px;
+            background: url("{{ url_for('static',filename='err_img_bg.png') }}") no-repeat 0px -230px;
             margin-top: 8px;
             height: 15px;
             padding-left: 17px;;
@@ -127,14 +127,14 @@
             width: 100px;
             border: 1px solid #BBB;
             height: 28px;
-            background: url("../static/err_img_bg.png") repeat 0px 0px;
+            background: url("{{ url_for('static',filename='err_img_bg.png') }}") repeat 0px 0px;
             display: inline;
             float: left;
             cursor: pointer;
         }
 
         .back .backImg {
-            background: url("../static/err_img_bg.png") no-repeat 0px -250px;
+            background: url("{{ url_for('static',filename='err_img_bg.png') }}") no-repeat 0px -250px;
             height: 15px;
             padding-left: 17px;
             margin-left: 10px;
@@ -179,7 +179,7 @@
             width: 540px;
             height: 280px;
             display: inline-block;
-            background: url("../static/pageNotFound2.png") 0 0;
+            background: url("{{ url_for('static',filename='pageNotFound2.png') }}") 0 0;
             background-size: cover;
             background-position: center;
         }
@@ -206,7 +206,7 @@
 
         @media screen and (max-width: 768px) {
             .nofound_img_warp {
-                background-image: url("../static/pageNotFound2.png");
+                background-image: url("{{ url_for('static',filename='pageNotFound2.png') }}");
                 width: 400px;
                 height: 240px;
             }
@@ -227,10 +227,10 @@
         <p><br/></p>
         <p><br/></p>
         <p><br/></p>
-        <p style='text-align:center;'><img src='../static/pageNotFound.png' alt=''></img></p>
+        <p style='text-align:center;'><img src='{{ url_for('static',filename='pageNotFound.png') }}' alt=''/></p>
         <div style='text-align:center; font-size:16px; line-height:30px; color:#333333;'>很抱歉，出错啦！</div>
         <div style='text-align:center; font-size:16px; line-height:30px; color:#333333;'>错误码：{{code}}</div>
-        <a href='{{ url_for('admin.index') }}'
+        <a href='{{ url_for('index') }}'
            style='text-align:center; color:#333; font-size:13px; text-decoration:none; width:100px; height:32px; line-height:32px; border:1px solid #E3E2E8; display:block; margin:30px auto;'>返回</a>
         <p><br/></p></div>
 
