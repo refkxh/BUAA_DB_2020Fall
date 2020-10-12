@@ -12,37 +12,37 @@
         <div class="content_card_gray">
             <div class="content_form1" style="overflow-x: hidden">
                 <form method="post" action="{{ url_for('admin.update_stu',sno=student['sno']) }}">
-                    <label>学号</label><p></p>
+                    <label>学号<br></label>
                     {{ student['sno'] }}<p></p>
-                    <label>姓名</label><p></p>
+                    <label>姓名<br></label>
                     <input name="sname" type="text"
                            value="{{ request.form['sname'] or student['sname'] }}" required><p></p>
 
-                    <label>密码</label><p></p>
+                    <label>密码<br></label>
                     <input name="spwd" type="password" placeholder="请填写新密码（留白视为不修改）"
                            value=""><p></p>
 
-                    <label>性别</label><p></p>
+                    <label>性别<br></label>
                     <input name="ssex" type="text"
                            value="{{ request.form['ssex'] or student['ssex'] }}" required><p></p>
 
-                    <label>年级</label><p></p>
+                    <label>年级<br></label>
                     <input name="sgrade" type="text"
                            value="{{ request.form['sgrade'] or student['sgrade'] }}" required><p></p>
 
-                    <label>院系</label><p></p>
+                    <label>院系<br></label>
                     <input name="sdept" type="text"
                            value="{{ request.form['sdept'] or student['sdept'] }}" required><p></p>
 
-                    <label>身份证</label><p></p>
+                    <label>身份证<br></label>
                     <input name="sid" type="text"
                            value="{{ request.form['sid'] or student['sid'] }}" required><p></p>
 
-                    <label>手机号</label><p></p>
+                    <label>手机号<br></label>
                     <input name="stel" type="text"
                            value="{{ request.form['stel'] or student['stel'] }}" required><p></p>
 
-                    <label>邮箱</label><p></p>
+                    <label>邮箱<br></label>
                     <input name="smail" type="text"
                            value="{{ request.form['smail'] or student['smail'] }}" required><p></p>
 
