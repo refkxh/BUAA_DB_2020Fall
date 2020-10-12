@@ -75,10 +75,10 @@ def check_permission(identity, need_certain):
                         assert kwargs['sno'] == current_user.no
                     elif identity == 'Admin':
                         assert kwargs['ano'] == current_user.no
-                return func(*args, **kwargs)
             except:
                 flash('您的权限不足。')
                 return redirect(url_for('index'))
+            return func(*args, **kwargs)
         return wrapped_func
     return auth_decorator
 
