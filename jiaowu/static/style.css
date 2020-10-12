@@ -111,13 +111,12 @@ li {
 
 .base_top_right2 {
     width: 100px;
-    line-height: 30px;
-    margin-top: 13px;
+    line-height: 25px;
+    margin-top: 17px;
     margin-right: 10px;
     vertical-align: middle;
     float: right;
     text-align: center;
-
 }
 
 .base_top_right2 button{
