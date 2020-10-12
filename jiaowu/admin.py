@@ -397,7 +397,6 @@ def update_admin(ano):
             return redirect(url_for('admin.update_admin', ano=ano))
         except validators.ValidateException as e:
             flash(e.info)
-
     else:
         cursor.execute(
             'select ano, aname, atel, amail'
