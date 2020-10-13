@@ -85,9 +85,10 @@ def create_stu():
             db.commit()
             cursor.close()
             flash('创建成功！')
-            return redirect(url_for('admin.create_stu'))
         except validators.ValidateException as e:
             flash(e.info)
+
+        return redirect(url_for('admin.create_stu'))
 
     return render_template('admin/create_stu.html')
 
@@ -134,9 +135,10 @@ def update_stu(sno):
             db.commit()
             cursor.close()
             flash('修改成功！')
-            return redirect(url_for('admin.update_stu', sno=sno))
         except validators.ValidateException as e:
             flash(e.info)
+
+        return redirect(url_for('admin.update_stu', sno=sno))
     else:
         cursor.execute(
             'select sno, sname, ssex, sid, sgrade, sdept, stel, smail'
@@ -227,9 +229,11 @@ def create_course():
             db.commit()
             cursor.close()
             flash('创建成功！')
-            return redirect(url_for('admin.create_course'))
+
         except validators.ValidateException as e:
             flash(e.info)
+
+        return redirect(url_for('admin.create_course'))
 
     return render_template('admin/create_course.html')
 
@@ -262,9 +266,11 @@ def update_course(cno):
             db.commit()
             cursor.close()
             flash('修改成功！')
-            return redirect(url_for('admin.update_course', cno=cno))
+
         except validators.ValidateException as e:
             flash(e.info)
+
+        return redirect(url_for('admin.update_course', cno=cno))
     else:
         cursor.execute(
             'select *'
@@ -348,9 +354,11 @@ def create_admin():
             db.commit()
             cursor.close()
             flash('创建成功！')
-            return redirect(url_for('admin.create_admin'))
+
         except validators.ValidateException as e:
             flash(e.info)
+
+        return redirect(url_for('admin.create_admin'))
 
     return render_template('admin/create_admin.html')
 
@@ -388,9 +396,12 @@ def update_admin(ano):
             db.commit()
             cursor.close()
             flash('修改成功！')
-            return redirect(url_for('admin.update_admin', ano=ano))
+
         except validators.ValidateException as e:
             flash(e.info)
+
+        return redirect(url_for('admin.update_admin', ano=ano))
+
     else:
         cursor.execute(
             'select ano, aname, atel, amail'

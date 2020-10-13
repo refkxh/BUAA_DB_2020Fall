@@ -63,9 +63,10 @@ def update_stu(sno):
             db.commit()
             cursor.close()
             flash('修改成功！')
-            return redirect(url_for('student.update_stu', sno=sno))
         except validators.ValidateException as e:
             flash(e.info)
+
+        return redirect(url_for('student.update_stu', sno=sno))
     else:
         cursor.execute(
             'select sno, sname, ssex, sid, sgrade, sdept, stel, smail'
