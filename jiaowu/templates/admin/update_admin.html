@@ -13,7 +13,7 @@
             <div class="content_form1" style="overflow-x: hidden">
                 <form method="post" action="{{ url_for('admin.update_admin',ano=admin['ano']) }}">
                     <label>工号<br></label>
-                    {{ admin['ano'] }}<p></p>
+                    <h4>{{ admin['ano'] }}<br></h4>
                     <label>姓名<br></label>
                     <input name="aname" type="text"
                            value="{{ request.form['aname'] or admin['aname'] }}" required><br>

@@ -13,11 +13,11 @@
             <div class="content_form1" style="overflow: hidden">
                 <!--ano, apwd, aname, atel, amail-->
                 <form action="{{ url_for('admin.create_admin') }}" method="post">
-                    工号:<br> <input type="text" name="ano" value="" placeholder="一旦创建无法修改"><br>
-                    密码:<br> <input type="password" name="apwd" value="" placeholder="密码不少于六个字符"><br>
-                    姓名:<br> <input type="text" name="aname" value=""><br>
-                    手机号：<br><input type="text" name="atel" value=""><br>
-                    邮箱: <br><input type="text" name="amail" value=""><br><br>
+                    工号:<br> <input type="text" name="ano" value="{{ request.form['ano']}}" placeholder="一旦创建无法修改"><br>
+                    密码:<br> <input type="password" name="apwd" value="{{ request.form['apwd']}}" placeholder="密码不少于六个字符"><br>
+                    姓名:<br> <input type="text" name="aname" value="{{ request.form['ano']}}"><br>
+                    手机号：<br><input type="text" name="atel" value="{{ request.form['atel']}}"><br>
+                    邮箱: <br><input type="text" name="amail" value="{{ request.form['amail']}}"><br><br>
                     <input type="submit" value="新建">
                     <p></p>
                 </form>

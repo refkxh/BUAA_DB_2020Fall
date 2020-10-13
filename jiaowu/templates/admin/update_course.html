@@ -16,25 +16,23 @@
 
                     <label>课程名称<br></label>
                     <input name="cname" type="text"
-                           value="{{ request.form['cname'] or course['cname'] }}" required><p></p>
+                           value="{{ request.form['cname'] or course['cname'] }}" required><br>
 
                     <label>课程类型<br></label>
                     <input name="ctype" type="text"
-                           value="{{ request.form['ctype'] or course['ctype'] }}"><p></p>
+                           value="{{ request.form['ctype'] or course['ctype'] }}"><br>
 
                     <label>学分<br></label>
                     <input name="ccredit" type="text"
-                           value="{{ request.form['ccredit'] or course['ccredit'] }}" required><p></p>
+                           value="{{ request.form['ccredit'] or course['ccredit'] }}" required><br>
 
                     <label>院系<br></label>
                     <input name="cdept" type="text"
-                           value="{{ request.form['cdept'] or course['cdept'] }}"><p></p>
+                           value="{{ request.form['cdept'] or course['cdept'] }}"><br>
 
                     <label>课程容量<br></label>
                     <input name="ccap" type="text"
-                           value="{{ request.form['ccap'] or course['ccap'] }}" required><p></p>
-
-                    <p></p>
+                           value="{{ request.form['ccap'] or course['ccap'] }}" required><br><br>
                     <input type="submit" value="保存">
                     <p></p>
                 </form>
