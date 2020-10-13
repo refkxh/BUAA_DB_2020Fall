@@ -16,7 +16,7 @@ def pwd(input_str, nullable=False):
     if not nullable and len(input_str) == 0:
         raise ValidateException("密码不能为空！")
 
-    if len(input_str) < 6:
+    if not nullable and len(input_str) < 6:
         raise ValidateException("密码不能少于6位！")
 
     if len(input_str) > 128:
