@@ -38,6 +38,7 @@ def update_stu(sno):
 
         try:
             validators.Student.sname(sname)
+            validators.Student.spwd(spwd, True)
             validators.Student.ssex(ssex)
             validators.Student.sid(sid, cur_sno=sno)
             validators.Student.sgrade(sgrade)
@@ -53,15 +54,11 @@ def update_stu(sno):
             )
 
             if len(spwd) > 0:
-                try:
-                    validators.Student.spwd(spwd)
-                    cursor.execute(
-                        'update student set spwd = %s'
-                        ' where sno = %s',
-                        (generate_password_hash(spwd), sno)
-                    )
-                except validators.ValidateException as e:
-                    flash(e.info)
+                cursor.execute(
+                    'update student set spwd = %s'
+                    ' where sno = %s',
+                    (generate_password_hash(spwd), sno)
+                )
 
             db.commit()
             cursor.close()

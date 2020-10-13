@@ -109,6 +109,7 @@ def update_stu(sno):
 
         try:
             validators.Student.sname(sname)
+            validators.Student.spwd(spwd, True)
             validators.Student.ssex(ssex)
             validators.Student.sid(sid, cur_sno=sno)
             validators.Student.sgrade(sgrade)
@@ -124,15 +125,11 @@ def update_stu(sno):
             )
 
             if len(spwd) > 0:
-                try:
-                    validators.Student.spwd(spwd)
-                    cursor.execute(
-                        'update student set spwd = %s'
-                        ' where sno = %s',
-                        (generate_password_hash(spwd), sno)
-                    )
-                except validators.ValidateException as e:
-                    flash(e.info)
+                cursor.execute(
+                    'update student set spwd = %s'
+                    ' where sno = %s',
+                    (generate_password_hash(spwd), sno)
+                )
 
             db.commit()
             cursor.close()
@@ -371,6 +368,7 @@ def update_admin(ano):
 
         try:
             validators.Admin.aname(aname)
+            validators.Admin.apwd(apwd, True)
             validators.Admin.atel(atel)
             validators.Admin.amail(amail)
 
@@ -381,15 +379,11 @@ def update_admin(ano):
             )
 
             if len(apwd) > 0:
-                try:
-                    validators.Admin.apwd(apwd)
-                    cursor.execute(
-                        'update admin set apwd = %s'
-                        ' where ano = %s',
-                        (generate_password_hash(apwd), ano)
-                    )
-                except validators.ValidateException as e:
-                    flash(e.info)
+                cursor.execute(
+                    'update admin set apwd = %s'
+                    ' where ano = %s',
+                    (generate_password_hash(apwd), ano)
+                )
 
             db.commit()
             cursor.close()

@@ -12,8 +12,8 @@ class ValidateException(Exception):
         return self.info
 
 
-def pwd(input_str):
-    if len(input_str) == 0:
+def pwd(input_str, nullable=False):
+    if not nullable and len(input_str) == 0:
         raise ValidateException("密码不能为空！")
 
     if len(input_str) < 6:
@@ -88,8 +88,8 @@ class Student:
             raise ValidateException("学号不能重复！")
 
     @staticmethod
-    def spwd(input_str):
-        pwd(input_str)
+    def spwd(input_str, nullable=False):
+        pwd(input_str, nullable)
 
     @staticmethod
     def sname(input_str):
@@ -197,8 +197,8 @@ class Admin:
             raise ValidateException("教务管理号不能重复！")
 
     @staticmethod
-    def apwd(input_str):
-        pwd(input_str)
+    def apwd(input_str, nullable=False):
+        pwd(input_str, nullable)
 
     @staticmethod
     def aname(input_str):
