@@ -79,7 +79,9 @@ def check_permission(identity, need_certain):
                 flash('您的权限不匹配。')
                 return redirect(url_for('index'))
             return func(*args, **kwargs)
+
         return wrapped_func
+
     return auth_decorator
 
 

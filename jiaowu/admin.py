@@ -77,11 +77,8 @@ def create_stu():
 
             db = get_db()
             cursor = db.cursor()
-            cursor.execute(
-                'insert into student (sno, spwd, sname, ssex, sid, sgrade, sdept, stel, smail)'
-                ' values (%s, %s, %s, %s, %s, %s, %s, %s, %s)',
-                (sno, generate_password_hash(spwd), sname, ssex, sid, sgrade, sdept, stel, smail)
-            )
+            cursor.callproc('create_student',
+                            (sno, generate_password_hash(spwd), sname, ssex, sid, sgrade, sdept, stel, smail))
             db.commit()
             cursor.close()
             flash('创建成功！')
@@ -118,19 +115,10 @@ def update_stu(sno):
             validators.Student.stel(stel)
             validators.Student.smail(smail)
 
-            cursor.execute(
-                'update student set sname = %s, ssex = %s, sid = %s,'
-                ' sgrade = %s, sdept = %s, stel = %s, smail = %s'
-                ' where sno = %s',
-                (sname, ssex, sid, sgrade, sdept, stel, smail, sno)
-            )
+            cursor.callproc('update_student', (sno, sname, ssex, sid, sgrade, sdept, stel, smail))
 
             if len(spwd) > 0:
-                cursor.execute(
-                    'update student set spwd = %s'
-                    ' where sno = %s',
-                    (generate_password_hash(spwd), sno)
-                )
+                cursor.callproc('update_student_pwd', (sno, generate_password_hash(spwd)))
 
             db.commit()
             cursor.close()
@@ -158,7 +146,7 @@ def update_stu(sno):
 def delete_stu(sno):
     db = get_db()
     cursor = db.cursor()
-    cursor.execute('delete from student where sno = %s', (sno,))
+    cursor.callproc('delete_student', (sno,))
     db.commit()
     cursor.close()
     flash('删除成功！')
