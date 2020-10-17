@@ -17,7 +17,10 @@ def simple_sql_file_to_list(filename):
 drop_procedures = ['drop procedure if exists create_student',
                    'drop procedure if exists update_student',
                    'drop procedure if exists update_student_pwd',
-                   'drop procedure if exists delete_student'
+                   'drop procedure if exists delete_student',
+                   'drop procedure if exists create_course',
+                   'drop procedure if exists update_course',
+                   'drop procedure if exists delete_course'
                    ]
 
 create_procedures = ['create procedure create_student(sno_in varchar(10),'
@@ -72,5 +75,73 @@ create_procedures = ['create procedure create_student(sno_in varchar(10),'
                      'delete from student '
                      'where sno = sno_in;'
                      'commit;'
-                     'end'
+                     'end',
+
+                     'create procedure create_course(cname_in varchar(32),'
+                     'ctype_in varchar(10),'
+                     'ccredit_in int,'
+                     'cdept_in varchar(32),'
+                     'ccap_in int)'
+                     'begin '
+                     'insert into course (cname, ctype, ccredit, cdept, ccap)'
+                     ' values (cname_in, ctype_in, ccredit_in, cdept_in, ccap_in);'
+                     'commit;'
+                     'end',
+
+                     'create procedure update_course(cno_in int,'
+                     'cname_in varchar(32),'
+                     'ctype_in varchar(10),'
+                     'ccredit_in int,'
+                     'cdept_in varchar(32),'
+                     'ccap_in int)'
+                     'begin '
+                     'update course set cname = cname_in, ctype = ctype_in, ccredit = ccredit_in,'
+                     ' cdept = cdept_in, ccap = ccap_in'
+                     ' where cno = cno_in;'
+                     'commit;'
+                     'end',
+
+                     'create procedure delete_course(cno_in int)'
+                     'begin '
+                     'delete from course '
+                     'where cno = cno_in;'
+                     'commit;'
+                     'end',
+
+                     'create procedure create_admin(ano_in varchar(10),'
+                     'apwd_in varchar(128), '
+                     'aname_in varchar(32),'
+                     'atel_in varchar(11),'
+                     'amail_in varchar(32))'
+                     'begin '
+                     'insert into admin (ano, apwd, aname, atel, amail)'
+                     ' values (ano_in, apwd_in, aname_in, atel_in, amail_in);'
+                     'commit;'
+                     'end',
+
+                     'create procedure update_admin(ano_in varchar(10),'
+                     'aname_in varchar(32),'
+                     'atel_in varchar(11),'
+                     'amail_in varchar(32))'
+                     'begin '
+                     'update admin set aname = aname_in, atel = atel_in, amail = amail_in'
+                     ' where ano = ano_in;'
+                     'commit;'
+                     'end',
+
+                     'create procedure update_admin_pwd(ano_in varchar(10),'
+                     'apwd_in varchar(128))'
+                     'begin '
+                     'update admin '
+                     'set apwd  = apwd_in '
+                     'where ano = ano_in;'
+                     'commit;'
+                     'end',
+
+                     'create procedure delete_admin(ano_in int)'
+                     'begin '
+                     'delete from admin '
+                     'where ano = ano_in;'
+                     'commit;'
+                     'end',
                      ]
