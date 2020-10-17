@@ -46,19 +46,10 @@ def update_stu(sno):
             validators.Student.stel(stel)
             validators.Student.smail(smail)
 
-            cursor.execute(
-                'update student set sname = %s, ssex = %s, sid = %s,'
-                ' sgrade = %s, sdept = %s, stel = %s, smail = %s'
-                ' where sno = %s',
-                (sname, ssex, sid, sgrade, sdept, stel, smail, sno)
-            )
+            cursor.callproc('update_student', (sno, sname, ssex, sid, sgrade, sdept, stel, smail))
 
             if len(spwd) > 0:
-                cursor.execute(
-                    'update student set spwd = %s'
-                    ' where sno = %s',
-                    (generate_password_hash(spwd), sno)
-                )
+                cursor.callproc('update_student_pwd', (sno, generate_password_hash(spwd)))
 
             db.commit()
             cursor.close()

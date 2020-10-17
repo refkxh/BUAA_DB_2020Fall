@@ -3,7 +3,7 @@ import mysql.connector
 import click
 from flask import current_app, g
 from flask.cli import with_appcontext
-from .sql_utils import sql_file_to_list
+from .sql_utils import simple_sql_file_to_list, create_procedures, drop_procedures
 
 from werkzeug.security import generate_password_hash
 
@@ -35,25 +35,21 @@ def init_db():
     db = get_db()
     cursor = db.cursor()
 
-    for sql in sql_file_to_list('schema.sql'):
+    for sql in simple_sql_file_to_list('schema.sql'):
         cursor.execute(sql)
 
-    cursor.execute(
-        'insert into admin (ano, apwd, aname, atel, amail)'
-        ' values (%s, %s, %s, %s, %s)',
-        ('refkxh', generate_password_hash('admin123'), '孔祥浩', '12345678901', 'refkxh@outlook.com')
-    )
+    for procedure in drop_procedures:
+        cursor.execute(procedure)
 
-    cursor.execute(
-        'insert into admin (ano, apwd, aname, atel, amail)'
-        ' values (%s, %s, %s, %s, %s)',
-        ('apartment', generate_password_hash('admin123'), '龚毓', '12345678902', 'g94837848@gmail.com')
-    )
+    for procedure in create_procedures:
+        cursor.execute(procedure)
 
-    cursor.execute(
+    cursor.executemany(
         'insert into admin (ano, apwd, aname, atel, amail)'
         ' values (%s, %s, %s, %s, %s)',
-        ('lzy', generate_password_hash('admin123'), '刘紫阳', '12345678903', 'a@b.c')
+        [('refkxh', generate_password_hash('admin123'), '孔祥浩', '12345678901', 'refkxh@outlook.com'),
+         ('apartment', generate_password_hash('admin123'), '龚毓', '12345678902', 'g94837848@gmail.com'),
+         ('lzy', generate_password_hash('admin123'), '刘紫阳', '12345678903', 'a@b.c')]
     )
 
     db.commit()

@@ -77,11 +77,8 @@ def create_stu():
 
             db = get_db()
             cursor = db.cursor()
-            cursor.execute(
-                'insert into student (sno, spwd, sname, ssex, sid, sgrade, sdept, stel, smail)'
-                ' values (%s, %s, %s, %s, %s, %s, %s, %s, %s)',
-                (sno, generate_password_hash(spwd), sname, ssex, sid, sgrade, sdept, stel, smail)
-            )
+            cursor.callproc('create_student',
+                            (sno, generate_password_hash(spwd), sname, ssex, sid, sgrade, sdept, stel, smail))
             db.commit()
             cursor.close()
             flash('创建成功！')
@@ -118,19 +115,10 @@ def update_stu(sno):
             validators.Student.stel(stel)
             validators.Student.smail(smail)
 
-            cursor.execute(
-                'update student set sname = %s, ssex = %s, sid = %s,'
-                ' sgrade = %s, sdept = %s, stel = %s, smail = %s'
-                ' where sno = %s',
-                (sname, ssex, sid, sgrade, sdept, stel, smail, sno)
-            )
+            cursor.callproc('update_student', (sno, sname, ssex, sid, sgrade, sdept, stel, smail))
 
             if len(spwd) > 0:
-                cursor.execute(
-                    'update student set spwd = %s'
-                    ' where sno = %s',
-                    (generate_password_hash(spwd), sno)
-                )
+                cursor.callproc('update_student_pwd', (sno, generate_password_hash(spwd)))
 
             db.commit()
             cursor.close()
@@ -158,7 +146,7 @@ def update_stu(sno):
 def delete_stu(sno):
     db = get_db()
     cursor = db.cursor()
-    cursor.execute('delete from student where sno = %s', (sno,))
+    cursor.callproc('delete_student', (sno,))
     db.commit()
     cursor.close()
     flash('删除成功！')
@@ -221,11 +209,7 @@ def create_course():
 
             db = get_db()
             cursor = db.cursor()
-            cursor.execute(
-                'insert into course (cname, ctype, ccredit, cdept, ccap)'
-                ' values (%s, %s, %s, %s, %s)',
-                (cname, ctype, ccredit, cdept, ccap)
-            )
+            cursor.callproc('create_course', (cname, ctype, ccredit, cdept, ccap))
             db.commit()
             cursor.close()
             flash('创建成功！')
@@ -257,12 +241,7 @@ def update_course(cno):
             validators.Course.cdept(cdept)
             validators.Course.ccap(ccap)
 
-            cursor.execute(
-                'update course set cname = %s, ctype = %s, ccredit = %s,'
-                ' cdept = %s, ccap = %s'
-                ' where cno = %s',
-                (cname, ctype, ccredit, cdept, ccap, cno)
-            )
+            cursor.callproc('update_course', (cno, cname, ctype, ccredit, cdept, ccap))
             db.commit()
             cursor.close()
             flash('修改成功！')
@@ -290,7 +269,7 @@ def update_course(cno):
 def delete_course(cno):
     db = get_db()
     cursor = db.cursor()
-    cursor.execute('delete from course where cno = %s', (cno,))
+    cursor.callproc('delete_course', (cno,))
     db.commit()
     cursor.close()
     flash('删除成功！')
@@ -346,11 +325,7 @@ def create_admin():
 
             db = get_db()
             cursor = db.cursor()
-            cursor.execute(
-                'insert into admin (ano, apwd, aname, atel, amail)'
-                ' values (%s, %s, %s, %s, %s)',
-                (ano, generate_password_hash(apwd), aname, atel, amail)
-            )
+            cursor.callproc('create_admin', (ano, generate_password_hash(apwd), aname, atel, amail))
             db.commit()
             cursor.close()
             flash('创建成功！')
@@ -380,18 +355,10 @@ def update_admin(ano):
             validators.Admin.atel(atel)
             validators.Admin.amail(amail)
 
-            cursor.execute(
-                'update admin set aname = %s, atel = %s, amail = %s'
-                ' where ano = %s',
-                (aname, atel, amail, ano)
-            )
+            cursor.callproc('update_admin', (ano, aname, atel, amail))
 
             if len(apwd) > 0:
-                cursor.execute(
-                    'update admin set apwd = %s'
-                    ' where ano = %s',
-                    (generate_password_hash(apwd), ano)
-                )
+                cursor.callproc('update_admin_pwd', (ano, generate_password_hash(apwd)))
 
             db.commit()
             cursor.close()
@@ -424,7 +391,7 @@ def delete_admin(ano):
         return redirect(url_for('admin.info_admin'))
     db = get_db()
     cursor = db.cursor()
-    cursor.execute('delete from admin where ano = %s', (ano,))
+    cursor.callproc('delete_admin', (ano,))
     db.commit()
     cursor.close()
     flash('删除成功！')
