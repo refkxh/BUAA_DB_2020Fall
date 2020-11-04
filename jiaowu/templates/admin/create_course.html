@@ -12,11 +12,16 @@
         <div class="content_card_gray" >
             <div class="content_form1" style="overflow: hidden">
                 <form action="{{ url_for('admin.create_course') }}" method="post">
-                    课程名称:<br> <input type="text" name="cname" value="{{ request.form['cname']}}" placeholder="请输入课程名全称"><br>
-                    课程类型:<br> <input type="text" name="ctype" value="{{ request.form['ctype']}}"><br>
-                    院系: <br><input type="text" name="cdept" value="{{ request.form['cdept']}}" placeholder="填写学院全称。示例：计算机学院"><br>
-                    学分: <br><input type="text" name="ccredit" value="{{ request.form['ccredit']}}" placeholder="请填写整数"><br>
-                    课程容量:<br> <input type="text" name="ccap" value="{{ request.form['ccap']}}" placeholder=""><br><br>
+                    <label class="xrequired">课程名称:<br></label>
+                    <input type="text" name="cname" value="{{ request.form['cname']}}" placeholder="请输入课程名全称"><br>
+                      课程类型:<br>
+                    <input type="text" name="ctype" value="{{ request.form['ctype']}}"><br>
+                      院系: <br>
+                    <input type="text" name="cdept" value="{{ request.form['cdept']}}" placeholder="填写学院全称。示例：计算机学院"><br>
+                    <label class="xrequired">学分: <br></label>
+                    <input type="text" name="ccredit" value="{{ request.form['ccredit']}}" placeholder="请填写整数"><br>
+                    <label class="xrequired">课程容量:<br></label>
+                    <input type="text" name="ccap" value="{{ request.form['ccap']}}" placeholder=""><br><br>
                     <input type="submit" value="新建">
                     <p></p>
                 </form>
