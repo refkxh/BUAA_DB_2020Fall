@@ -85,7 +85,7 @@ def list_unselected_courses():
     return render_template('student/list_unselected_courses.html', courses=courses)
 
 
-@bp.route('/select_course/<int:cno>', methods=('POST',))
+@bp.route('/select_course/<int:cno>', methods=('GET',))
 @check_permission('Student', False)
 def select_course(cno):
     db = get_db()
@@ -115,7 +115,7 @@ def list_selected_courses():
     return render_template('student/list_selected_courses.html', courses=courses)
 
 
-@bp.route('/unselect_course/<int:cno>', methods=('POST',))
+@bp.route('/unselect_course/<int:cno>', methods=('GET',))
 @check_permission('Student', False)
 def unselect_course(cno):
     db = get_db()
