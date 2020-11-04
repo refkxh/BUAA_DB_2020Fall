@@ -406,7 +406,7 @@ def course_to_student(cno):
     cursor.execute('select student.sno sno, sname, ssex, sid, sgrade, sdept, stel, smail, score '
                    'from student, student_course '
                    'where student.sno = student_course.sno and cno = %s '
-                   'order by sno', cno)
+                   'order by sno', (cno,))
     courses = cursor.fetchall()
     cursor.close()
     return render_template('student/course_to_student.html', courses=courses)
@@ -420,7 +420,7 @@ def student_to_course(sno):
     cursor.execute('select course.cno cno, cname, ctype, ccredit, cdept, ccap, cselect, score '
                    'from course, student_course '
                    'where course.cno = student_course.cno and sno = %s '
-                   'order by cno', sno)
+                   'order by cno', (sno,))
     courses = cursor.fetchall()
     cursor.close()
     return render_template('student/student_to_course.html', courses=courses)
@@ -433,7 +433,7 @@ def select_course():
     cno = request.form['cno']
     db = get_db()
     cursor = db.cursor()
-    cursor.execute('select * from student_course where sno = %s and cno = %s', sno, cno)
+    cursor.execute('select * from student_course where sno = %s and cno = %s', (sno, cno))
     if cursor.fetchone() is not None:
         flash('该学生已选修过该课程！')
     else:
@@ -451,7 +451,7 @@ def unselect_course():
     cno = request.form['cno']
     db = get_db()
     cursor = db.cursor()
-    cursor.execute('select * from student_course where sno = %s and cno = %s', sno, cno)
+    cursor.execute('select * from student_course where sno = %s and cno = %s', (sno, cno))
     if cursor.fetchone() is None:
         flash('该学生并未选修过该课程！')
     else:
@@ -473,7 +473,7 @@ def modify_score():
     else:
         db = get_db()
         cursor = db.cursor()
-        cursor.execute('select * from student_course where sno = %s and cno = %s', sno, cno)
+        cursor.execute('select * from student_course where sno = %s and cno = %s', (sno, cno))
         if cursor.fetchone() is None:
             flash('该学生并未选修过该课程！')
         else:

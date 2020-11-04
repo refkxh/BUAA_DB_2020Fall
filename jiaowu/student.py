@@ -79,7 +79,7 @@ def list_unselected_courses():
     cursor = db.cursor(dictionary=True)
     cursor.execute('select * from course where cno not in '
                    '(select cno from student_course where sno = %s) '
-                   'order by cno', current_user.no)
+                   'order by cno', (current_user.no,))
     courses = cursor.fetchall()
     cursor.close()
     return render_template('student/list_unselected_courses.html', courses=courses)
@@ -90,7 +90,7 @@ def list_unselected_courses():
 def select_course(cno):
     db = get_db()
     cursor = db.cursor()
-    cursor.execute('select * from student_course where sno = %s and cno = %s', current_user.no, cno)
+    cursor.execute('select * from student_course where sno = %s and cno = %s', (current_user.no, cno))
     if cursor.fetchone() is not None:
         flash('您已选修过该课程！')
     else:
@@ -109,7 +109,7 @@ def list_selected_courses():
     cursor.execute('select course.cno cno, cname, ctype, ccredit, cdept, ccap, cselect, score '
                    'from course, student_course '
                    'where course.cno = student_course.cno and sno = %s '
-                   'order by cno', current_user.no)
+                   'order by cno', (current_user.no,))
     courses = cursor.fetchall()
     cursor.close()
     return render_template('student/list_selected_courses.html', courses=courses)
@@ -120,7 +120,7 @@ def list_selected_courses():
 def unselect_course(cno):
     db = get_db()
     cursor = db.cursor()
-    cursor.execute('select * from student_course where sno = %s and cno = %s', current_user.no, cno)
+    cursor.execute('select * from student_course where sno = %s and cno = %s', (current_user.no, cno))
     if cursor.fetchone() is None:
         flash('您并未选修过该课程！')
     else:
