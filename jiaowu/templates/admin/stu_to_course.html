@@ -44,8 +44,12 @@
                     <td nowrap="nowrap">{{ info['cdept'] }}</td>
                     <td nowrap="nowrap">{{ info['cselect'] }}/{{ info['ccap'] }}</td>
                     <td nowrap="nowrap">
-                        &nbsp; <a style="color:#fc3c3a"
-                                  href="{{ url_for('admin.unselect_course',cno=info['cno']) }}">退课</a></td>
+                        <form action={{ url_for('admin.unselect_course',sno=info['sno']) }} method="post" id="myform">
+                            <input type="hidden" name="sno" value="{{ student['sno'] }}"/>
+                            <input type="hidden" name="cno" value="{{ info['cno'] }}"/>
+                        </form>
+                        <a href="#" onclick="document.getElementById('myform').submit();return false;" style="color:#fc3c3a">
+                            退课</a></td>
                 </tr>
             {% endfor %}
 
