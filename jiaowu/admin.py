@@ -432,13 +432,18 @@ def select_course():
     sno = request.form['sno']
     cno = request.form['cno']
     db = get_db()
-    cursor = db.cursor()
+    cursor = db.cursor(dictionary=True)
     cursor.execute('select * from student_course where sno = %s and cno = %s', (sno, cno))
     if cursor.fetchone() is not None:
         flash('该学生已选修过该课程！')
     else:
-        cursor.callproc('select_course', (sno, cno))
-        flash('选课成功！')
+        cursor.execute('select ccap, cselect from course where cno = %s', (cno,))
+        item = cursor.fetchone()
+        if item['cselect'] >= item['ccap']:
+            flash('课程容量已满！')
+        else:
+            cursor.callproc('select_course', (sno, cno))
+            flash('选课成功！')
     db.commit()
     cursor.close()
     return redirect(request.referrer or url_for('index'))

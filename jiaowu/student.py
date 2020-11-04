@@ -89,13 +89,18 @@ def list_unselected_courses():
 @check_permission('Student', False)
 def select_course(cno):
     db = get_db()
-    cursor = db.cursor()
+    cursor = db.cursor(dictionary=True)
     cursor.execute('select * from student_course where sno = %s and cno = %s', (current_user.no, cno))
     if cursor.fetchone() is not None:
         flash('您已选修过该课程！')
     else:
-        cursor.callproc('select_course', (current_user.no, cno))
-        flash('选课成功！')
+        cursor.execute('select ccap, cselect from course where cno = %s', (cno,))
+        item = cursor.fetchone()
+        if item['cselect'] >= item['ccap']:
+            flash('课程容量已满！')
+        else:
+            cursor.callproc('select_course', (current_user.no, cno))
+            flash('选课成功！')
     db.commit()
     cursor.close()
     return redirect(url_for('student.list_unselected_courses'))
