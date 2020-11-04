@@ -11,7 +11,7 @@
     <div class="content_whole">
         <div class="content_card_gray">
             <div class="content_form1" style="overflow-x: hidden">
-                <form method="post" action="{{ url_for('student.update_stu',sno=student['sno']) }}">
+                <form method="post" action="{{ url_for('student.update_stu') }}">
                     <label>学号</label><p></p>
                     {{ student['sno'] }}<p></p>
                     <label>姓名</label><p></p>
@@ -60,7 +60,7 @@
 
 {% block nav %}
 
-    <a href="{{ url_for('student.update_stu',sno=student['sno']) }}">
+    <a href="{{ url_for('student.update_stu') }}">
         <li>
             <div class="page_now"><i class="iconfont icon-xueshengdangan1"></i>&nbsp;&nbsp;个人信息管理</div>
         </li>

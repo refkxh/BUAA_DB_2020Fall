@@ -1,6 +1,6 @@
-drop table if exists student;
-drop table if exists course;
-drop table if exists admin;
+drop database if exists jiaowu;
+create database jiaowu;
+use jiaowu;
 
 create table student
 (
@@ -33,4 +33,12 @@ create table admin
     aname varchar(32)  not null,
     atel  varchar(11),
     amail varchar(32)
+);
+
+create table student_course
+(
+    sno   varchar(10),
+    cno   int,
+    score int,
+    primary key (sno, cno)
 );

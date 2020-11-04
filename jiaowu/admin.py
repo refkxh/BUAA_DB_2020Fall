@@ -396,3 +396,5 @@ def delete_admin(ano):
     cursor.close()
     flash('删除成功！')
     return redirect(url_for('admin.info_admin'))
+
+

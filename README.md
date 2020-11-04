@@ -30,4 +30,4 @@ flask init-db
 
 默认管理用户名：refkxh
 
-默认管理密码：admin
+默认管理密码：admin123
