@@ -14,7 +14,7 @@
                 <form method="post" action="{{ url_for('admin.update_stu',sno=student['sno']) }}">
                     <label>学号<br></label>
                     <h4>{{ student['sno'] }}<br></h4>
-                    <label>姓名<br></label>
+                    <label class="xrequired">姓名<br></label>
                     <input name="sname" type="text"
                            value="{{ request.form['sname'] or student['sname'] }}" required><br>
 
@@ -22,7 +22,7 @@
                     <input name="spwd" type="password" placeholder="请填写新密码（留白视为不修改）"
                            value=""><br>
 
-                    <label>性别<br></label>
+                    <label class="xrequired">性别<br></label>
                     <input name="ssex" type="text"
                            value="{{ request.form['ssex'] or student['ssex'] }}" required><br>
 
@@ -34,7 +34,7 @@
                     <input name="sdept" type="text"
                            value="{{ request.form['sdept'] or student['sdept'] }}" ><br>
 
-                    <label>身份证<br></label>
+                    <label class="xrequired">身份证<br></label>
                     <input name="sid" type="text"
                            value="{{ request.form['sid'] or student['sid'] }}" required><br>
 

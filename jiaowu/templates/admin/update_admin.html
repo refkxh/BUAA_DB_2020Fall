@@ -14,7 +14,7 @@
                 <form method="post" action="{{ url_for('admin.update_admin',ano=admin['ano']) }}">
                     <label>工号<br></label>
                     <h4>{{ admin['ano'] }}<br></h4>
-                    <label>姓名<br></label>
+                    <label class="xrequired">姓名<br></label>
                     <input name="aname" type="text"
                            value="{{ request.form['aname'] or admin['aname'] }}" required><br>
 

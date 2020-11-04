@@ -14,7 +14,10 @@ body {
     url('//at.alicdn.com/t/font_2119812_3kdp9s1jl86.svg#iconfont') format('svg');
 }
 
-
+label.xrequired:before {
+        content: '* ';
+        color: red;
+    }
 /* 弹窗 (background) */
 .modal {
     display: none; /* 默认隐藏 */

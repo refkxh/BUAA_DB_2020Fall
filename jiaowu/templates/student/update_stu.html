@@ -12,41 +12,41 @@
         <div class="content_card_gray">
             <div class="content_form1" style="overflow-x: hidden">
                 <form method="post" action="{{ url_for('student.update_stu') }}">
-                    <label>学号</label><p></p>
-                    {{ student['sno'] }}<p></p>
-                    <label>姓名</label><p></p>
+                    <label>学号</label>
+                    <h4>{{ student['sno'] }}<br></h4>
+                    <label class="xrequired">姓名<br></label>
                     <input name="sname" type="text"
-                           value="{{ request.form['sname'] or student['sname'] }}" required><p></p>
+                           value="{{ request.form['sname'] or student['sname'] }}" required><br>
 
-                    <label>密码</label><p></p>
+                    <label>密码<br></label>
                     <input name="spwd" type="password" placeholder="请填写新密码（留白视为不修改）"
-                           value=""><p></p>
+                           value=""><br>
 
-                    <label>性别</label><p></p>
+                    <label class="xrequired">性别<br></label>
                     <input name="ssex" type="text"
-                           value="{{ request.form['ssex'] or student['ssex'] }}" required><p></p>
+                           value="{{ request.form['ssex'] or student['ssex'] }}" required><br>
 
-                    <label>年级</label><p></p>
+                    <label>年级<br></label>
                     <input name="sgrade" type="text"
-                           value="{{ request.form['sgrade'] or student['sgrade'] }}" required><p></p>
+                           value="{{ request.form['sgrade'] or student['sgrade'] }}" ><br>
 
-                    <label>院系</label><p></p>
+                    <label>院系<br></label>
                     <input name="sdept" type="text"
-                           value="{{ request.form['sdept'] or student['sdept'] }}" required><p></p>
+                           value="{{ request.form['sdept'] or student['sdept'] }}" ><br>
 
-                    <label>身份证</label><p></p>
+                    <label class="xrequired">身份证<br></label>
                     <input name="sid" type="text"
-                           value="{{ request.form['sid'] or student['sid'] }}" required><p></p>
+                           value="{{ request.form['sid'] or student['sid'] }}" required><br>
 
-                    <label>手机号</label><p></p>
+                    <label>手机号<br></label>
                     <input name="stel" type="text"
-                           value="{{ request.form['stel'] or student['stel'] }}" required><p></p>
+                           value="{{ request.form['stel'] or student['stel'] }}" ><br>
 
-                    <label>邮箱</label><p></p>
+                    <label>邮箱<br></label>
                     <input name="smail" type="text"
-                           value="{{ request.form['smail'] or student['smail'] }}" required><p></p>
+                           value="{{ request.form['smail'] or student['smail'] }}" ><br><br>
 
-                    <p></p>
+
                     <input type="submit" value="保存">
                     <p></p>
                 </form>
@@ -69,13 +69,13 @@
 
     <a href="{{ url_for('student.list_unselected_courses') }}">
         <li>
-            <i class="iconfont icon-xueshengdangan1"></i>&nbsp;&nbsp;学生选课
+            <i class="iconfont icon-xuanke"></i>&nbsp;&nbsp;学生选课
         </li>
     </a>
 
     <a href="{{ url_for('student.list_selected_courses') }}">
         <li>
-            <i class="iconfont icon-xueshengdangan1"></i>&nbsp;&nbsp;已选课程
+            <i class="iconfont icon-kecheng"></i>&nbsp;&nbsp;已选课程
         </li>
     </a>
 
