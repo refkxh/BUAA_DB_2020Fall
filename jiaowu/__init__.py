@@ -51,14 +51,19 @@ def create_app():
     from . import student
     app.register_blueprint(student.bp)
 
+    from . import teacher
+    app.register_blueprint(teacher.bp)
+
     @app.route('/', methods=('GET',))
     def index():
         if not current_user.is_authenticated:
             return redirect(url_for('auth.login'))
-        elif current_user.identity == 'Student':
-            return redirect(url_for('student.index'))
         elif current_user.identity == 'Admin':
             return redirect(url_for('admin.index'))
+        elif current_user.identity == 'Student':
+            return redirect(url_for('student.index'))
+        elif current_user.identity == 'Teacher':
+            return redirect(url_for('teacher.index'))
         else:
             abort(500)
 

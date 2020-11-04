@@ -18,7 +18,7 @@ login_manager.login_message = '您还未登录。'
 
 
 class User(UserMixin):
-    __char2identity = {'S': 'Student', 'A': 'Admin'}
+    __char2identity = {'S': 'Student', 'T': 'Teacher', 'A': 'Admin'}
 
     def __init__(self, identity, no):
         if identity in self.__char2identity:
@@ -30,6 +30,8 @@ class User(UserMixin):
         self.id = identity + no
         if self.identity == 'Student':
             str_no, str_name = 'sno', 'sname'
+        elif self.identity == 'Teacher':
+            str_no, str_name = 'tno', 'tname'
         elif self.identity == 'Admin':
             str_no, str_name = 'ano', 'aname'
         else:
@@ -45,6 +47,8 @@ class User(UserMixin):
     def validate_pwd(self, pwd):
         if self.identity == 'Student':
             str_no, str_pwd = 'sno', 'spwd'
+        elif self.identity == 'Teacher':
+            str_no, str_pwd = 'tno', 'tpwd'
         elif self.identity == 'Admin':
             str_no, str_pwd = 'ano', 'apwd'
         else:
@@ -73,6 +77,8 @@ def check_permission(identity, need_certain):
                 if need_certain:
                     if identity == 'Student':
                         assert kwargs['sno'] == current_user.no
+                    elif identity == 'Teacher':
+                        assert kwargs['tno'] == current_user.no
                     elif identity == 'Admin':
                         assert kwargs['ano'] == current_user.no
             except AssertionError:

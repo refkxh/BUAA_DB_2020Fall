@@ -171,6 +171,61 @@ class Course:
             raise ValidateException("容量过大！")
 
 
+class Teacher:
+    @staticmethod
+    def tno(input_str):
+        if len(input_str) == 0:
+            raise ValidateException("工号不能为空！")
+
+        if len(input_str) > 10:
+            raise ValidateException("工号过长！")
+
+        if not str.isalnum(input_str):
+            raise ValidateException("工号只能由字母和数字组成！")
+
+        db = get_db()
+        cursor = db.cursor()
+        cursor.execute(
+            'select tno'
+            ' from teacher'
+            ' where tno = %s',
+            (input_str,)
+        )
+        teacher = cursor.fetchone()
+        cursor.close()
+        if teacher is not None:
+            raise ValidateException("工号不能重复！")
+
+    @staticmethod
+    def tpwd(input_str, nullable=False):
+        pwd(input_str, nullable)
+
+    @staticmethod
+    def tname(input_str):
+        name(input_str)
+
+    @staticmethod
+    def tsex(input_str):
+        sex(input_str)
+
+    @staticmethod
+    def ttitle(input_str):
+        if len(input_str) > 16:
+            raise ValidateException("职称信息过长！")
+
+    @staticmethod
+    def tdept(input_str):
+        dept(input_str)
+
+    @staticmethod
+    def ttel(input_str):
+        tel(input_str)
+
+    @staticmethod
+    def tmail(input_str):
+        mail(input_str)
+
+
 class Admin:
     @staticmethod
     def ano(input_str):

@@ -18,7 +18,7 @@ bp = Blueprint('student', __name__, url_prefix='/student')
 @bp.route('/', methods=('GET',))
 @check_permission('Student', False)
 def index():
-    return redirect(url_for('student.update_stu', sno=current_user.no))
+    return redirect(url_for('student.update_stu'))
 
 
 @bp.route('/update_stu', methods=('GET', 'POST'))
