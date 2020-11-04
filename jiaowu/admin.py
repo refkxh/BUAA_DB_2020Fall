@@ -398,9 +398,9 @@ def delete_admin(ano):
     return redirect(url_for('admin.info_admin'))
 
 
-@bp.route('/course_to_student/<int:cno>', methods=('GET',))
+@bp.route('/course_to_stu/<int:cno>', methods=('GET',))
 @check_permission('Admin', False)
-def course_to_student(cno):
+def course_to_stu(cno):
     db = get_db()
     cursor = db.cursor(dictionary=True)
     cursor.execute('select student.sno sno, sname, ssex, sid, sgrade, sdept, stel, smail, score '
@@ -412,9 +412,9 @@ def course_to_student(cno):
     return render_template('admin/course_to_stu.html', courses=courses)
 
 
-@bp.route('/student_to_course/<sno>', methods=('GET',))
+@bp.route('/stu_to_course/<sno>', methods=('GET',))
 @check_permission('Admin', False)
-def student_to_course(sno):
+def stu_to_course(sno):
     db = get_db()
     cursor = db.cursor(dictionary=True)
     cursor.execute('select course.cno cno, cname, ctype, ccredit, cdept, ccap, cselect, score '
