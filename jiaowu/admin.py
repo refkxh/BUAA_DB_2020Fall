@@ -441,15 +441,19 @@ def select_course():
     if cursor.fetchone() is not None:
         flash('该学生已选修过该课程！')
     else:
-        cursor.execute('select ccap, cselect from course where cno = %s', (cno,))
-        item = cursor.fetchone()
-        if item is None:
-            flash('不存在该课程！')
-        elif item['cselect'] >= item['ccap']:
-            flash('课程容量已满！')
+        cursor.execute('select * from student where sno = %s', (sno,))
+        if cursor.fetchone() is None:
+            flash('不存在该学生！')
         else:
-            cursor.callproc('select_course', (sno, cno))
-            flash('选课成功！')
+            cursor.execute('select ccap, cselect from course where cno = %s', (cno,))
+            item = cursor.fetchone()
+            if item is None:
+                flash('不存在该课程！')
+            elif item['cselect'] >= item['ccap']:
+                flash('课程容量已满！')
+            else:
+                cursor.callproc('select_course', (sno, cno))
+                flash('选课成功！')
     db.commit()
     cursor.close()
     return redirect(request.referrer or url_for('index'))
