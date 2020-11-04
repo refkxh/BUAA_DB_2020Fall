@@ -40,5 +40,7 @@ create table student_course
     sno   varchar(10),
     cno   int,
     score int,
-    primary key (sno, cno)
+    primary key (sno, cno),
+    foreign key (sno) references student(sno),
+    foreign key (cno) references course(cno)
 );
