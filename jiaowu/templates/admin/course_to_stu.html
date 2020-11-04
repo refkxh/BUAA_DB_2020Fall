@@ -1,16 +1,10 @@
-{% extends "base1.html" %}
+{% extends "base.html" %}
 {% block title %}
     学生信息管理
 {% endblock %}
 
 {% block Title %}
-    学生信息管理
-{% endblock %}
-
-{% block button %}
-    <a href="{{ url_for('admin.create_stu') }}">
-        <button>新建学生</button>
-    </a>
+    xxx（课程）的选课情况
 {% endblock %}
 
 {% block form %}
@@ -18,19 +12,20 @@
         <form action="{{ url_for('admin.info_stu') }}" method="post">
             学号: <input type="text" name="sno" value=""><br>
             姓名: <input type="text" name="sname" value=""><br>
-            年级: <input type="text" name="sgrade" value="" placeholder="示例：大一"><br>
-            院系: <input type="text" name="sdept" value="" placeholder="示例：计算机学院"><br><br>
-            <input type="submit" value="查询"><br>
+            <input type="submit" value="加入课程"><br>
         </form>
     </div>
 {% endblock %}
 
-{% block table %}
-    <div class="content_table" >
+{% block content %}
+    <div class="content_whole">
+        <div class="content_card_gray">
+
+            <div class="content_table" >
         <table class="primary">
             <thead>
             <tr>
-                <th nowrap="nowrap"><a href="#">学号 <!--<i class="iconfont icon-paixu" style="font-size: 16px"></i>--></a></th>
+                <th nowrap="nowrap">学号</th>
                 <th nowrap="nowrap">姓名</th>
                 <th nowrap="nowrap">性别</th>
                 <th nowrap="nowrap">年级</th>
@@ -39,7 +34,6 @@
                 <th nowrap="nowrap">手机号</th>
                 <th nowrap="nowrap">邮箱</th>
                 <th nowrap="nowrap">操作</th>
-
             </tr>
             </thead>
             <tbody>
@@ -67,22 +61,27 @@
             </tbody>
         </table>
     </div>
+        </div>
+
+
+    </div>
 {% endblock %}
+
 
 {% block nav %}
 
     <a href="{{ url_for('admin.info_stu') }}">
-        <li>
-            <div class="page_now"><i class="iconfont icon-xueshengdangan1"></i>&nbsp;&nbsp;学生信息管理</div>
-        </li>
+        <li><i class="iconfont icon-xueshengdangan1"></i>&nbsp;&nbsp;学生信息管理</li>
     </a>
 
-
     <a href="{{ url_for('admin.info_course') }}">
-        <li><i class="iconfont icon-biaoqiankuozhan_kecheng-136"></i>&nbsp;&nbsp;课程信息管理</li>
+        <li>
+            <div class="page_now"><i class="iconfont icon-biaoqiankuozhan_kecheng-136"></i>&nbsp;&nbsp;课程信息管理</div>
+        </li>
     </a>
 
     <a href="{{ url_for('admin.info_admin') }}">
         <li><i class="iconfont icon-guanliyuan"></i>&nbsp;&nbsp;管理员信息管理</li>
     </a>
+
 {% endblock %}

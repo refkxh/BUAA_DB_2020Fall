@@ -248,7 +248,14 @@ li {
     background-color: #f5f6f8;
     padding-left: 430px;
 }
-
+.content_table_course-stu{
+    margin: auto;
+    padding-top: 40px;
+    width: 90%;
+    height: 95%;
+    overflow: scroll;
+    background-color: #f5f6f8;
+}
 .content_form1 input {
     width: 300px;
 }

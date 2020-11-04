@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+{% block title %}
+    学生信息管理
+{% endblock %}
+
+{% block Title %}
+    学生信息管理
+{% endblock %}
+
+{% block content %}
+    <div class="content_whole">
+        <div class="content_card_gray">
+
+            <div class="content_table">
+                <table class="primary" width="100%">
+                    <thead>
+                    <tr>
+                        <th nowrap="nowrap">课程名称</th>
+                        <th nowrap="nowrap">课程号</th>
+                        <th nowrap="nowrap">课程类型</th>
+                        <th nowrap="nowrap">学分</th>
+                        <th nowrap="nowrap">院系</th>
+                        <th nowrap="nowrap">课程容量</th>
+                        <th nowrap="nowrap">成绩</th>
+                        <th nowrap="nowrap">操作</th>
+
+                    </tr>
+                    </thead>
+                    <tbody>
+
+                    {% for info in courses %}
+                        <tr>
+                            <td nowrap="nowrap">{{ info['cname'] }}</td>
+                            <td nowrap="nowrap">{{ info['cno'] }}</td>
+                            <td nowrap="nowrap">{{ info['ctype'] }}</td>
+                            <td nowrap="nowrap">{{ info['ccredit'] }}</td>
+                            <td nowrap="nowrap">{{ info['cdept'] }}</td>
+                            <td nowrap="nowrap">已选/{{ info['ccap'] }}</td>
+                            <td nowrap="nowrap">{{ info['score'] }}</td>
+                            <td nowrap="nowrap">
+                                &nbsp; <a style="color:#fc3c3a"
+                                          href="{{ url_for('student.unselect_course',cno=info['cno']) }}">退课</a></td>
+                        </tr>
+                    {% endfor %}
+
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+
+
+    </div>
+{% endblock %}
+
+
+{% block nav %}
+    <a href="{{ url_for('student.update_stu') }}">
+        <li>
+            <i class="iconfont icon-xueshengdangan1"></i>&nbsp;&nbsp;个人信息管理
+        </li>
+    </a>
+
+
+    <a href="{{ url_for('student.list_unselected_courses') }}">
+        <li>
+            <i class="iconfont icon-xueshengdangan1"></i>&nbsp;&nbsp;学生选课
+        </li>
+    </a>
+    
+    <a href="{{ url_for('student.list_selected_courses') }}">
+        <li>
+            <div class="page_now"><i class="iconfont icon-xueshengdangan1"></i>&nbsp;&nbsp;已选课程</div>
+        </li>
+    </a>
+    
+{% endblock %}

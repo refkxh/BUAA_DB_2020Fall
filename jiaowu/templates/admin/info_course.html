@@ -28,7 +28,7 @@
 {% endblock %}
 
 {% block table %}
-    <div class="content_table" style="overflow-x: hidden">
+    <div class="content_table" >
         <table class="primary" width="100%">
             <thead>
             <tr>
@@ -51,10 +51,12 @@
                     <td nowrap="nowrap">{{ info['ctype'] }}</td>
                     <td nowrap="nowrap">{{ info['ccredit'] }}</td>
                     <td nowrap="nowrap">{{ info['cdept'] }}</td>
-                    <td nowrap="nowrap">{{ info['ccap'] }}</td>
+                    <td nowrap="nowrap">已选/{{ info['ccap'] }}</td>
                     <td nowrap="nowrap"><a style="color: #5474fe"
-                                           href="{{ url_for('admin.update_course',cno=info['cno']) }}">修改</a>
-                        &nbsp; <a style="color:#fc3c3a"
+                                           href="{{ url_for('admin.update_course',cno=info['cno']) }}">修改</a>&nbsp;&nbsp;
+                                        <a style="color: #5474fe"
+                                           href="{{ url_for('admin.update_course',cno=info['cno']) }}">已选学生</a>&nbsp;
+                        &nbsp;  <a style="color:#fc3c3a"
                                   href="{{ url_for('admin.delete_course',cno=info['cno']) }}">删除</a></td>
                 </tr>
             {% endfor %}
