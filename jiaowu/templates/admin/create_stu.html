@@ -12,19 +12,27 @@
         <div class="content_card_gray">
             <div class="content_form1" style="overflow-x: hidden">
                 <form action="{{ url_for('admin.create_stu') }}" method="post">
-                    学号:<br> <input type="text" name="sno" value="" placeholder="学号一经确认无法修改"><br>
-                    密码:<br> <input type="password" name="spwd" value="" placeholder="密码不少于六个字符"><br>
-                    姓名: <br><input type="text" name="sname" value=""><br>
-                    性别：<br>
+                    <label class="xrequired">学号:<br> </label>
+                    <input type="text" name="sno" value="" placeholder="学号一经确认无法修改"><br>
+                    <label class="xrequired">密码:<br> </label>
+                    <input type="password" name="spwd" value="" placeholder="密码不少于六个字符"><br>
+                    <label class="xrequired">姓名: <br></label>
+                    <input type="text" name="sname" value=""><br>
+                    <label class="xrequired">性别：<br></label>
                     <select name="ssex">
                         <option>男</option>
                         <option>女</option>
                     </select><br>
-                    年级:<br> <input type="text" name="sgrade" value="" placeholder="示例：大一"><br>
-                    院系: <br><input type="text" name="sdept" value="" placeholder="填写学院全称。示例：计算机学院"><br>
-                    身份证:<br> <input type="text" name="sid" value=""><br>
-                    手机号：<br><input type="text" name="stel" value=""><br>
-                    邮箱: <br><input type="text" name="smail" value=""><br><br>
+                    年级:<br>
+                    <input type="text" name="sgrade" value="" placeholder="示例：大一"><br>
+                    院系: <br>
+                    <input type="text" name="sdept" value="" placeholder="填写学院全称。示例：计算机学院"><br>
+                    <label class="xrequired">身份证:<br> </label>
+                    <input type="text" name="sid" value=""><br>
+                    手机号：<br>
+                    <input type="text" name="stel" value=""><br>
+                    邮箱: <br>
+                    <input type="text" name="smail" value=""><br><br>
                     <input type="submit" value="新建">
                     <p></p><p></p>
                 </form>
