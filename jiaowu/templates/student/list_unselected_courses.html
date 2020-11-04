@@ -10,7 +10,7 @@
 {% block content %}
     <div class="content_whole">
         <div class="content_card_gray">
-            <div class="content_table">
+            <div class="content_table" style="margin-left: 30px;margin-right: 30px">
                 <table class="primary" width="100%">
                     <thead>
                     <tr>
@@ -31,9 +31,9 @@
                             <td nowrap="nowrap">{{ info['ctype'] }}</td>
                             <td nowrap="nowrap">{{ info['ccredit'] }}</td>
                             <td nowrap="nowrap">{{ info['cdept'] }}</td>
-                            <td nowrap="nowrap">已选/{{ info['ccap'] }}</td>
+                            <td nowrap="nowrap">{{ info['cselect'] }}/{{ info['ccap'] }}</td>
                             <td nowrap="nowrap">
-                                &nbsp; <a style="color:#fc3c3a"
+                                &nbsp; <a style="color: #5474fe"
                                           href="{{ url_for('student.select_course',cno=info['cno']) }}">选课</a></td>
                         </tr>
                     {% endfor %}

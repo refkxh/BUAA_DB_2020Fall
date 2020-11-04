@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block title %}
+{% endblock %}
+
+{% block Title %}
+{% endblock %}
+
+{% block content %}
+    <div class="content_whole">
+        <div class="content_form_and_table_box" style="height: 574px">
+            <!--按钮行下面的块-->
+            <div class="content_form_box" style="height: 574px">
+                <!--查询条件form的块-->
+                {% block form %}{% endblock %}
+            </div>
+
+            <div class="content_table_box" style="height: 574px">
+                <!--查询表格的块-->
+            {% block table %}{% endblock %}
+            </div>
+
+        </div>
+
+
+    </div>
+
+
+
+
+
+{% endblock %}
+
+
+{% block nav %}
+{% endblock %}

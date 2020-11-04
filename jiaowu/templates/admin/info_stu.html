@@ -57,7 +57,7 @@
                     <td nowrap="nowrap"><a style="color: #5474fe"
                                            href="{{ url_for('admin.update_stu',sno=info['sno']) }}">修改</a>
                                         <a style="color: #5474fe"
-                                           href="{{ url_for('admin.update_stu',sno=info['sno']) }}">已选课程</a>
+                                           href="{{ url_for('admin.stu_to_course',sno=info['sno']) }}">已选课程</a>
                         &nbsp; <a style="color:#fc3c3a"
                                   href="{{ url_for('admin.delete_stu',sno=info['sno']) }}">删除</a></td>
                 </tr>

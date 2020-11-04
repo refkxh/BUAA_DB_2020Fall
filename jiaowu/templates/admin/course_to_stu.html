@@ -1,27 +1,24 @@
-{% extends "base.html" %}
+{% extends "base2.html" %}
 {% block title %}
     学生信息管理
 {% endblock %}
 
 {% block Title %}
-    xxx（课程）的选课情况
+    {{ course['cname'] }}的选课情况
 {% endblock %}
 
 {% block form %}
-    <div class="content_form">
-        <form action="{{ url_for('admin.info_stu') }}" method="post">
+    <div class="content_form" style="padding-top: 125px">
+        <form action="{{ url_for('admin.select_course') }}" method="post">
             学号: <input type="text" name="sno" value=""><br>
-            姓名: <input type="text" name="sname" value=""><br>
+            <input type="hidden" name="cno" value="{{ course['cno'] }}"><br><br>
             <input type="submit" value="加入课程"><br>
         </form>
     </div>
 {% endblock %}
 
-{% block content %}
-    <div class="content_whole">
-        <div class="content_card_gray">
-
-            <div class="content_table" >
+{% block table %}
+    <div class="content_table" >
         <table class="primary">
             <thead>
             <tr>
@@ -48,22 +45,15 @@
                     <td nowrap="nowrap">{{ info['sid'] }}</td>
                     <td nowrap="nowrap">{{ info['stel'] }}</td>
                     <td nowrap="nowrap">{{ info['smail'] }}</td>
-                    <td nowrap="nowrap"><a style="color: #5474fe"
-                                           href="{{ url_for('admin.update_stu',sno=info['sno']) }}">修改</a>
-                                        <a style="color: #5474fe"
-                                           href="{{ url_for('admin.update_stu',sno=info['sno']) }}">已选课程</a>
+                    <td nowrap="nowrap">
                         &nbsp; <a style="color:#fc3c3a"
-                                  href="{{ url_for('admin.delete_stu',sno=info['sno']) }}">删除</a></td>
+                                  href="{{ url_for('admin.unselect_course',sno=info['sno']) }}">退课</a></td>
                 </tr>
             {% endfor %}
 
 
             </tbody>
         </table>
-    </div>
-        </div>
-
-
     </div>
 {% endblock %}
 
@@ -76,7 +66,7 @@
 
     <a href="{{ url_for('admin.info_course') }}">
         <li>
-            <div class="page_now"><i class="iconfont icon-biaoqiankuozhan_kecheng-136"></i>&nbsp;&nbsp;课程信息管理</div>
+            <i class="iconfont icon-biaoqiankuozhan_kecheng-136"></i>&nbsp;&nbsp;课程信息管理
         </li>
     </a>
 
