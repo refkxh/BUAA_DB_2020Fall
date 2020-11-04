@@ -78,7 +78,7 @@ def list_unselected_courses():
     db = get_db()
     cursor = db.cursor(dictionary=True)
     cursor.execute('select * from course where cno not in '
-                   '(select cno from student_course where sno = %s)'
+                   '(select cno from student_course where sno = %s) '
                    'order by cno', current_user.no)
     courses = cursor.fetchall()
     cursor.close()
