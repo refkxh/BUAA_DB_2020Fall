@@ -63,9 +63,9 @@ procedures = ['create procedure create_student(sno_in varchar(10),'
 
               'create procedure delete_student(sno_in varchar(10))'
               'begin '
-              'delete from student '
-              'where sno = sno_in;'
               'delete from student_course '
+              'where sno = sno_in;'
+              'delete from student '
               'where sno = sno_in;'
               'commit;'
               'end',
@@ -96,9 +96,9 @@ procedures = ['create procedure create_student(sno_in varchar(10),'
 
               'create procedure delete_course(cno_in int)'
               'begin '
-              'delete from course '
-              'where cno = cno_in;'
               'delete from student_course '
+              'where cno = cno_in;'
+              'delete from course '
               'where cno = cno_in;'
               'commit;'
               'end',
