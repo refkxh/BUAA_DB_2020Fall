@@ -398,3 +398,87 @@ def delete_admin(ano):
     return redirect(url_for('admin.info_admin'))
 
 
+@bp.route('/course_to_student/<int:cno>', methods=('GET',))
+@check_permission('Admin', False)
+def course_to_student(cno):
+    db = get_db()
+    cursor = db.cursor(dictionary=True)
+    cursor.execute('select student.sno sno, sname, ssex, sid, sgrade, sdept, stel, smail, score '
+                   'from student, student_course '
+                   'where student.sno = student_course.sno and cno = %s '
+                   'order by sno', cno)
+    courses = cursor.fetchall()
+    cursor.close()
+    return render_template('student/course_to_student.html', courses=courses)
+
+
+@bp.route('/student_to_course/<sno>', methods=('GET',))
+@check_permission('Admin', False)
+def student_to_course(sno):
+    db = get_db()
+    cursor = db.cursor(dictionary=True)
+    cursor.execute('select course.cno cno, cname, ctype, ccredit, cdept, ccap, cselect, score '
+                   'from course, student_course '
+                   'where course.cno = student_course.cno and sno = %s '
+                   'order by cno', sno)
+    courses = cursor.fetchall()
+    cursor.close()
+    return render_template('student/student_to_course.html', courses=courses)
+
+
+@bp.route('/select_course', methods=('POST',))
+@check_permission('Admin', False)
+def select_course():
+    sno = request.form['sno']
+    cno = request.form['cno']
+    db = get_db()
+    cursor = db.cursor()
+    cursor.execute('select * from student_course where sno = %s and cno = %s', sno, cno)
+    if cursor.fetchone() is not None:
+        flash('该学生已选修过该课程！')
+    else:
+        cursor.callproc('select_course', (sno, cno))
+        flash('选课成功！')
+    db.commit()
+    cursor.close()
+    return redirect(request.referrer or url_for('index'))
+
+
+@bp.route('/unselect_course', methods=('POST',))
+@check_permission('Admin', False)
+def unselect_course():
+    sno = request.form['sno']
+    cno = request.form['cno']
+    db = get_db()
+    cursor = db.cursor()
+    cursor.execute('select * from student_course where sno = %s and cno = %s', sno, cno)
+    if cursor.fetchone() is None:
+        flash('该学生并未选修过该课程！')
+    else:
+        cursor.callproc('unselect_course', (sno, cno))
+        flash('退课成功！')
+    db.commit()
+    cursor.close()
+    return redirect(request.referrer or url_for('index'))
+
+
+@bp.route('/modify_score', methods=('POST',))
+@check_permission('Admin', False)
+def modify_score():
+    sno = request.form['sno']
+    cno = request.form['cno']
+    score = request.form['score']
+    if not(0 <= score <= 100):
+        flash('成绩非法！')
+    else:
+        db = get_db()
+        cursor = db.cursor()
+        cursor.execute('select * from student_course where sno = %s and cno = %s', sno, cno)
+        if cursor.fetchone() is None:
+            flash('该学生并未选修过该课程！')
+        else:
+            cursor.callproc('modify_score', (sno, cno, score))
+            flash('成绩修改成功！')
+        db.commit()
+        cursor.close()
+    return redirect(request.referrer or url_for('index'))

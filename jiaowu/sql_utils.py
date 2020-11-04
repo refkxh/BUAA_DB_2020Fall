@@ -148,6 +148,14 @@ procedures = ['create procedure create_student(sno_in varchar(10),'
               'delete from student_course '
               'where sno = sno_in and cno = cno_in;'
               'commit;'
+              'end',
+
+              'create procedure update_score(sno_in varchar(10), cno_in int, score_in int)'
+              'begin '
+              'update student_course '
+              'set score = score_in '
+              'where sno = sno_in and cno = cno_in;'
+              'commit;'
               'end'
               ]
 
