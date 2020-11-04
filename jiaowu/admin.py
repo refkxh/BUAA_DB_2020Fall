@@ -409,7 +409,7 @@ def course_to_student(cno):
                    'order by sno', (cno,))
     courses = cursor.fetchall()
     cursor.close()
-    return render_template('student/course_to_student.html', courses=courses)
+    return render_template('admin/course_to_stu.html', courses=courses)
 
 
 @bp.route('/student_to_course/<sno>', methods=('GET',))
@@ -423,7 +423,7 @@ def student_to_course(sno):
                    'order by cno', (sno,))
     courses = cursor.fetchall()
     cursor.close()
-    return render_template('student/student_to_course.html', courses=courses)
+    return render_template('admin/stu_to_course.html', courses=courses)
 
 
 @bp.route('/select_course', methods=('POST',))
