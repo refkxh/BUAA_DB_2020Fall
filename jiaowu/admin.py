@@ -443,7 +443,9 @@ def select_course():
     else:
         cursor.execute('select ccap, cselect from course where cno = %s', (cno,))
         item = cursor.fetchone()
-        if item['cselect'] >= item['ccap']:
+        if item is None:
+            flash('不存在该课程！')
+        elif item['cselect'] >= item['ccap']:
             flash('课程容量已满！')
         else:
             cursor.callproc('select_course', (sno, cno))
