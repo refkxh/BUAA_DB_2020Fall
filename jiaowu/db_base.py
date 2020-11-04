@@ -3,7 +3,7 @@ import mysql.connector
 import click
 from flask import current_app, g
 from flask.cli import with_appcontext
-from .sql_utils import simple_sql_file_to_list, create_procedures, drop_procedures
+from .sql_utils import simple_sql_file_to_list, procedures, triggers
 
 from werkzeug.security import generate_password_hash
 
@@ -38,11 +38,11 @@ def init_db():
     for sql in simple_sql_file_to_list('schema.sql'):
         cursor.execute(sql)
 
-    for procedure in drop_procedures:
+    for procedure in procedures:
         cursor.execute(procedure)
 
-    for procedure in create_procedures:
-        cursor.execute(procedure)
+    for trigger in triggers:
+        cursor.execute(trigger)
 
     cursor.executemany(
         'insert into admin (ano, apwd, aname, atel, amail)'
