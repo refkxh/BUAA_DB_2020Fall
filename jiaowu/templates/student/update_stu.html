@@ -14,6 +14,17 @@
                 <form method="post" action="{{ url_for('student.update_stu') }}">
                     <label>学号</label>
                     <h4>{{ student['sno'] }}<br></h4>
+
+                    <label>年级<br></label>
+                    <h4>{{ student['sgrade'] }}<br></h4>
+                    <input name="sgrade" type="hidden"
+                           value="{{ request.form['sgrade'] or student['sgrade'] }}" >
+
+                    <label>院系<br></label>
+                    <h4>{{ student['sdept'] }}<br></h4>
+                    <input name="sdept" type="hidden"
+                           value="{{ request.form['sdept'] or student['sdept'] }}" >
+
                     <label class="xrequired">姓名<br></label>
                     <input name="sname" type="text"
                            value="{{ request.form['sname'] or student['sname'] }}" required><br>
@@ -26,13 +37,7 @@
                     <input name="ssex" type="text"
                            value="{{ request.form['ssex'] or student['ssex'] }}" required><br>
 
-                    <label>年级<br></label>
-                    <input name="sgrade" type="text"
-                           value="{{ request.form['sgrade'] or student['sgrade'] }}" ><br>
 
-                    <label>院系<br></label>
-                    <input name="sdept" type="text"
-                           value="{{ request.form['sdept'] or student['sdept'] }}" ><br>
 
                     <label class="xrequired">身份证<br></label>
                     <input name="sid" type="text"
