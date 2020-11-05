@@ -54,8 +54,8 @@
                     <td nowrap="nowrap">{{ info['tmail'] }}</td>
                     <td nowrap="nowrap"><a style="color: #5474fe"
                                            href="{{ url_for('admin.update_teacher',tno=info['tno']) }}">修改</a>
-                                        <a style="color: #5474fe"
-                                           href="{{ url_for('admin.teacher_to_course',tno=info['tno']) }}">授课课程</a>
+                                        <!--<a style="color: #5474fe"
+                                           href="">授课课程</a>-->
                         &nbsp; <a style="color:#fc3c3a"
                                   href="{{ url_for('admin.delete_teacher',tno=info['tno']) }}">删除</a></td>
                 </tr>

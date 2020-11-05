@@ -12,42 +12,41 @@
         <div class="content_card_gray">
             <div class="content_form1" style="overflow-x: hidden">
                 <form method="post" action="{{ url_for('student.update_stu') }}">
-                    <label>学号</label>
-                    <h4>{{ student['sno'] }}<br></h4>
+                    学号:
+                    <b>{{ student['sno'] }}</b><br><br>
 
-                    <label>年级<br></label>
-                    <h4>{{ student['sgrade'] }}<br></h4>
+                    姓名:
+                    <b>{{ student['sname'] }}</b><br><br>
+                    <input name="sname" type="hidden"
+                           value="{{ request.form['sname'] or student['sname'] }}" required>
+                    年级:
+                    <b>{{ student['sgrade'] }}</b><br><br>
                     <input name="sgrade" type="hidden"
                            value="{{ request.form['sgrade'] or student['sgrade'] }}" >
 
-                    <label>院系<br></label>
-                    <h4>{{ student['sdept'] }}<br></h4>
+                    院系:
+                    <b>{{ student['sdept'] }}</b><br><br>
                     <input name="sdept" type="hidden"
                            value="{{ request.form['sdept'] or student['sdept'] }}" >
+                    性别:
+                    <b>{{ student['ssex'] }}</b><br><br>
+                    <input name="ssex" type="hidden"
+                           value="{{ request.form['ssex'] or student['ssex'] }}" required>
 
-                    <label class="xrequired">姓名<br></label>
-                    <input name="sname" type="text"
-                           value="{{ request.form['sname'] or student['sname'] }}" required><br>
+                    身份证:
+                    <b>{{ student['sid'] }}</b><br><br>
+                    <input name="sid" type="hidden"
+                           value="{{ request.form['sid'] or student['sid'] }}" required>
 
-                    <label>密码<br></label>
+                    <label>密码:<br></label>
                     <input name="spwd" type="password" placeholder="请填写新密码（留白视为不修改）"
-                           value=""><br>
+                           value=""><br><br>
 
-                    <label class="xrequired">性别<br></label>
-                    <input name="ssex" type="text"
-                           value="{{ request.form['ssex'] or student['ssex'] }}" required><br>
-
-
-
-                    <label class="xrequired">身份证<br></label>
-                    <input name="sid" type="text"
-                           value="{{ request.form['sid'] or student['sid'] }}" required><br>
-
-                    <label>手机号<br></label>
+                    <label>手机号:<br></label>
                     <input name="stel" type="text"
-                           value="{{ request.form['stel'] or student['stel'] }}" ><br>
+                           value="{{ request.form['stel'] or student['stel'] }}" ><br><br>
 
-                    <label>邮箱<br></label>
+                    <label>邮箱:<br></label>
                     <input name="smail" type="text"
                            value="{{ request.form['smail'] or student['smail'] }}" ><br><br>
 

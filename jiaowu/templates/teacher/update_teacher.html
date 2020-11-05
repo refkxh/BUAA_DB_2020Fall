@@ -12,37 +12,37 @@
         <div class="content_card_gray">
             <div class="content_form1" style="overflow-x: hidden">
                 <form method="post" action="{{ url_for('teacher.update_teacher') }}">
-                    <label>工号</label>
-                    <h4>{{ teacher['tno'] }}<br></h4>
+                    工号:
+                    <b>{{ student['tno'] }}</b><br><br>
 
-                    <label>职称</label>
+                    姓名:
+                    <b>{{ student['tname'] }}</b><br><br>
+                    <input name="tname" type="hidden"
+                           value="{{ request.form['tname'] or student['tname'] }}" required>
+                    职称:
+                    <b>{{ student['ttitle'] }}</b><br><br>
                     <input name="ttitle" type="hidden"
-                           value="{{ request.form['ttitle'] or student['ttitle'] }}" required>
-                    <h4>{{ teacher['ttitle'] }}<br></h4>
+                           value="{{ request.form['ttitle'] or student['ttitle'] }}" >
 
-                    <label>院系<br></label>
+                    院系:
+                    <b>{{ student['tdept'] }}</b><br><br>
                     <input name="tdept" type="hidden"
                            value="{{ request.form['tdept'] or student['tdept'] }}" >
-                    <h4>{{ teacher['tdept'] }}<br></h4>
+                    性别:
+                    <b>{{ student['tsex'] }}</b><br><br>
+                    <input name="tsex" type="hidden"
+                           value="{{ request.form['tsex'] or student['tsex'] }}" required>
 
-                    <label class="xrequired">姓名<br></label>
-                    <input name="tname" type="text"
-                           value="{{ request.form['tname'] or student['tname'] }}" required><br>
 
-                    <label>密码<br></label>
+                    <label>密码:<br></label>
                     <input name="tpwd" type="password" placeholder="请填写新密码（留白视为不修改）"
-                           value=""><br>
+                           value=""><br><br>
 
-                    <label class="xrequired">性别<br></label>
-                    <input name="tsex" type="text"
-                           value="{{ request.form['tsex'] or student['tsex'] }}" required><br>
-
-
-                    <label>手机号<br></label>
+                    <label>手机号:<br></label>
                     <input name="ttel" type="text"
-                           value="{{ request.form['ttel'] or student['ttel'] }}" ><br>
+                           value="{{ request.form['ttel'] or student['ttel'] }}" ><br><br>
 
-                    <label>邮箱<br></label>
+                    <label>邮箱:<br></label>
                     <input name="tmail" type="text"
                            value="{{ request.form['tmail'] or student['tmail'] }}" ><br><br>
 
