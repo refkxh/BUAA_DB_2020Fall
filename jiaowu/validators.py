@@ -53,7 +53,7 @@ def mail(input_str):
     if len(input_str) == 0:
         return
 
-    if not re.match(r'^\w+@(\w+\.\w+)$', input_str):
+    if not re.match(r'^\w+@(\w+(\.\w+)+)$', input_str):
         raise ValidateException("邮件地址不合法！")
 
 

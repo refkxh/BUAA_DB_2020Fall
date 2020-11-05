@@ -276,6 +276,135 @@ def delete_course(cno):
     return redirect(url_for('admin.info_course'))
 
 
+@bp.route('/info_teacher', methods=('GET', 'POST'))
+@check_permission('Admin', False)
+def info_teacher():
+    db = get_db()
+    cursor = db.cursor(dictionary=True)
+    if request.method == 'POST':
+        str_select = ''
+        for key in request.form.keys():
+            value = request.form[key]
+            if type(value) == str:
+                if len(value) > 0:
+                    str_select += key + ' LIKE \'%' + value + '%\' and '
+            else:
+                abort(500)
+        if len(str_select) == 0:
+            return redirect(url_for('admin.info_teacher'))
+        sql = 'select tno, tname, tsex, ttitle, tdept, ttel, tmail' \
+              ' from teacher where {} order by tno'.format(str_select[:-4])
+        cursor.execute(sql)
+    else:
+        cursor.execute(
+            'select tno, tname, tsex, ttitle, tdept, ttel, tmail'
+            ' from teacher'
+            ' order by tno'
+        )
+    teachers = cursor.fetchall()
+    cursor.close()
+    return render_template('admin/info_teacher.html', teachers=teachers)
+
+
+@bp.route('/create_teacher', methods=('GET', 'POST'))
+@check_permission('Admin', False)
+def create_teacher():
+    if request.method == 'POST':
+        tno = request.form['tno']
+        tpwd = request.form['tpwd']
+        tname = request.form['tname']
+        tsex = request.form['tsex']
+        ttitle = request.form['ttitle']
+        tdept = request.form['tdept']
+        ttel = request.form['ttel']
+        tmail = request.form['tmail']
+
+        try:
+            validators.Teacher.tno(tno)
+            validators.Teacher.tpwd(tpwd, True)
+            validators.Teacher.tname(tname)
+            validators.Teacher.tsex(tsex)
+            validators.Teacher.ttitle(ttitle)
+            validators.Teacher.tdept(tdept)
+            validators.Teacher.ttel(ttel)
+            validators.Teacher.tmail(tmail)
+
+            db = get_db()
+            cursor = db.cursor()
+            cursor.callproc('create_teacher',
+                            (tno, generate_password_hash(tpwd), tname, tsex, ttitle, tdept, ttel, tmail))
+            db.commit()
+            cursor.close()
+            flash('创建成功！')
+        except validators.ValidateException as e:
+            flash(e.info)
+
+        return redirect(url_for('admin.create_teacher'))
+
+    return render_template('admin/create_teacher.html')
+
+
+@bp.route('/update_teacher/<tno>', methods=('GET', 'POST'))
+@check_permission('Admin', False)
+def update_teacher(tno):
+    db = get_db()
+    cursor = db.cursor(dictionary=True)
+    if request.method == 'POST':
+        tpwd = request.form['tpwd']
+        tname = request.form['tname']
+        tsex = request.form['tsex']
+        ttitle = request.form['ttitle']
+        tdept = request.form['tdept']
+        ttel = request.form['ttel']
+        tmail = request.form['tmail']
+
+        try:
+            validators.Teacher.tpwd(tpwd, True)
+            validators.Teacher.tname(tname)
+            validators.Teacher.tsex(tsex)
+            validators.Teacher.ttitle(ttitle)
+            validators.Teacher.tdept(tdept)
+            validators.Teacher.ttel(ttel)
+            validators.Teacher.tmail(tmail)
+
+            cursor.callproc('update_teacher', (tno, tname, tsex, ttitle, tdept, ttel, tmail))
+
+            if len(tpwd) > 0:
+                cursor.callproc('update_teacher_pwd', (tno, generate_password_hash(tpwd)))
+
+            db.commit()
+            cursor.close()
+            flash('修改成功！')
+        except validators.ValidateException as e:
+            flash(e.info)
+
+        return redirect(url_for('admin.update_teacher', tno=tno))
+    else:
+        cursor.execute(
+            'select tno, tname, tsex, ttitle, tdept, ttel, tmail'
+            ' from teacher'
+            ' where tno = %s',
+            (tno,)
+        )
+        teacher = cursor.fetchone()
+        cursor.close()
+        if teacher is None:
+            abort(404)
+        return render_template('admin/update_teacher.html', teacher=teacher)
+
+
+@bp.route('/delete_teacher/<tno>', methods=('GET',))
+@check_permission('Admin', False)
+def delete_teacher(tno):
+    db = get_db()
+    cursor = db.cursor()
+    cursor.callproc('delete_teacher', (tno,))
+    db.commit()
+    cursor.close()
+    flash('删除成功！')
+    return redirect(url_for('admin.info_teacher'))
+
+
 @bp.route('/info_admin', methods=('GET', 'POST'))
 @check_permission('Admin', False)
 def info_admin():

@@ -13,25 +13,25 @@
             <div class="content_form1" style="overflow-x: hidden">
                 <form method="post" action="{{ url_for('teacher.update_teacher') }}">
                     工号:
-                    <b>{{ student['tno'] }}</b><br><br>
+                    <b>{{ teacher['tno'] }}</b><br><br>
 
                     姓名:
-                    <b>{{ student['tname'] }}</b><br><br>
+                    <b>{{ teacher['tname'] }}</b><br><br>
                     <input name="tname" type="hidden"
-                           value="{{ request.form['tname'] or student['tname'] }}" required>
+                           value="{{ request.form['tname'] or teacher['tname'] }}" required>
                     职称:
-                    <b>{{ student['ttitle'] }}</b><br><br>
+                    <b>{{ teacher['ttitle'] }}</b><br><br>
                     <input name="ttitle" type="hidden"
-                           value="{{ request.form['ttitle'] or student['ttitle'] }}" >
+                           value="{{ request.form['ttitle'] or teacher['ttitle'] }}" >
 
                     院系:
-                    <b>{{ student['tdept'] }}</b><br><br>
+                    <b>{{ teacher['tdept'] }}</b><br><br>
                     <input name="tdept" type="hidden"
-                           value="{{ request.form['tdept'] or student['tdept'] }}" >
+                           value="{{ request.form['tdept'] or teacher['tdept'] }}" >
                     性别:
-                    <b>{{ student['tsex'] }}</b><br><br>
+                    <b>{{ teacher['tsex'] }}</b><br><br>
                     <input name="tsex" type="hidden"
-                           value="{{ request.form['tsex'] or student['tsex'] }}" required>
+                           value="{{ request.form['tsex'] or teacher['tsex'] }}" required>
 
 
                     <label>密码:<br></label>
@@ -40,11 +40,11 @@
 
                     <label>手机号:<br></label>
                     <input name="ttel" type="text"
-                           value="{{ request.form['ttel'] or student['ttel'] }}" ><br><br>
+                           value="{{ request.form['ttel'] or teacher['ttel'] }}" ><br><br>
 
                     <label>邮箱:<br></label>
                     <input name="tmail" type="text"
-                           value="{{ request.form['tmail'] or student['tmail'] }}" ><br><br>
+                           value="{{ request.form['tmail'] or teacher['tmail'] }}" ><br><br>
 
 
                     <input type="submit" value="保存">
@@ -61,7 +61,7 @@
 {% block nav %}
 
 
-    <a href="{{ url_for('student.update_teacher') }}">
+    <a href="{{ url_for('teacher.update_teacher') }}">
         <li>
             <div class="page_now"><i class="iconfont icon-xueshengdangan1"></i>&nbsp;&nbsp;个人信息管理</div>
         </li>
