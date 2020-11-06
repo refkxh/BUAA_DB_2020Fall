@@ -623,7 +623,7 @@ def modify_score():
         if cursor.fetchone() is None:
             flash('该学生并未选修过该课程！')
         else:
-            cursor.callproc('modify_score', (sno, cno, score))
+            cursor.callproc('update_score', (sno, cno, score))
             flash('成绩修改成功！')
         db.commit()
         cursor.close()

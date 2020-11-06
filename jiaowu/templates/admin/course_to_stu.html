@@ -19,6 +19,7 @@
 
 {% block table %}
     <div class="content_table">
+    <form method="post" action="{{ url_for('admin.modify_score') }}">
         <table class="primary">
             <thead>
             <tr>
@@ -30,6 +31,7 @@
                 <th nowrap="nowrap">身份证</th>
                 <th nowrap="nowrap">手机号</th>
                 <th nowrap="nowrap">邮箱</th>
+                <th nowrap="nowrap">成绩</th>
                 <th nowrap="nowrap">操作</th>
             </tr>
             </thead>
@@ -45,6 +47,27 @@
                     <td nowrap="nowrap">{{ info['sid'] }}</td>
                     <td nowrap="nowrap">{{ info['stel'] }}</td>
                     <td nowrap="nowrap">{{ info['smail'] }}</td>
+                    <td nowrap="nowrap" width="210px">
+                        {% if  info['score'] is not none %}
+                            {% if  info['score'] == 0 %}
+                               <input name="score" type="text" style="width: 45%"
+                           value="0">&nbsp;&nbsp;
+                            {% else%}
+                                <input name="score" type="text" style="width: 45%"
+                           value="{{  info['score'] }}">&nbsp;&nbsp;
+                            {% endif %}
+                        {% else%}
+                            <input name="score" type="text" style="width: 45%"
+                           value="">&nbsp;&nbsp;
+                        {% endif %}
+
+                            <input name="score" type="hidden"
+                           value="{{ request.form['cno'] or course['cno'] }}">
+                        <input name="score" type="hidden"
+                           value="{{ request.form['sno'] or info['sno'] }}">
+
+                            <input type="submit" value="修改">
+                    </td>
                     <td nowrap="nowrap">
                         <form action={{ url_for('admin.unselect_course',sno=info['sno']) }} method="post" id="myform">
                             <input type="hidden" name="sno" value="{{ info['sno'] }}"/>
@@ -58,6 +81,7 @@
 
             </tbody>
         </table>
+    </form>
     </div>
 {% endblock %}
 

@@ -37,8 +37,12 @@
                             <td nowrap="nowrap">{{ info['cselect'] }}/{{ info['ccap'] }}</td>
 
                             <td nowrap="nowrap">
-                                {% if  info['score'] %}
-                                    {{ info['score'] }}
+                                {% if  info['score'] is not none %}
+                                    {% if  info['score'] == 0 %}
+                                        0
+                                    {% else %}
+                                        {{ info['score'] }}
+                                    {% endif %}
                                 {% endif %}
                             </td>
                             <td nowrap="nowrap">
