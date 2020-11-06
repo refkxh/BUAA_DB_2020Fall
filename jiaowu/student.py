@@ -124,10 +124,13 @@ def list_selected_courses():
 @check_permission('Student', False)
 def unselect_course(cno):
     db = get_db()
-    cursor = db.cursor()
+    cursor = db.cursor(dictionary=True)
     cursor.execute('select * from student_course where sno = %s and cno = %s', (current_user.no, cno))
-    if cursor.fetchone() is None:
+    item = cursor.fetchone()
+    if item is None:
         flash('您并未选修过该课程！')
+    elif item['score'] is not None:
+        flash('该课程已经出成绩，不允许退课！')
     else:
         cursor.callproc('unselect_course', (current_user.no, cno))
         flash('退课成功！')
