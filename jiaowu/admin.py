@@ -615,6 +615,8 @@ def modify_score():
     if len(score) > 0 and (not str.isdigit(score) or not(0 <= int(score) <= 100)):
         flash('成绩非法！')
     else:
+        if len(score) == 0:
+            score = None
         db = get_db()
         cursor = db.cursor()
         cursor.execute('select * from student_course where sno = %s and cno = %s', (sno, cno))
