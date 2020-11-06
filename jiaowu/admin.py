@@ -612,7 +612,7 @@ def modify_score():
     sno = request.form['sno']
     cno = request.form['cno']
     score = request.form['score']
-    if not(0 <= score <= 100):
+    if not str.isdigit(score) or not(0 <= int(score) <= 100):
         flash('成绩非法！')
     else:
         db = get_db()
