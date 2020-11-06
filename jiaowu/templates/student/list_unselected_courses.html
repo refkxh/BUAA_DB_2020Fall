@@ -33,7 +33,7 @@
                             <td nowrap="nowrap">{{ info['cdept'] }}</td>
                             <td nowrap="nowrap">{{ info['cselect'] }}/{{ info['ccap'] }}</td>
                             <td nowrap="nowrap">
-                                &nbsp; <a style="color: #5474fe"
+                                <a style="color: #5474fe"
                                           href="{{ url_for('student.select_course',cno=info['cno']) }}">选课</a></td>
                         </tr>
                     {% endfor %}
