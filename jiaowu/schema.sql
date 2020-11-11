@@ -9,8 +9,8 @@ create table student
     sname  varchar(32)  not null,
     ssex   char(2)      not null check (ssex in ('男', '女')),
     sid    char(18)     not null unique,
-    sgrade varchar(10) not null,
-    sdept  varchar(32) not null,
+    sgrade varchar(10)  not null,
+    sdept  varchar(32)  not null,
     stel   varchar(11),
     smail  varchar(32)
 );
@@ -33,7 +33,7 @@ create table teacher
     tname  varchar(32)  not null,
     tsex   char(2)      not null check (tsex in ('男', '女')),
     ttitle varchar(16)  not null,
-    tdept  varchar(32) not null,
+    tdept  varchar(32)  not null,
     ttel   varchar(11),
     tmail  varchar(32)
 );
@@ -45,6 +45,21 @@ create table admin
     aname varchar(32)  not null,
     atel  varchar(11),
     amail varchar(32)
+);
+
+create table textbook
+(
+    bno     varchar(32) primary key,
+    bname   varchar(64) not null,
+    bauthor varchar(64),
+    bpress  varchar(32)
+);
+
+create table room
+(
+    rno     int auto_increment primary key,
+    rname   varchar(32) not null,
+    rcap    int check (rcap >= 0)
 );
 
 create table student_course
