@@ -178,3 +178,62 @@ def delete_textbook(bno):
     cursor.close()
     flash('删除成功！')
     return redirect(url_for('teacher.info_textbook'))
+
+
+@bp.route('/list_untaught_courses', methods=('GET',))
+@check_permission('Teacher', False)
+def list_untaught_courses():
+    db = get_db()
+    cursor = db.cursor(dictionary=True)
+    cursor.execute('select * from course where cno not in '
+                   '(select cno from teacher_course where tno = %s) '
+                   'order by cno', (current_user.no,))
+    courses = cursor.fetchall()
+    cursor.close()
+    return render_template('teacher/list_untaught_courses.html', courses=courses)
+
+
+@bp.route('/teach_course/<int:cno>', methods=('GET',))
+@check_permission('Teacher', False)
+def teach_course(cno):
+    db = get_db()
+    cursor = db.cursor(dictionary=True)
+    cursor.execute('select * from teacher_course where tno = %s and cno = %s', (current_user.no, cno))
+    if cursor.fetchone() is not None:
+        flash('您已教授该课程！')
+    else:
+        cursor.callproc('teach_course', (current_user.no, cno))
+        flash('授课成功！')
+    db.commit()
+    cursor.close()
+    return redirect(url_for('teacher.list_untaught_courses'))
+
+
+@bp.route('/list_taught_courses', methods=('GET',))
+@check_permission('Teacher', False)
+def list_taught_courses():
+    db = get_db()
+    cursor = db.cursor(dictionary=True)
+    cursor.execute('select * from course where cno in '
+                   '(select cno from teacher_course where tno = %s) '
+                   'order by cno', (current_user.no,))
+    courses = cursor.fetchall()
+    cursor.close()
+    return render_template('teacher/list_taught_courses.html', courses=courses)
+
+
+@bp.route('/unteach_course/<int:cno>', methods=('GET',))
+@check_permission('Teacher', False)
+def unteach_course(cno):
+    db = get_db()
+    cursor = db.cursor(dictionary=True)
+    cursor.execute('select * from teacher_course where tno = %s and cno = %s', (current_user.no, cno))
+    item = cursor.fetchone()
+    if item is None:
+        flash('您并未教授该课程！')
+    else:
+        cursor.callproc('unteach_course', (current_user.no, cno))
+        flash('取消教授课程成功！')
+    db.commit()
+    cursor.close()
+    return redirect(url_for('teacher.list_taught_courses'))
