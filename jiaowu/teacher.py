@@ -237,3 +237,43 @@ def unteach_course(cno):
     db.commit()
     cursor.close()
     return redirect(url_for('teacher.list_taught_courses'))
+
+
+@bp.route('/course_to_stu/<int:cno>', methods=('GET',))
+@check_permission('Teacher', False)
+def course_to_stu(cno):
+    db = get_db()
+    cursor = db.cursor(dictionary=True)
+    cursor.execute('select student.sno sno, sname, ssex, sid, sgrade, sdept, stel, smail, score '
+                   'from student, student_course '
+                   'where student.sno = student_course.sno and cno = %s '
+                   'order by sno', (cno,))
+    students = cursor.fetchall()
+    cursor.execute('select cno, cname from course where cno = %s', (cno,))
+    course = cursor.fetchone()
+    cursor.close()
+    return render_template('teacher/course_to_stu.html', students=students, course=course)
+
+
+@bp.route('/modify_score', methods=('POST',))
+@check_permission('Teacher', False)
+def modify_score():
+    sno = request.form['sno']
+    cno = request.form['cno']
+    score = request.form['score']
+    if len(score) > 0 and (not str.isdigit(score) or not(0 <= int(score) <= 100)):
+        flash('成绩非法！')
+    else:
+        if len(score) == 0:
+            score = None
+        db = get_db()
+        cursor = db.cursor()
+        cursor.execute('select * from student_course where sno = %s and cno = %s', (sno, cno))
+        if cursor.fetchone() is None:
+            flash('该学生并未选修过该课程！')
+        else:
+            cursor.callproc('update_score', (sno, cno, score))
+            flash('成绩修改成功！')
+        db.commit()
+        cursor.close()
+    return redirect(request.referrer or url_for('index'))
