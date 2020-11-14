@@ -68,3 +68,113 @@ def update_teacher():
         if teacher is None:
             abort(404)
         return render_template('teacher/update_teacher.html', teacher=teacher)
+
+
+@bp.route('/info_textbook', methods=('GET', 'POST'))
+@check_permission('Teacher', False)
+def info_textbook():
+    db = get_db()
+    cursor = db.cursor(dictionary=True)
+    if request.method == 'POST':
+        str_select = ''
+        for key in request.form.keys():
+            value = request.form[key]
+            if type(value) == str:
+                if len(value) > 0:
+                    str_select += key + ' LIKE \'%' + value + '%\' and '
+            else:
+                abort(500)
+        if len(str_select) == 0:
+            return redirect(url_for('teacher.info_textbook'))
+        sql = 'select *' \
+              ' from textbook where {} order by bno'.format(str_select[:-4])
+        cursor.execute(sql)
+    else:
+        cursor.execute(
+            'select *'
+            ' from textbook'
+            ' order by bno'
+        )
+    textbooks = cursor.fetchall()
+    cursor.close()
+    return render_template('teacher/info_textbook.html', textbooks=textbooks)
+
+
+@bp.route('/create_textbook', methods=('GET', 'POST'))
+@check_permission('Teacher', False)
+def create_textbook():
+    if request.method == 'POST':
+        bno = request.form['bno']
+        bname = request.form['bname']
+        bauthor = request.form['bauthor']
+        bpress = request.form['bpress']
+
+        try:
+            validators.Textbook.bno(bno)
+            validators.Textbook.bname(bname)
+            validators.Textbook.bauthor(bauthor)
+            validators.Textbook.bpress(bpress)
+
+            db = get_db()
+            cursor = db.cursor()
+            cursor.callproc('create_textbook', (bno, bname, bauthor, bpress))
+            db.commit()
+            cursor.close()
+            flash('创建成功！')
+
+        except validators.ValidateException as e:
+            flash(e.info)
+
+        return redirect(url_for('teacher.create_textbook'))
+
+    return render_template('teacher/create_textbook.html')
+
+
+@bp.route('/update_textbook/<bno>', methods=('GET', 'POST'))
+@check_permission('Teacher', False)
+def update_textbook(bno):
+    db = get_db()
+    cursor = db.cursor(dictionary=True)
+    if request.method == 'POST':
+        bname = request.form['bname']
+        bauthor = request.form['bauthor']
+        bpress = request.form['bpress']
+
+        try:
+            validators.Textbook.bname(bname)
+            validators.Textbook.bauthor(bauthor)
+            validators.Textbook.bpress(bpress)
+
+            cursor.callproc('update_textbook', (bno, bname, bauthor, bpress))
+            db.commit()
+            cursor.close()
+            flash('修改成功！')
+
+        except validators.ValidateException as e:
+            flash(e.info)
+
+        return redirect(url_for('teacher.update_textbook', bno=bno))
+    else:
+        cursor.execute(
+            'select *'
+            ' from textbook'
+            ' where bno = %s',
+            (bno,)
+        )
+        textbook = cursor.fetchone()
+        cursor.close()
+        if textbook is None:
+            abort(404)
+        return render_template('teacher/update_textbook.html', textbook=textbook)
+
+
+@bp.route('/delete_textbook/<bno>', methods=('GET',))
+@check_permission('Teacher', False)
+def delete_textbook(bno):
+    db = get_db()
+    cursor = db.cursor()
+    cursor.callproc('delete_textbook', (bno,))
+    db.commit()
+    cursor.close()
+    flash('删除成功！')
+    return redirect(url_for('teacher.info_textbook'))

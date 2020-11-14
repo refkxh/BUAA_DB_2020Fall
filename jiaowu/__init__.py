@@ -11,7 +11,7 @@ def create_app():
 
     username = input('Please enter MySQL username: ')
     password = input('Please enter the password: ')
-    db_name = input('Please enter the name of the MySQL database to be used: ')
+    db_name = 'jiaowu'
 
     app.config.from_mapping(
         SECRET_KEY='dev',
