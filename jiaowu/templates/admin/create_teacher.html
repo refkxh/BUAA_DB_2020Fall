@@ -28,7 +28,7 @@
                     <label class="xrequired">院系: <br></label>
                     <input type="text" name="tdept" value="" placeholder="填写学院全称。示例：计算机学院"><br>
 
-                    手机号：<br>
+                    手机号: <br>
                     <input type="text" name="ttel" value=""><br>
                     邮箱: <br>
                     <input type="text" name="tmail" value=""><br><br>
@@ -65,5 +65,13 @@
             <i class="iconfont icon-jiaoshiliebiao"></i>&nbsp;&nbsp;教师信息管理</div>
         </li>
     </a>
+    <a href="{{ url_for('admin.info_textbook') }}">
+        <li>
+            <i class="iconfont icon-jiaocai"></i>&nbsp;&nbsp;教材信息管理
+        </li>
+    </a>
 
+    <a href="{{ url_for('admin.info_room') }}">
+        <li><i class="iconfont icon-jiaoshi"></i>&nbsp;&nbsp;教室信息管理</li>
+    </a>
 {% endblock %}

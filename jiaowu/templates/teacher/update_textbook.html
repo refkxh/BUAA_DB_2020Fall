@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% block title %}
+    教材信息管理
+{% endblock %}
+
+{% block Title %}
+    教材信息管理
+{% endblock %}
+
+{% block content %}
+    <div class="content_whole">
+        <div class="content_card_gray">
+            <div class="content_form1" style="overflow-x: hidden">
+                <form method="post" action="{{ url_for('teacher.update_textbook',bno=textbook['bno']) }}">
+                    <label>教材编号<br></label>
+                    <h4>{{ textbook['bno'] }}<br></h4>
+                    <label class="xrequired">教材名称<br></label>
+                    <input name="bname" type="text"
+                           value="{{ request.form['bname'] or textbook['bname'] }}" required><br>
+
+                    <label>出版社<br></label>
+                    <input name="bpress" type="text"
+                           value="{{ request.form['bpress'] or textbook['bpress'] }}" ><br>
+
+                    <label>作者<br></label>
+                    <input name="bauthor" type="text"
+                           value="{{ request.form['bauthor'] or textbook['bauthor'] }}" ><br><br>
+                    <input type="submit" value="保存">
+                    <p></p>
+                </form>
+            </div>
+        </div>
+
+
+    </div>
+{% endblock %}
+
+
+{% block nav %}
+
+     <a href="{{ url_for('teacher.update_teacher') }}">
+        <li>
+            <i class="iconfont icon-xueshengdangan1"></i>&nbsp;&nbsp;个人信息管理
+        </li>
+    </a>
+
+    <a href="{{ url_for('teacher.info_textbook') }}">
+        <li>
+            <div class="page_now"><i class="iconfont icon-xueshengdangan1"></i>&nbsp;&nbsp;教材信息管理</div>
+        </li>
+    </a>
+
+{% endblock %}
