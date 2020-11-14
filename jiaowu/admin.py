@@ -849,3 +849,80 @@ def modify_score():
         db.commit()
         cursor.close()
     return redirect(request.referrer or url_for('index'))
+
+
+@bp.route('/course_to_teacher/<int:cno>', methods=('GET',))
+@check_permission('Admin', False)
+def course_to_teacher(cno):
+    db = get_db()
+    cursor = db.cursor(dictionary=True)
+    cursor.execute('select teacher.tno tno, tname, tsex, ttitle, tdept, ttel, tmail '
+                   'from teacher, teacher_course '
+                   'where teacher.tno = teacher_course.tno and cno = %s '
+                   'order by tno', (cno,))
+    teachers = cursor.fetchall()
+    cursor.execute('select cno, cname from course where cno = %s', (cno,))
+    course = cursor.fetchone()
+    cursor.close()
+    return render_template('admin/course_to_stu.html', teachers=teachers, course=course)
+
+
+@bp.route('/teacher_to_course/<tno>', methods=('GET',))
+@check_permission('Admin', False)
+def teacher_to_course(tno):
+    db = get_db()
+    cursor = db.cursor(dictionary=True)
+    cursor.execute('select course.cno cno, cname, ctype, ccredit, cdept, ccap, cselect '
+                   'from course, teacher_course '
+                   'where course.cno = teacher_course.cno and tno = %s '
+                   'order by cno', (tno,))
+    courses = cursor.fetchall()
+    cursor.execute('select tno, tname from teacher where tno = %s', (tno,))
+    teacher = cursor.fetchone()
+    cursor.close()
+    return render_template('admin/stu_to_course.html', courses=courses, teacher=teacher)
+
+
+@bp.route('/teach_course', methods=('POST',))
+@check_permission('Admin', False)
+def teach_course():
+    tno = request.form['tno']
+    cno = request.form['cno']
+    db = get_db()
+    cursor = db.cursor(dictionary=True)
+    cursor.execute('select * from teacher_course where tno = %s and cno = %s', (tno, cno))
+    if cursor.fetchone() is not None:
+        flash('该老师已教授该课程！')
+    else:
+        cursor.execute('select * from teacher where tno = %s', (tno,))
+        if cursor.fetchone() is None:
+            flash('不存在该老师！')
+        else:
+            cursor.execute('select * from course where cno = %s', (cno,))
+            item = cursor.fetchone()
+            if item is None:
+                flash('不存在该课程！')
+            else:
+                cursor.callproc('teach_course', (tno, cno))
+                flash('授课关系设置成功！')
+    db.commit()
+    cursor.close()
+    return redirect(request.referrer or url_for('index'))
+
+
+@bp.route('/unteach_course', methods=('POST',))
+@check_permission('Admin', False)
+def unteach_course():
+    tno = request.form['tno']
+    cno = request.form['cno']
+    db = get_db()
+    cursor = db.cursor()
+    cursor.execute('select * from teacher_course where tno = %s and cno = %s', (tno, cno))
+    if cursor.fetchone() is None:
+        flash('该老师并未教授该课程！')
+    else:
+        cursor.callproc('unteach_course', (tno, cno))
+        flash('退课成功！')
+    db.commit()
+    cursor.close()
+    return redirect(request.referrer or url_for('index'))
