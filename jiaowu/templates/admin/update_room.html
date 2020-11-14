@@ -18,7 +18,7 @@
                     <input name="rname" type="text"
                            value="{{ request.form['rname'] or room['rname'] }}" required><br>
 
-                    <label>教室容量<br></label>
+                    <label class="xrequired">教室容量<br></label>
                     <input name="rcap" type="text"
                            value="{{ request.form['rcap'] or room['rcap'] }}" ><br><br>
                     <input type="submit" value="保存">

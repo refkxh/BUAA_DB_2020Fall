@@ -56,6 +56,8 @@
                                            href="{{ url_for('admin.update_course',cno=info['cno']) }}">修改</a>&nbsp;&nbsp;
                                         <a style="color: #5474fe"
                                            href="{{ url_for('admin.course_to_stu',cno=info['cno']) }}">已选学生</a>&nbsp;
+                                        <a style="color: #5474fe"
+                                           href="{{ url_for('admin.course_to_teacher',cno=info['cno']) }}">授课教师</a>&nbsp;
                         &nbsp;  <a style="color:#fc3c3a"
                                   href="{{ url_for('admin.delete_course',cno=info['cno']) }}">删除</a></td>
                 </tr>

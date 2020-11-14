@@ -4,7 +4,7 @@
 {% endblock %}
 
 {% block Title %}
-    教师信息管理
+    教室信息管理
 {% endblock %}
 
 {% block button %}
@@ -17,7 +17,7 @@
     <div class="content_form">
         <form action="{{ url_for('admin.info_room') }}" method="post">
             教室编号: <input type="text" name="rno" value=""><br>
-            教室名称: <input type="text" name="rname" value=""><br>
+            教室名称: <input type="text" name="rname" value=""><br><br>
             <input type="submit" value="查询"><br>
         </form>
     </div>
@@ -28,10 +28,10 @@
         <table class="primary">
             <thead>
             <tr>
-                <th nowrap="nowrap">教室编号</th>
-                <th nowrap="nowrap">教室名称</th>
-                <th nowrap="nowrap">教室容量</th>
-                <th nowrap="nowrap">操作</th>
+                <th nowrap="nowrap" width="30%">教室编号</th>
+                <th nowrap="nowrap" width="30%">教室名称</th>
+                <th nowrap="nowrap" width="30%">教室容量</th>
+                <th nowrap="nowrap" width="30%">操作</th>
 
             </tr>
             </thead>

@@ -20,6 +20,7 @@
                         <th nowrap="nowrap">学分</th>
                         <th nowrap="nowrap">院系</th>
                         <th nowrap="nowrap">课程容量</th>
+                        <th nowrap="nowrap">授课教师</th>
                         <th nowrap="nowrap">成绩</th>
                         <th nowrap="nowrap">操作</th>
 
@@ -35,7 +36,11 @@
                             <td nowrap="nowrap">{{ info['ccredit'] }}</td>
                             <td nowrap="nowrap">{{ info['cdept'] }}</td>
                             <td nowrap="nowrap">{{ info['cselect'] }}/{{ info['ccap'] }}</td>
-
+                            <td>
+                                {% for teachers in course_teachers[info['cno']] %}
+                                    {{ teachers }}
+                                {% endfor %}
+                            </td>
                             <td nowrap="nowrap">
                                 {% if  info['score'] is not none %}
                                     {% if  info['score'] == 0 %}

@@ -1,0 +1,119 @@
+{% extends "base2.html" %}
+{% block title %}
+    学生信息管理
+{% endblock %}
+
+{% block Title %}
+    {{ student['sname'] }}的选课信息
+{% endblock %}
+
+{% block form %}
+    <div class="content_form" style="padding-top: 125px">
+        <form action="{{ url_for('admin.select_course') }}" method="post">
+             <input type="hidden" name="sno" value="{{ student['sno'] }}" ><br>
+            课号: <input type="text" name="cno" value=""><br><br>
+            <input type="submit" value="选课"><br>
+        </form>
+    </div>
+
+{% endblock %}
+
+{% block table %}
+    <div class="content_table">
+        <form method="post" action="{{ url_for('admin.modify_score') }}">
+        <table class="primary" width="100%">
+            <thead>
+            <tr>
+                <th nowrap="nowrap">课程名称</th>
+                <th nowrap="nowrap">课程号</th>
+                <th nowrap="nowrap">课程类型</th>
+                <th nowrap="nowrap">学分</th>
+                <th nowrap="nowrap">院系</th>
+                <th nowrap="nowrap">课程容量</th>
+                <th nowrap="nowrap">成绩</th>
+
+                <th nowrap="nowrap">操作</th>
+
+            </tr>
+            </thead>
+            <tbody>
+
+            {% for info in courses %}
+                <tr>
+                    <td nowrap="nowrap">{{ info['cname'] }}</td>
+                    <td nowrap="nowrap">{{ info['cno'] }}</td>
+                    <td nowrap="nowrap">{{ info['ctype'] }}</td>
+                    <td nowrap="nowrap">{{ info['ccredit'] }}</td>
+                    <td nowrap="nowrap">{{ info['cdept'] }}</td>
+                    <td nowrap="nowrap">{{ info['cselect'] }}/{{ info['ccap'] }}</td>
+                    <td nowrap="nowrap" width="210px">
+                        {% if  info['score'] is not none %}
+                            {% if  info['score'] == 0 %}
+                               <input name="score" type="text" style="width: 45%"
+                           value="0">&nbsp;&nbsp;
+                            {% else%}
+                                <input name="score" type="text" style="width: 45%"
+                           value="{{  info['score'] }}">&nbsp;&nbsp;
+                            {% endif %}
+                        {% else%}
+                            <input name="score" type="text" style="width: 45%"
+                           value="">&nbsp;&nbsp;
+                        {% endif %}
+
+                            <input name="score" type="hidden"
+                           value="{{ request.form['cno'] or info['cno'] }}">
+                        <input name="score" type="hidden"
+                           value="{{ request.form['sno'] or student['sno'] }}">
+
+                            <input type="submit" value="修改">
+                    </td>
+
+                    <td nowrap="nowrap">
+                        <form action={{ url_for('admin.unselect_course',sno=info['sno']) }} method="post" id="myform">
+                            <input type="hidden" name="sno" value="{{ student['sno'] }}"/>
+                            <input type="hidden" name="cno" value="{{ info['cno'] }}"/>
+                        </form>
+                        <a href="#" onclick="document.getElementById('myform').submit();return false;" style="color:#fc3c3a">
+                            退课</a></td>
+                </tr>
+            {% endfor %}
+
+            </tbody>
+        </table>
+        </form>
+    </div>
+
+{% endblock %}
+
+
+{% block nav %}
+
+    <a href="{{ url_for('admin.info_stu') }}">
+        <li><i class="iconfont icon-xueshengdangan1"></i>&nbsp;&nbsp;学生信息管理</li>
+    </a>
+
+    <a href="{{ url_for('admin.info_course') }}">
+        <li>
+            <i class="iconfont icon-biaoqiankuozhan_kecheng-136"></i>&nbsp;&nbsp;课程信息管理
+        </li>
+    </a>
+
+    <a href="{{ url_for('admin.info_admin') }}">
+        <li><i class="iconfont icon-guanliyuan"></i>&nbsp;&nbsp;管理员信息管理</li>
+    </a>
+
+    <a href="{{ url_for('admin.info_teacher') }}">
+        <li>
+            <i class="iconfont icon-jiaoshiliebiao"></i>&nbsp;&nbsp;教师信息管理
+        </li>
+    </a>
+    <a href="{{ url_for('admin.info_textbook') }}">
+        <li>
+            <i class="iconfont icon-jiaocai"></i>&nbsp;&nbsp;教材信息管理
+        </li>
+    </a>
+
+    <a href="{{ url_for('admin.info_room') }}">
+        <li><i class="iconfont icon-jiaoshi"></i>&nbsp;&nbsp;教室信息管理</li>
+    </a>
+{% endblock %}

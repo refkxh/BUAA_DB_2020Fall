@@ -20,7 +20,7 @@
 在cmd中激活对应的virtualenv后，在项目目录下执行下列语句：
 
 ```
-set FLASK_APP=jiaowu
+ set FLASK_APP=jiaowu
 set FLASK_ENV=development
 set FLASK_DEBUG=0
 flask init-db
