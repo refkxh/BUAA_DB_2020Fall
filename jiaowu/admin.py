@@ -527,6 +527,227 @@ def delete_admin(ano):
     return redirect(url_for('admin.info_admin'))
 
 
+@bp.route('/info_textbook', methods=('GET', 'POST'))
+@check_permission('Admin', False)
+def info_textbook():
+    db = get_db()
+    cursor = db.cursor(dictionary=True)
+    if request.method == 'POST':
+        str_select = ''
+        for key in request.form.keys():
+            value = request.form[key]
+            if type(value) == str:
+                if len(value) > 0:
+                    str_select += key + ' LIKE \'%' + value + '%\' and '
+            else:
+                abort(500)
+        if len(str_select) == 0:
+            return redirect(url_for('admin.info_textbook'))
+        sql = 'select *' \
+              ' from textbook where {} order by bno'.format(str_select[:-4])
+        cursor.execute(sql)
+    else:
+        cursor.execute(
+            'select *'
+            ' from textbook'
+            ' order by bno'
+        )
+    textbooks = cursor.fetchall()
+    cursor.close()
+    return render_template('admin/info_textbook.html', textbooks=textbooks)
+
+
+@bp.route('/create_textbook', methods=('GET', 'POST'))
+@check_permission('Admin', False)
+def create_textbook():
+    if request.method == 'POST':
+        bno = request.form['bno']
+        bname = request.form['bname']
+        bauthor = request.form['bauthor']
+        bpress = request.form['bpress']
+
+        try:
+            validators.Textbook.bno(bno)
+            validators.Textbook.bname(bname)
+            validators.Textbook.bauthor(bauthor)
+            validators.Textbook.bpress(bpress)
+
+            db = get_db()
+            cursor = db.cursor()
+            cursor.callproc('create_textbook', (bno, bname, bauthor, bpress))
+            db.commit()
+            cursor.close()
+            flash('创建成功！')
+
+        except validators.ValidateException as e:
+            flash(e.info)
+
+        return redirect(url_for('admin.create_textbook'))
+
+    return render_template('admin/create_textbook.html')
+
+
+@bp.route('/update_textbook/<bno>', methods=('GET', 'POST'))
+@check_permission('Admin', False)
+def update_textbook(bno):
+    db = get_db()
+    cursor = db.cursor(dictionary=True)
+    if request.method == 'POST':
+        bname = request.form['bname']
+        bauthor = request.form['bauthor']
+        bpress = request.form['bpress']
+
+        try:
+            validators.Textbook.bname(bname)
+            validators.Textbook.bauthor(bauthor)
+            validators.Textbook.bpress(bpress)
+
+            cursor.callproc('update_textbook', (bno, bname, bauthor, bpress))
+            db.commit()
+            cursor.close()
+            flash('修改成功！')
+
+        except validators.ValidateException as e:
+            flash(e.info)
+
+        return redirect(url_for('admin.update_textbook', bno=bno))
+    else:
+        cursor.execute(
+            'select *'
+            ' from textbook'
+            ' where bno = %s',
+            (bno,)
+        )
+        textbook = cursor.fetchone()
+        cursor.close()
+        if textbook is None:
+            abort(404)
+        return render_template('admin/update_textbook.html', textbook=textbook)
+
+
+@bp.route('/delete_textbook/<bno>', methods=('GET',))
+@check_permission('Admin', False)
+def delete_textbook(bno):
+    db = get_db()
+    cursor = db.cursor()
+    cursor.callproc('delete_textbook', (bno,))
+    db.commit()
+    cursor.close()
+    flash('删除成功！')
+    return redirect(url_for('admin.info_textbook'))
+
+
+@bp.route('/info_room', methods=('GET', 'POST'))
+@check_permission('Admin', False)
+def info_room():
+    db = get_db()
+    cursor = db.cursor(dictionary=True)
+    if request.method == 'POST':
+        str_select = ''
+        for key in request.form.keys():
+            value = request.form[key]
+            if key == 'rno':
+                if len(value) > 0:
+                    if not str.isdigit(value):
+                        flash('教室号只能为数字！')
+                        return redirect(url_for('admin.info_room'))
+                    str_select += key + '=' + value + ' and '
+            else:
+                if type(value) == str:
+                    if len(value) > 0:
+                        str_select += key + ' LIKE \'%' + value + '%\' and '
+                else:
+                    abort(500)
+        if len(str_select) == 0:
+            return redirect(url_for('admin.info_room'))
+        sql = 'select *' \
+              ' from room where {} order by rno'.format(str_select[:-4])
+        cursor.execute(sql)
+    else:
+        cursor.execute(
+            'select *'
+            ' from room'
+            ' order by rno'
+        )
+    rooms = cursor.fetchall()
+    cursor.close()
+    return render_template('admin/info_room.html', rooms=rooms)
+
+
+@bp.route('/create_room', methods=('GET', 'POST'))
+@check_permission('Admin', False)
+def create_room():
+    if request.method == 'POST':
+        rname = request.form['rname']
+        rcap = request.form['rcap']
+
+        try:
+            validators.Room.rname(rname)
+            validators.Room.rcap(rcap)
+
+            db = get_db()
+            cursor = db.cursor()
+            cursor.callproc('create_room', (rname, rcap))
+            db.commit()
+            cursor.close()
+            flash('创建成功！')
+
+        except validators.ValidateException as e:
+            flash(e.info)
+
+        return redirect(url_for('admin.create_room'))
+
+    return render_template('admin/create_room.html')
+
+
+@bp.route('/update_room/<int:rno>', methods=('GET', 'POST'))
+@check_permission('Admin', False)
+def update_room(rno):
+    db = get_db()
+    cursor = db.cursor(dictionary=True)
+    if request.method == 'POST':
+        rname = request.form['rname']
+        rcap = request.form['rcap']
+
+        try:
+            validators.Room.rname(rname)
+            validators.Room.rcap(rcap)
+
+            cursor.callproc('update_room', (rno, rname, rcap))
+            db.commit()
+            cursor.close()
+            flash('修改成功！')
+
+        except validators.ValidateException as e:
+            flash(e.info)
+
+        return redirect(url_for('admin.update_room', rno=rno))
+    else:
+        cursor.execute(
+            'select *'
+            ' from room'
+            ' where rno = %s',
+            (rno,)
+        )
+        room = cursor.fetchone()
+        cursor.close()
+        if room is None:
+            abort(404)
+        return render_template('admin/update_room.html', room=room)
+
+
+@bp.route('/delete_room/<int:rno>', methods=('GET',))
+@check_permission('Admin', False)
+def delete_room(rno):
+    db = get_db()
+    cursor = db.cursor()
+    cursor.callproc('delete_room', (rno,))
+    db.commit()
+    cursor.close()
+    flash('删除成功！')
+    return redirect(url_for('admin.info_room'))
+
+
 @bp.route('/course_to_stu/<int:cno>', methods=('GET',))
 @check_permission('Admin', False)
 def course_to_stu(cno):

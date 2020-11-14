@@ -191,6 +191,57 @@ procedures = ['create procedure create_student(sno_in varchar(10),'
               'commit;'
               'end',
 
+              'create procedure create_textbook(bno_in varchar(32),'
+              'bname_in varchar(64),'
+              'bauthor_in varchar(64),'
+              'bpress_in varchar(32))'
+              'begin '
+              'insert into textbook (bno, bname, bauthor, bpress)'
+              ' values (bno_in, bname_in, bauthor_in, bpress_in);'
+              'commit;'
+              'end',
+
+              'create procedure update_textbook(bno_in varchar(32),'
+              'bname_in varchar(64),'
+              'bauthor_in varchar(64),'
+              'bpress_in varchar(32))'
+              'begin '
+              'update textbook set bname = bname_in, bauthor = bauthor_in, bpress = bpress_in'
+              ' where bno = bno_in;'
+              'commit;'
+              'end',
+
+              'create procedure delete_textbook(bno_in varchar(32))'
+              'begin '
+              'delete from textbook '
+              'where bno = bno_in;'
+              'commit;'
+              'end',
+
+              'create procedure create_room(rname_in varchar(32),'
+              'rcap_in int)'
+              'begin '
+              'insert into room (rname, rcap)'
+              ' values (rname_in, rcap_in);'
+              'commit;'
+              'end',
+
+              'create procedure update_room(rno_in int,'
+              'rname_in varchar(32),'
+              'rcap_in int)'
+              'begin '
+              'update room set rname = rname_in, rcap = rcap_in'
+              ' where rno = rno_in;'
+              'commit;'
+              'end',
+
+              'create procedure delete_room(rno_in int)'
+              'begin '
+              'delete from room '
+              'where rno = rno_in;'
+              'commit;'
+              'end',
+
               'create procedure select_course(sno_in varchar(10), cno_in int)'
               'begin '
               'insert into student_course (sno, cno) '

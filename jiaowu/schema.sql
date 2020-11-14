@@ -59,7 +59,7 @@ create table room
 (
     rno     int auto_increment primary key,
     rname   varchar(32) not null,
-    rcap    int check (rcap >= 0)
+    rcap    int not null check (rcap >= 0)
 );
 
 create table student_course

@@ -62,6 +62,15 @@ def grade(input_str):
         raise ValidateException("年级信息过长！")
 
 
+def cap(input_str):
+    if len(input_str) == 0:
+        raise ValidateException("容量不能为空！")
+    if not str.isdigit(input_str):
+        raise ValidateException("容量不合法！")
+    if int(input_str) > 8192:
+        raise ValidateException("容量过大！")
+
+
 class Student:
     @staticmethod
     def sno(input_str):
@@ -107,7 +116,7 @@ class Student:
         db = get_db()
         cursor = db.cursor(dictionary=True)
         cursor.execute(
-            'select sno'
+            'select *'
             ' from student'
             ' where sid = %s',
             (input_str,)
@@ -163,12 +172,7 @@ class Course:
 
     @staticmethod
     def ccap(input_str):
-        if len(input_str) == 0:
-            raise ValidateException("容量不能为空！")
-        if not str.isdigit(input_str):
-            raise ValidateException("容量不合法！")
-        if int(input_str) > 8192:
-            raise ValidateException("容量过大！")
+        cap(input_str)
 
 
 class Teacher:
@@ -186,7 +190,7 @@ class Teacher:
         db = get_db()
         cursor = db.cursor()
         cursor.execute(
-            'select tno'
+            'select *'
             ' from teacher'
             ' where tno = %s',
             (input_str,)
@@ -241,7 +245,7 @@ class Admin:
         db = get_db()
         cursor = db.cursor()
         cursor.execute(
-            'select ano'
+            'select *'
             ' from admin'
             ' where ano = %s',
             (input_str,)
@@ -266,3 +270,58 @@ class Admin:
     @staticmethod
     def amail(input_str):
         mail(input_str)
+
+
+class Textbook:
+    @staticmethod
+    def bno(input_str):
+        if len(input_str) == 0:
+            raise ValidateException("书号不能为空！")
+
+        if len(input_str) > 32:
+            raise ValidateException("书号过长！")
+
+        db = get_db()
+        cursor = db.cursor()
+        cursor.execute(
+            'select *'
+            ' from textbook'
+            ' where bno = %s',
+            (input_str,)
+        )
+        textbook = cursor.fetchone()
+        cursor.close()
+        if textbook is not None:
+            raise ValidateException("书号不能重复！")
+
+    @staticmethod
+    def bname(input_str):
+        if len(input_str) == 0:
+            raise ValidateException("书名不能为空！")
+
+        if len(input_str) > 64:
+            raise ValidateException("书名过长！")
+
+    @staticmethod
+    def bauthor(input_str):
+        if len(input_str) > 64:
+            raise ValidateException("作者信息过长！")
+
+    @staticmethod
+    def bpress(input_str):
+        if len(input_str) > 32:
+            raise ValidateException("出版社信息过长！")
+
+
+class Room:
+    @staticmethod
+    def rname(input_str):
+        if len(input_str) == 0:
+            raise ValidateException("教室名不能为空！")
+
+        if len(input_str) > 32:
+            raise ValidateException("教室名过长！")
+
+    @staticmethod
+    def rcap(input_str):
+        cap(input_str)
