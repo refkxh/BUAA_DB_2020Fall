@@ -71,3 +71,12 @@ create table student_course
     foreign key (sno) references student (sno),
     foreign key (cno) references course (cno)
 );
+
+create table teacher_course
+(
+    tno   varchar(10),
+    cno   int,
+    primary key (tno, cno),
+    foreign key (tno) references teacher (tno),
+    foreign key (cno) references course (cno)
+);
