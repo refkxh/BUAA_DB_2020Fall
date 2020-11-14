@@ -1,18 +1,18 @@
 {% extends "base2.html" %}
 {% block title %}
-    学生信息管理
+    教师信息管理
 {% endblock %}
 
 {% block Title %}
-    {{ student['sname'] }}的选课信息
+    {{ teacher['tname'] }}的授课信息
 {% endblock %}
 
 {% block form %}
     <div class="content_form" style="padding-top: 125px">
-        <form action="{{ url_for('admin.select_course') }}" method="post">
-             <input type="hidden" name="sno" value="{{ student['sno'] }}" ><br>
+        <form action="{{ url_for('admin.！！！！！！！') }}" method="post">
+             <input type="hidden" name="tno" value="{{ teacher['tno'] }}" ><br>
             课号: <input type="text" name="cno" value=""><br><br>
-            <input type="submit" value="选课"><br>
+            <input type="submit" value="授课"><br>
         </form>
     </div>
 
@@ -30,8 +30,6 @@
                 <th nowrap="nowrap">学分</th>
                 <th nowrap="nowrap">院系</th>
                 <th nowrap="nowrap">课程容量</th>
-                <th nowrap="nowrap">成绩</th>
-
                 <th nowrap="nowrap">操作</th>
 
             </tr>
@@ -46,35 +44,14 @@
                     <td nowrap="nowrap">{{ info['ccredit'] }}</td>
                     <td nowrap="nowrap">{{ info['cdept'] }}</td>
                     <td nowrap="nowrap">{{ info['cselect'] }}/{{ info['ccap'] }}</td>
-                    <td nowrap="nowrap" width="210px">
-                        {% if  info['score'] is not none %}
-                            {% if  info['score'] == 0 %}
-                               <input name="score" type="text" style="width: 45%"
-                           value="0">&nbsp;&nbsp;
-                            {% else%}
-                                <input name="score" type="text" style="width: 45%"
-                           value="{{  info['score'] }}">&nbsp;&nbsp;
-                            {% endif %}
-                        {% else%}
-                            <input name="score" type="text" style="width: 45%"
-                           value="">&nbsp;&nbsp;
-                        {% endif %}
-
-                            <input name="score" type="hidden"
-                           value="{{ request.form['cno'] or info['cno'] }}">
-                        <input name="score" type="hidden"
-                           value="{{ request.form['sno'] or student['sno'] }}">
-
-                            <input type="submit" value="修改">
-                    </td>
 
                     <td nowrap="nowrap">
-                        <form action={{ url_for('admin.unselect_course',sno=info['sno']) }} method="post" id="myform">
-                            <input type="hidden" name="sno" value="{{ student['sno'] }}"/>
+                        <form action={{ url_for('admin.！！！！！！',tno=info['tno']) }} method="post" id="myform">
+                            <input type="hidden" name="tno" value="{{ teacher['tno'] }}"/>
                             <input type="hidden" name="cno" value="{{ info['cno'] }}"/>
                         </form>
                         <a href="#" onclick="document.getElementById('myform').submit();return false;" style="color:#fc3c3a">
-                            退课</a></td>
+                            退授</a></td>
                 </tr>
             {% endfor %}
 

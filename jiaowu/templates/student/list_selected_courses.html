@@ -37,8 +37,8 @@
                             <td nowrap="nowrap">{{ info['cdept'] }}</td>
                             <td nowrap="nowrap">{{ info['cselect'] }}/{{ info['ccap'] }}</td>
                             <td>
-                                {% for teachers in course_teachers[info['cno']] %}
-                                    {{ teachers }}
+                                {% for teachers in course_teachers[ info['cno']] %}
+                                    {{ teachers }}<br>
                                 {% endfor %}
                             </td>
                             <td nowrap="nowrap">
