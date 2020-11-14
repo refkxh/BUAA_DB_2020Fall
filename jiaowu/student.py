@@ -85,7 +85,9 @@ def list_unselected_courses():
     for course in courses:
         cursor.execute('select tname from teacher where tno in '
                        '(select tno from teacher_course where cno = %s)', (course['cno'],))
-        course_teachers[str(course['cno'])] = cursor.fetchall()['tname']
+        course_teachers[str(course['cno'])] = []
+        for name in cursor.fetchall():
+            course_teachers[str(course['cno'])].append(name['tname'])
     cursor.close()
     return render_template('student/list_unselected_courses.html', courses=courses, course_teachers=course_teachers)
 
@@ -125,7 +127,9 @@ def list_selected_courses():
     for course in courses:
         cursor.execute('select tname from teacher where tno in '
                        '(select tno from teacher_course where cno = %s)', (course['cno'],))
-        course_teachers[str(course['cno'])] = cursor.fetchall()['tname']
+        course_teachers[str(course['cno'])] = []
+        for name in cursor.fetchall():
+            course_teachers[str(course['cno'])].append(name['tname'])
     cursor.close()
     return render_template('student/list_selected_courses.html', courses=courses, course_teachers=course_teachers)
 
