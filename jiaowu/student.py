@@ -81,8 +81,13 @@ def list_unselected_courses():
                    '(select cno from student_course where sno = %s) '
                    'order by cno', (current_user.no,))
     courses = cursor.fetchall()
+    course_teachers = dict()
+    for course in courses:
+        cursor.execute('select tname from teacher where tno in '
+                       '(select tno from teacher_course where cno = %s)', (course['cno'],))
+        course_teachers[course['cno']] = cursor.fetchall()['tname']
     cursor.close()
-    return render_template('student/list_unselected_courses.html', courses=courses)
+    return render_template('student/list_unselected_courses.html', courses=courses, course_teachers=course_teachers)
 
 
 @bp.route('/select_course/<int:cno>', methods=('GET',))
@@ -116,8 +121,13 @@ def list_selected_courses():
                    'where course.cno = student_course.cno and sno = %s '
                    'order by cno', (current_user.no,))
     courses = cursor.fetchall()
+    course_teachers = dict()
+    for course in courses:
+        cursor.execute('select tname from teacher where tno in '
+                       '(select tno from teacher_course where cno = %s)', (course['cno'],))
+        course_teachers[course['cno']] = cursor.fetchall()['tname']
     cursor.close()
-    return render_template('student/list_selected_courses.html', courses=courses)
+    return render_template('student/list_selected_courses.html', courses=courses, course_teachers=course_teachers)
 
 
 @bp.route('/unselect_course/<int:cno>', methods=('GET',))
