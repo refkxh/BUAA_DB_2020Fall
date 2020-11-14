@@ -922,7 +922,7 @@ def unteach_course():
         flash('该老师并未教授该课程！')
     else:
         cursor.callproc('unteach_course', (tno, cno))
-        flash('退课成功！')
+        flash('授课关系取消成功！')
     db.commit()
     cursor.close()
     return redirect(request.referrer or url_for('index'))
