@@ -163,3 +163,19 @@ def course_to_textbook(cno):
     course = cursor.fetchone()
     cursor.close()
     return render_template('student/course_to_textbook.html', textbooks=textbooks, course=course)
+
+
+@bp.route('/course_to_course/<int:cno>', methods=('GET',))
+@check_permission('Student', False)
+def course_to_course(cno):
+    db = get_db()
+    cursor = db.cursor(dictionary=True)
+    cursor.execute('select course.cno cno, cname, ctype, ccredit, cdept, ccap, cselect '
+                   'from course, course_course '
+                   'where course.cno = course_course.pcno and course_course.cno = %s '
+                   'order by cno', (cno,))
+    courses = cursor.fetchall()
+    cursor.execute('select cno, cname from course where cno = %s', (cno,))
+    course = cursor.fetchone()
+    cursor.close()
+    return render_template('student/course_to_course.html', courses=courses, course=course)

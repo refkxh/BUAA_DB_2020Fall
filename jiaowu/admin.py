@@ -1003,3 +1003,64 @@ def unassign_textbook():
     db.commit()
     cursor.close()
     return redirect(request.referrer or url_for('index'))
+
+
+@bp.route('/course_to_course/<int:cno>', methods=('GET',))
+@check_permission('Admin', False)
+def course_to_course(cno):
+    db = get_db()
+    cursor = db.cursor(dictionary=True)
+    cursor.execute('select course.cno cno, cname, ctype, ccredit, cdept, ccap, cselect '
+                   'from course, course_course '
+                   'where course.cno = course_course.pcno and course_course.cno = %s '
+                   'order by cno', (cno,))
+    courses = cursor.fetchall()
+    cursor.execute('select cno, cname from course where cno = %s', (cno,))
+    course = cursor.fetchone()
+    cursor.close()
+    return render_template('admin/course_to_course.html', courses=courses, course=course)
+
+
+@bp.route('/assign_prev_course', methods=('POST',))
+@check_permission('Admin', False)
+def assign_prev_course():
+    pcno = request.form['pcno']
+    cno = request.form['cno']
+    db = get_db()
+    cursor = db.cursor(dictionary=True)
+    cursor.execute('select * from course_course where pcno = %s and cno = %s', (pcno, cno))
+    if cursor.fetchone() is not None:
+        flash('已存在该先修课程！')
+    else:
+        cursor.execute('select * from course where cno = %s', (cno,))
+        if cursor.fetchone() is None:
+            flash('不存在该课程！')
+        else:
+            cursor.execute('select * from course where cno = %s', (pcno,))
+            item = cursor.fetchone()
+            if item is None:
+                flash('不存在该课程！')
+            else:
+                cursor.callproc('assign_prev_course', (pcno, cno))
+                flash('先修课程指定成功！')
+    db.commit()
+    cursor.close()
+    return redirect(request.referrer or url_for('index'))
+
+
+@bp.route('/unassign_prev_course', methods=('POST',))
+@check_permission('Admin', False)
+def unassign_prev_course():
+    pcno = request.form['pcno']
+    cno = request.form['cno']
+    db = get_db()
+    cursor = db.cursor()
+    cursor.execute('select * from course_course where pcno = %s and cno = %s', (pcno, cno))
+    if cursor.fetchone() is None:
+        flash('不存在该先修关系！')
+    else:
+        cursor.callproc('unassign_prev_course', (pcno, cno))
+        flash('取消先修关系成功！')
+    db.commit()
+    cursor.close()
+    return redirect(request.referrer or url_for('index'))
