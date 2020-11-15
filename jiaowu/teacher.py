@@ -292,7 +292,7 @@ def course_to_textbook(cno):
     cursor.execute('select cno, cname from course where cno = %s', (cno,))
     course = cursor.fetchone()
     cursor.close()
-    return render_template('admin/course_to_teacher.html', textbooks=textbooks, course=course)
+    return render_template('teacher/course_to_textbook.html', textbooks=textbooks, course=course)
 
 
 @bp.route('/assign_textbook', methods=('POST',))

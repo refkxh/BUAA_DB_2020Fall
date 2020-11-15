@@ -147,3 +147,19 @@ def unselect_course(cno):
     db.commit()
     cursor.close()
     return redirect(url_for('student.list_selected_courses'))
+
+
+@bp.route('/course_to_textbook/<int:cno>', methods=('GET',))
+@check_permission('Student', False)
+def course_to_textbook(cno):
+    db = get_db()
+    cursor = db.cursor(dictionary=True)
+    cursor.execute('select textbook.bno bno, bname, bauthor, bpress '
+                   'from textbook, textbook_course '
+                   'where textbook.bno = textbook_course.bno and cno = %s '
+                   'order by bno', (cno,))
+    textbooks = cursor.fetchall()
+    cursor.execute('select cno, cname from course where cno = %s', (cno,))
+    course = cursor.fetchone()
+    cursor.close()
+    return render_template('student/course_to_textbook.html', textbooks=textbooks, course=course)
