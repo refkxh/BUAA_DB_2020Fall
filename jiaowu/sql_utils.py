@@ -284,6 +284,20 @@ procedures = ['create procedure create_student(sno_in varchar(10),'
               'delete from teacher_course '
               'where tno = tno_in and cno = cno_in;'
               'commit;'
+              'end',
+
+              'create procedure assign_textbook(bno_in varchar(32), cno_in int)'
+              'begin '
+              'insert into textbook_course (bno, cno) '
+              'values (bno_in, cno_in);'
+              'commit;'
+              'end',
+
+              'create procedure unassign_textbook(bno_in varchar(32), cno_in int)'
+              'begin '
+              'delete from textbook_course '
+              'where bno = bno_in and cno = cno_in;'
+              'commit;'
               'end'
               ]
 
