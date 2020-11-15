@@ -89,3 +89,12 @@ create table textbook_course
     foreign key (bno) references textbook (bno),
     foreign key (cno) references course (cno)
 );
+
+create table course_course
+(
+    pcno int,
+    cno int,
+    primary key (pcno, cno),
+    foreign key (pcno) references course (cno),
+    foreign key (cno) references course (cno)
+);
