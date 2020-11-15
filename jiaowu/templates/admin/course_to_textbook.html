@@ -1,32 +1,25 @@
-{% extends "base1.html" %}
+{% extends "base2.html" %}
 {% block title %}
     教材信息管理
 {% endblock %}
 
 {% block Title %}
-    教材信息管理
-{% endblock %}
-
-{% block button %}
-    <a href="{{ url_for('admin.create_textbook') }}">
-        <button>新建教材</button>
-    </a>
+    {{ course['cname'] }}的教材信息
 {% endblock %}
 
 {% block form %}
-    <div class="content_form">
-        <form action="{{ url_for('admin.info_textbook') }}" method="post">
+    <div class="content_form" style="padding-top: 125px">
+        <form action="{{ url_for('admin.assign_textbook') }}" method="post">
             教材编号: <input type="text" name="bno" value=""><br>
-            教材名称: <input type="text" name="bname" value=""><br>
-            出版社: <input type="text" name="bpress" value=""><br>
-            作者: <input type="text" name="bauthor" value="" placeholder=""><br><br>
-            <input type="submit" value="查询"><br>
+            <input type="hidden" name="cno" value="{{ course['cno'] }}"><br><br>
+            <input type="submit" value="添加教材"><br>
         </form>
     </div>
 {% endblock %}
 
 {% block table %}
     <div class="content_table">
+
         <table class="primary">
             <thead>
             <tr>
@@ -34,8 +27,7 @@
                 <th nowrap="nowrap" width="25%">教材名称</th>
                 <th nowrap="nowrap" width="25%">出版社</th>
                 <th nowrap="nowrap" width="25%">作者</th>
-                <th nowrap="nowrap" width="25%">操作</th>
-                <th nowrap="nowrap" width="25%">详情信息查询</th>
+                <th nowrap="nowrap">操作</th>
 
             </tr>
             </thead>
@@ -47,33 +39,33 @@
                     <td nowrap="nowrap">{{ info['bname'] }}</td>
                     <td nowrap="nowrap">{{ info['bpress'] }}</td>
                     <td nowrap="nowrap">{{ info['bauthor'] }}</td>
-                    <td nowrap="nowrap"><a style="color: #5474fe"
-                                           href="{{ url_for('admin.update_textbook',bno=info['bno']) }}">修改</a>
-                        &nbsp; <a style="color:#fc3c3a"
-                                  href="{{ url_for('admin.delete_textbook',bno=info['bno']) }}">删除</a></td>
-                    <td nowrap="nowrap"><a style="color: #5474fe"
-                                           href="{{ url_for('admin.textbook_to_course',bno=info['bno']) }}">所属课程</a>
-                    </td>
+                    <td nowrap="nowrap">
+                        <form action={{ url_for('admin.unassign_textbook') }} method="post" id="myform">
+                            <input type="hidden" name="bno" value="{{ info['bno'] }}"/>
+                            <input type="hidden" name="cno" value="{{ course['cno'] }}"/>
+                        </form>
+                        <a href="#" onclick="document.getElementById('myform').submit();return false;" style="color:#fc3c3a">
+                            解除绑定</a></td>
                 </tr>
             {% endfor %}
 
 
             </tbody>
         </table>
+
     </div>
 {% endblock %}
 
-{% block nav %}
 
-    <a href="{{ url_for('admin.info_stu') }}">
-        <li>
-            <i class="iconfont icon-xueshengdangan1"></i>&nbsp;&nbsp;学生信息管理
-        </li>
+{% block nav %}
+<a href="{{ url_for('admin.info_stu') }}">
+        <li><i class="iconfont icon-xueshengdangan1"></i>&nbsp;&nbsp;学生信息管理</li>
     </a>
 
-
     <a href="{{ url_for('admin.info_course') }}">
-        <li><i class="iconfont icon-biaoqiankuozhan_kecheng-136"></i>&nbsp;&nbsp;课程信息管理</li>
+        <li>
+            <i class="iconfont icon-biaoqiankuozhan_kecheng-136"></i>&nbsp;&nbsp;课程信息管理
+        </li>
     </a>
 
     <a href="{{ url_for('admin.info_admin') }}">
@@ -88,11 +80,12 @@
 
     <a href="{{ url_for('admin.info_textbook') }}">
         <li>
-            <div class="page_now"><i class="iconfont icon-jiaocai"></i>&nbsp;&nbsp;教材信息管理</div>
+            <i class="iconfont icon-jiaocai"></i>&nbsp;&nbsp;教材信息管理
         </li>
     </a>
 
     <a href="{{ url_for('admin.info_room') }}">
         <li><i class="iconfont icon-jiaoshi"></i>&nbsp;&nbsp;教室信息管理</li>
     </a>
+
 {% endblock %}

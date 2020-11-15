@@ -1,34 +1,26 @@
-{% extends "base1.html" %}
+{% extends "base2.html" %}
 {% block title %}
-    课程信息管理
+    课程教材信息管理
 {% endblock %}
 
 {% block Title %}
-    课程信息管理
-{% endblock %}
-
-{% block button %}
-    <a href="{{ url_for('admin.create_course') }}">
-        <button>新建课程</button>
-    </a>
+    {{ textbook['bname'] }}的所属课程
 {% endblock %}
 
 {% block form %}
-    <div class="content_form">
-
-        <form action="{{ url_for('admin.info_course') }}" method="post">
-            课程名称: <input type="text" name="cname" value=""><br>
-            课程号: <input type="text" name="cno" value=""><br>
-            课程类型: <input type="text" name="ctype" value="" placeholder="示例：必修"><br>
-            院系: <input type="text" name="cdept" value="" placeholder="示例：计算机学院"><br><br>
-            <input type="submit" value="查询"><br>
+    <div class="content_form" style="padding-top: 125px">
+        <form action="{{ url_for('admin.assign_textbook') }}" method="post">
+             <input type="hidden" name="bno" value="{{ textbook['bno'] }}" ><br>
+            课号: <input type="text" name="cno" value=""><br><br>
+            <input type="submit" value="添加所属课程"><br>
         </form>
     </div>
 
 {% endblock %}
 
 {% block table %}
-    <div class="content_table" >
+    <div class="content_table">
+
         <table class="primary" width="100%">
             <thead>
             <tr>
@@ -39,7 +31,7 @@
                 <th nowrap="nowrap">院系</th>
                 <th nowrap="nowrap">课程容量</th>
                 <th nowrap="nowrap">操作</th>
-                <th nowrap="nowrap">详情信息查询</th>
+
             </tr>
             </thead>
             <tbody>
@@ -52,19 +44,14 @@
                     <td nowrap="nowrap">{{ info['ccredit'] }}</td>
                     <td nowrap="nowrap">{{ info['cdept'] }}</td>
                     <td nowrap="nowrap">{{ info['cselect'] }}/{{ info['ccap'] }}</td>
-                    <td nowrap="nowrap"><a style="color: #5474fe"
-                                           href="{{ url_for('admin.update_course',cno=info['cno']) }}">修改</a>&nbsp;
-                        &nbsp;  <a style="color:#fc3c3a"
-                                  href="{{ url_for('admin.delete_course',cno=info['cno']) }}">删除</a></td>
-                    <td nowrap="nowrap">
-                                        <a style="color: #5474fe"
-                                           href="{{ url_for('admin.course_to_stu',cno=info['cno']) }}">已选学生</a>&nbsp;
-                                        <a style="color: #5474fe"
-                                           href="{{ url_for('admin.course_to_teacher',cno=info['cno']) }}">授课教师</a>&nbsp;
-                                         <a style="color: #5474fe"
-                                           href="{{ url_for('admin.course_to_textbook',cno=info['cno']) }}">所选教材</a>&nbsp;
-                        &nbsp;  </td>
 
+                    <td nowrap="nowrap">
+                        <form action={{ url_for('admin.unassign_textbook') }} method="post" id="myform">
+                            <input type="hidden" name="bno" value="{{ textbook['tno'] }}"/>
+                            <input type="hidden" name="cno" value="{{ info['cno'] }}"/>
+                        </form>
+                        <a href="#" onclick="document.getElementById('myform').submit();return false;" style="color:#fc3c3a">
+                            解除绑定</a></td>
                 </tr>
             {% endfor %}
 
@@ -73,12 +60,10 @@
 
     </div>
 
-
 {% endblock %}
 
 
 {% block nav %}
-
 
     <a href="{{ url_for('admin.info_stu') }}">
         <li><i class="iconfont icon-xueshengdangan1"></i>&nbsp;&nbsp;学生信息管理</li>
@@ -86,7 +71,7 @@
 
     <a href="{{ url_for('admin.info_course') }}">
         <li>
-            <div class="page_now"><i class="iconfont icon-biaoqiankuozhan_kecheng-136"></i>&nbsp;&nbsp;课程信息管理</div>
+            <i class="iconfont icon-biaoqiankuozhan_kecheng-136"></i>&nbsp;&nbsp;课程信息管理
         </li>
     </a>
 
