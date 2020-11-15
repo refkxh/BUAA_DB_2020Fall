@@ -864,7 +864,7 @@ def course_to_teacher(cno):
     cursor.execute('select cno, cname from course where cno = %s', (cno,))
     course = cursor.fetchone()
     cursor.close()
-    return render_template('admin/course_to_stu.html', teachers=teachers, course=course)
+    return render_template('admin/course_to_teacher.html', teachers=teachers, course=course)
 
 
 @bp.route('/teacher_to_course/<tno>', methods=('GET',))
@@ -880,7 +880,7 @@ def teacher_to_course(tno):
     cursor.execute('select tno, tname from teacher where tno = %s', (tno,))
     teacher = cursor.fetchone()
     cursor.close()
-    return render_template('admin/stu_to_course.html', courses=courses, teacher=teacher)
+    return render_template('admin/teacher_to_course.html', courses=courses, teacher=teacher)
 
 
 @bp.route('/teach_course', methods=('POST',))
