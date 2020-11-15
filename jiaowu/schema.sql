@@ -57,9 +57,9 @@ create table textbook
 
 create table room
 (
-    rno     int auto_increment primary key,
-    rname   varchar(32) not null,
-    rcap    int not null check (rcap >= 0)
+    rno   int auto_increment primary key,
+    rname varchar(32) not null,
+    rcap  int         not null check (rcap >= 0)
 );
 
 create table student_course
@@ -74,9 +74,18 @@ create table student_course
 
 create table teacher_course
 (
-    tno   varchar(10),
-    cno   int,
+    tno varchar(10),
+    cno int,
     primary key (tno, cno),
     foreign key (tno) references teacher (tno),
+    foreign key (cno) references course (cno)
+);
+
+create table textbook_course
+(
+    bno varchar(32),
+    cno int,
+    primary key (bno, cno),
+    foreign key (bno) references textbook (bno),
     foreign key (cno) references course (cno)
 );
