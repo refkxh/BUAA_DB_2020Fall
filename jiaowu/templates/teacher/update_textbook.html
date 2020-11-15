@@ -49,5 +49,15 @@
             <div class="page_now"><i class="iconfont icon-xueshengdangan1"></i>&nbsp;&nbsp;教材信息管理</div>
         </li>
     </a>
+    <a href="{{ url_for('teacher.list_untaught_courses') }}">
+        <li>
+            <i class="iconfont icon-shouke"></i>&nbsp;&nbsp;教师授课
+        </li>
+    </a>
 
+    <a href="{{ url_for('teacher.list_taught_courses') }}">
+        <li>
+            <i class="iconfont icon-jiaoyu"></i>&nbsp;&nbsp;已授课程
+        </li>
+    </a>
 {% endblock %}

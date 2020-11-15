@@ -30,10 +30,10 @@
         <table class="primary">
             <thead>
             <tr>
-                <th nowrap="nowrap">教材编号</th>
-                <th nowrap="nowrap">教材名称</th>
-                <th nowrap="nowrap">出版社</th>
-                <th nowrap="nowrap">作者</th>
+                <th nowrap="nowrap" width="25%">教材编号</th>
+                <th nowrap="nowrap" width="25%">教材名称</th>
+                <th nowrap="nowrap" width="25%">出版社</th>
+                <th nowrap="nowrap" width="25%">作者</th>
                 <th nowrap="nowrap">操作</th>
 
             </tr>
@@ -70,6 +70,19 @@
     <a href="{{ url_for('teacher.info_textbook') }}">
         <li>
             <div class="page_now"><i class="iconfont icon-xueshengdangan1"></i>&nbsp;&nbsp;教材信息管理</div>
+        </li>
+    </a>
+
+
+    <a href="{{ url_for('teacher.list_untaught_courses') }}">
+        <li>
+            <i class="iconfont icon-shouke"></i>&nbsp;&nbsp;教师授课
+        </li>
+    </a>
+
+    <a href="{{ url_for('teacher.list_taught_courses') }}">
+        <li>
+            <i class="iconfont icon-jiaoyu"></i>&nbsp;&nbsp;已授课程
         </li>
     </a>
 {% endblock %}

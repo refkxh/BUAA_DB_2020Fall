@@ -1,0 +1,100 @@
+{% extends "base.html" %}
+{% block title %}
+    授课信息管理
+{% endblock %}
+
+{% block Title %}
+    {{ course['cname'] }}的选课情况
+{% endblock %}
+
+{% block content %}
+    <div class="content_whole">
+        <div class="content_card_gray">
+            <div class="content_table">
+                <form method="post" action="{{ url_for('admin.modify_score') }}">
+                    <table class="primary">
+                        <thead>
+                        <tr>
+                            <th nowrap="nowrap">学号</th>
+                            <th nowrap="nowrap">姓名</th>
+                            <th nowrap="nowrap">性别</th>
+                            <th nowrap="nowrap">年级</th>
+                            <th nowrap="nowrap">院系</th>
+                            <th nowrap="nowrap">身份证</th>
+                            <th nowrap="nowrap">手机号</th>
+                            <th nowrap="nowrap">邮箱</th>
+                            <th nowrap="nowrap">成绩</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+
+                        {% for info in students %}
+                            <tr>
+                                <td nowrap="nowrap">{{ info['sno'] }}</td>
+                                <td nowrap="nowrap">{{ info['sname'] }}</td>
+                                <td nowrap="nowrap">{{ info['ssex'] }}</td>
+                                <td nowrap="nowrap">{{ info['sgrade'] }}</td>
+                                <td nowrap="nowrap">{{ info['sdept'] }}</td>
+                                <td nowrap="nowrap">{{ info['sid'] }}</td>
+                                <td nowrap="nowrap">{{ info['stel'] }}</td>
+                                <td nowrap="nowrap">{{ info['smail'] }}</td>
+                                <td nowrap="nowrap" width="210px">
+                                    {% if  info['score'] is not none %}
+                                        {% if  info['score'] == 0 %}
+                                            <input name="score" type="text" style="width: 45%"
+                                                   value="0">&nbsp;&nbsp;
+                                        {% else %}
+                                            <input name="score" type="text" style="width: 45%"
+                                                   value="{{ info['score'] }}">&nbsp;&nbsp;
+                                        {% endif %}
+                                    {% else %}
+                                        <input name="score" type="text" style="width: 45%"
+                                               value="">&nbsp;&nbsp;
+                                    {% endif %}
+
+                                    <input name="cno" type="hidden"
+                                           value="{{ request.form['cno'] or course['cno'] }}">
+                                    <input name="sno" type="hidden"
+                                           value="{{ request.form['sno'] or info['sno'] }}">
+
+                                    <input type="submit" value="修改">
+                                </td>
+                            </tr>
+                        {% endfor %}
+
+
+                        </tbody>
+                    </table>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+
+{% block nav %}
+<a href="{{ url_for('teacher.update_teacher') }}">
+        <li>
+            <i class="iconfont icon-xueshengdangan1"></i>&nbsp;&nbsp;个人信息管理
+        </li>
+    </a>
+
+    <a href="{{ url_for('teacher.info_textbook') }}">
+        <li>
+            <i class="iconfont icon-xueshengdangan1"></i>&nbsp;&nbsp;教材信息管理
+        </li>
+    </a>
+
+    <a href="{{ url_for('teacher.list_untaught_courses') }}">
+        <li>
+            <i class="iconfont icon-shouke"></i>&nbsp;&nbsp;教师授课
+        </li>
+    </a>
+
+    <a href="{{ url_for('teacher.list_taught_courses') }}">
+        <li>
+            <i class="iconfont icon-jiaoyu"></i>&nbsp;&nbsp;已授课程
+        </li>
+    </a>
+
+{% endblock %}

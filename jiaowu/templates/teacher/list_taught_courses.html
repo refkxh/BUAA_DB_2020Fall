@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+{% block title %}
+    已授课程
+{% endblock %}
+
+{% block Title %}
+    已授课程
+{% endblock %}
+
+{% block content %}
+    <div class="content_whole">
+        <div class="content_card_gray">
+            <div class="content_table" style="margin-left: 30px;margin-right: 30px">
+                <form method="post" action="{{ url_for('teacher.modify_score') }}">
+                    <table class="primary" width="100%">
+                        <thead>
+                        <tr>
+                            <th nowrap="nowrap" width="25%">课程名称</th>
+                            <th nowrap="nowrap">课程号</th>
+                            <th nowrap="nowrap" width="25%">课程类型</th>
+                            <th nowrap="nowrap">学分</th>
+                            <th nowrap="nowrap" width="25%">院系</th>
+                            <th nowrap="nowrap" width="25%">课程容量</th>
+                            <th nowrap="nowrap">操作</th>
+
+                        </tr>
+                        </thead>
+                        <tbody>
+
+                        {% for info in courses %}
+                            <tr>
+                                <td nowrap="nowrap">{{ info['cname'] }}</td>
+                                <td nowrap="nowrap">{{ info['cno'] }}</td>
+                                <td nowrap="nowrap">{{ info['ctype'] }}</td>
+                                <td nowrap="nowrap">{{ info['ccredit'] }}</td>
+                                <td nowrap="nowrap">{{ info['cdept'] }}</td>
+                                <td nowrap="nowrap">{{ info['cselect'] }}/{{ info['ccap'] }}</td>
+                                <td nowrap="nowrap">
+                                    <a style="color: #5474fe"
+                                           href="{{ url_for('teacher.course_to_stu',cno=info['cno']) }}">已选学生</a>&nbsp;
+                                    <a style="color:#fc3c3a"
+                                       href="{{ url_for('teacher.unteach_course',cno=info['cno']) }}">退授课程</a></td>
+                            </tr>
+                        {% endfor %}
+
+                        </tbody>
+                    </table>
+                </form>
+            </div>
+        </div>
+
+
+    </div>
+{% endblock %}
+
+
+{% block nav %}
+    <a href="{{ url_for('teacher.update_teacher') }}">
+        <li>
+            <i class="iconfont icon-xueshengdangan1"></i>&nbsp;&nbsp;个人信息管理
+        </li>
+    </a>
+
+    <a href="{{ url_for('teacher.info_textbook') }}">
+        <li>
+            <i class="iconfont icon-xueshengdangan1"></i>&nbsp;&nbsp;教材信息管理
+        </li>
+    </a>
+    <a href="{{ url_for('teacher.list_untaught_courses') }}">
+        <li>
+            <i class="iconfont icon-shouke"></i>&nbsp;&nbsp;教师授课
+        </li>
+    </a>
+
+    <a href="{{ url_for('teacher.list_taught_courses') }}">
+        <li>
+            <div class="page_now"><i class="iconfont icon-jiaoyu"></i>&nbsp;&nbsp;已授课程</div>
+        </li>
+    </a>
+
+{% endblock %}

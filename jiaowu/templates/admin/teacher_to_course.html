@@ -9,7 +9,7 @@
 
 {% block form %}
     <div class="content_form" style="padding-top: 125px">
-        <form action="{{ url_for('admin.！！！！！！！') }}" method="post">
+        <form action="{{ url_for('admin.teach_course') }}" method="post">
              <input type="hidden" name="tno" value="{{ teacher['tno'] }}" ><br>
             课号: <input type="text" name="cno" value=""><br><br>
             <input type="submit" value="授课"><br>
@@ -46,7 +46,7 @@
                     <td nowrap="nowrap">{{ info['cselect'] }}/{{ info['ccap'] }}</td>
 
                     <td nowrap="nowrap">
-                        <form action={{ url_for('admin.！！！！！！',tno=info['tno']) }} method="post" id="myform">
+                        <form action={{ url_for('admin.unteach_course',tno=info['tno']) }} method="post" id="myform">
                             <input type="hidden" name="tno" value="{{ teacher['tno'] }}"/>
                             <input type="hidden" name="cno" value="{{ info['cno'] }}"/>
                         </form>

@@ -9,7 +9,7 @@
 
 {% block form %}
     <div class="content_form" style="padding-top: 125px">
-        <form action="{{ url_for('admin.！！！！！！！') }}" method="post">
+        <form action="{{ url_for('admin.teach_course') }}" method="post">
             工号: <input type="text" name="tno" value=""><br>
             <input type="hidden" name="cno" value="{{ course['cno'] }}"><br><br>
             <input type="submit" value="教授课程"><br>
@@ -45,8 +45,8 @@
                     <td nowrap="nowrap">{{ info['ttel'] }}</td>
                     <td nowrap="nowrap">{{ info['tmail'] }}</td>
                     <td nowrap="nowrap">
-                        <form action={{ url_for('admin.！！！！！！',tno=info['tno']) }} method="post" id="myform">
-                            <input type="hidden" name="sno" value="{{ info['tno'] }}"/>
+                        <form action={{ url_for('admin.unteach_course',tno=info['tno']) }} method="post" id="myform">
+                            <input type="hidden" name="tno" value="{{ info['tno'] }}"/>
                             <input type="hidden" name="cno" value="{{ course['cno'] }}"/>
                         </form>
                         <a href="#" onclick="document.getElementById('myform').submit();return false;" style="color:#fc3c3a">
