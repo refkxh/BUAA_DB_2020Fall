@@ -9,7 +9,7 @@
 
 {% block form %}
     <div class="content_form" style="padding-top: 125px">
-        <form action="{{ url_for('teacher.teach_course') }}" method="post">
+        <form action="{{ url_for('teacher.assign_textbook') }}" method="post">
             教材编号: <input type="text" name="bno" value=""><br>
             <input type="hidden" name="cno" value="{{ course['cno'] }}"><br><br>
             <input type="submit" value="添加教材"><br>
@@ -23,11 +23,12 @@
         <table class="primary">
             <thead>
             <tr>
-                <th nowrap="nowrap" width="25%">教材编号</th>
-                <th nowrap="nowrap" width="25%">教材名称</th>
-                <th nowrap="nowrap" width="25%">出版社</th>
-                <th nowrap="nowrap" width="25%">作者</th>
-                <th nowrap="nowrap">操作</th>
+                <th nowrap="nowrap" >教材编号</th>
+                <th nowrap="nowrap" >教材名称</th>
+                <th nowrap="nowrap" >出版社</th>
+                <th nowrap="nowrap" >作者</th>
+                <th nowrap="nowrap" >教材操作</th>
+                <th nowrap="nowrap" >关系操作</th>
 
             </tr>
             </thead>
@@ -43,7 +44,16 @@
                         <a style="color: #5474fe"
                                            href="{{ url_for('teacher.update_textbook',bno=info['bno']) }}">修改</a>
                         &nbsp; <a style="color:#fc3c3a"
-                                  href="{{ url_for('teacher.delete_textbook',bno=info['bno']) }}">删除</a></td>
+                                  href="{{ url_for('teacher.delete_textbook',bno=info['bno']) }}">删除</a> &nbsp;</td>
+                    <td>
+
+                        <form action={{ url_for('teacher.unassign_textbook') }} method="post" id="myform">
+                            <input type="hidden" name="bno" value="{{ info['bno'] }}"/>
+                            <input type="hidden" name="cno" value="{{ course['cno'] }}"/>
+                        </form>
+                        <a href="#" onclick="document.getElementById('myform').submit();return false;" style="color:#fc3c3a">
+                            解除绑定</a>
+                    </td>
                 </tr>
             {% endfor %}
 
@@ -64,7 +74,7 @@
 
     <a href="{{ url_for('teacher.info_textbook') }}">
         <li>
-            <div class="page_now"><i class="iconfont icon-xueshengdangan1"></i>&nbsp;&nbsp;教材信息管理</div>
+            <i class="iconfont icon-xueshengdangan1"></i>&nbsp;&nbsp;教材信息管理
         </li>
     </a>
 
