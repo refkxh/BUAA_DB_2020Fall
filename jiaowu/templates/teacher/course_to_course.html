@@ -1,0 +1,89 @@
+{% extends "base2.html" %}
+{% block title %}
+    先修课程信息
+{% endblock %}
+
+{% block Title %}
+    {{ course['cno'] }}的先修课程
+{% endblock %}
+
+{% block form %}
+    <div class="content_form" style="padding-top: 125px">
+        <form action="{{ url_for('teacher.assign_prev_course') }}" method="post">
+             <input type="hidden" name="cno" value="{{ course['cno'] }}" ><br>
+            课号: <input type="text" name="pcno" value=""><br><br>
+            <input type="submit" value="添加先修课程"><br>
+        </form>
+    </div>
+
+{% endblock %}
+
+{% block table %}
+    <div class="content_table">
+        
+        <table class="primary" width="100%">
+            <thead>
+            <tr>
+                <th nowrap="nowrap">课程名称</th>
+                <th nowrap="nowrap">课程号</th>
+                <th nowrap="nowrap">课程类型</th>
+                <th nowrap="nowrap">学分</th>
+                <th nowrap="nowrap">院系</th>
+                <th nowrap="nowrap">课程容量</th>
+                <th nowrap="nowrap">操作</th>
+            </tr>
+            </thead>
+            <tbody>
+
+            {% for info in courses %}
+                <tr>
+                    <td nowrap="nowrap">{{ info['cname'] }}</td>
+                    <td nowrap="nowrap">{{ info['cno'] }}</td>
+                    <td nowrap="nowrap">{{ info['ctype'] }}</td>
+                    <td nowrap="nowrap">{{ info['ccredit'] }}</td>
+                    <td nowrap="nowrap">{{ info['cdept'] }}</td>
+                    <td nowrap="nowrap">{{ info['cselect'] }}/{{ info['ccap'] }}</td>
+                <td nowrap="nowrap">
+                        <form action={{ url_for('teacher.unassign_prev_course') }} method="post" id="myform">
+                            <input type="hidden" name="pcno" value="{{ info['cno'] }}"/>
+                            <input type="hidden" name="cno" value="{{ course['cno'] }}"/>
+                        </form>
+                        <a href="#" onclick="document.getElementById('myform').submit();return false;" style="color:#fc3c3a">
+                            取消先修</a>
+                    </td>
+                </tr>
+            {% endfor %}
+
+            </tbody>
+        </table>
+        
+    </div>
+
+{% endblock %}
+
+{% block nav %}
+<a href="{{ url_for('teacher.update_teacher') }}">
+        <li>
+            <i class="iconfont icon-xueshengdangan1"></i>&nbsp;&nbsp;个人信息管理
+        </li>
+    </a>
+
+    <a href="{{ url_for('teacher.info_textbook') }}">
+        <li>
+            <i class="iconfont icon-xueshengdangan1"></i>&nbsp;&nbsp;教材信息管理
+        </li>
+    </a>
+
+    <a href="{{ url_for('teacher.list_untaught_courses') }}">
+        <li>
+            <i class="iconfont icon-shouke"></i>&nbsp;&nbsp;教师授课
+        </li>
+    </a>
+
+    <a href="{{ url_for('teacher.list_taught_courses') }}">
+        <li>
+            <i class="iconfont icon-jiaoyu"></i>&nbsp;&nbsp;已授课程
+        </li>
+    </a>
+
+{% endblock %}

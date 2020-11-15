@@ -1,0 +1,144 @@
+{% extends "base.html" %}
+{% block title %}
+    课程表
+{% endblock %}
+
+{% block Title %}
+    课程表
+{% endblock %}
+
+{% block content %}
+    <div class="content_whole">
+        <div class="content_card_gray">
+            <div class="content_table" style="margin-left: 30px;margin-right: 30px; padding-bottom: 30px;">
+                <table class="primary" width="100%">
+                    <caption class="F1">
+                        2020秋季学期学生sudent['sname']课程表
+                    </caption>
+                    <tr class="C1">
+                        <th>
+                            <div class="C3">
+                                <b>时间</b>
+                            </div>
+                        </th>
+                        <th>
+                            星期一</th>
+                        <th>
+                            星期二</th>
+                        <th>
+                            星期三</th>
+                        <th>
+                            星期四</th>
+                        <th>
+                            星期五</th>
+
+                    </tr>
+                    <td colspan="8">
+                        上午
+                    </td>
+                    </tr>
+                    <tr class="C2">
+                        <td nowrap="nowrap">第1,2节</td>
+                        <td>计算机工程中最优化的方法<br>
+                            冷 彪[1-17]周(一)201 第1，2节
+                        </td>
+                        <td>
+
+                        </td>
+                        <td>数据库系统原理<br>
+                            郎 波[1-13]周(一)304 第1，2节
+                        </td>
+                        <td></td>
+                        <td></td>
+
+                    </tr>
+                    <tr class="C2">
+                        <td nowrap="nowrap">
+                            第3,4,5节
+                        </td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>
+
+
+                        </td>
+                        <td>数据库系统原理<br>
+                            郎 波[1-13]周(一)304 第3，4节
+                        </td>
+
+                    </tr>
+
+                    <td colspan="8">
+                        下午
+                    </td>
+                    </tr>
+                    <tr class="C2">
+                        <td nowrap="nowrap">
+                            第6,7节
+                        </td>
+                        <td></td>
+                        <td>编译技术<br>
+                            史晓华[1-13]周E207 第6，7节
+                        </td>
+                        <td>
+
+                        </td>
+                        <td>数学建模<br>
+                            刘正华，宋 晓[1-17]周主M201 第6，7节
+                        </td>
+                        <td></td>
+
+                    </tr>
+                    <tr class="C2">
+                        <td nowrap="nowrap">
+                            第8,9,10节
+                        </td>
+                        <td>数学建模入门<br>
+                            郑 锦[1-13]周(一)212 第8，9节
+                        </td>
+                        <td></td>
+                        <td>
+
+                        </td>
+                        <td></td>
+                        <td></td>
+
+                    </tr>
+
+                </table>
+
+            </div>
+        </div>
+
+
+    </div>
+{% endblock %}
+
+
+{% block nav %}
+
+    <a href="{{ url_for('teacher.update_teacher') }}">
+        <li>
+            <div class="page_now"><i class="iconfont icon-xueshengdangan1"></i>&nbsp;&nbsp;个人信息管理</div>
+        </li>
+    </a>
+
+    <a href="{{ url_for('teacher.info_textbook') }}">
+        <li>
+            <i class="iconfont icon-xueshengdangan1"></i>&nbsp;&nbsp;教材信息管理
+        </li>
+    </a>
+
+    <a href="{{ url_for('teacher.list_untaught_courses') }}">
+        <li>
+            <i class="iconfont icon-shouke"></i>&nbsp;&nbsp;教师授课
+        </li>
+    </a>
+
+    <a href="{{ url_for('teacher.list_taught_courses') }}">
+        <li>
+            <i class="iconfont icon-jiaoyu"></i>&nbsp;&nbsp;已授课程
+        </li>
+    </a>
+{% endblock %}

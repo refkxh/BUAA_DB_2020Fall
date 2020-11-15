@@ -21,6 +21,7 @@
                         <th nowrap="nowrap">院系</th>
                         <th nowrap="nowrap">课程容量</th>
                         <th nowrap="nowrap">操作</th>
+                        <th nowrap="nowrap">详情信息查询</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -34,7 +35,12 @@
                             <td nowrap="nowrap">{{ info['cselect'] }}/{{ info['ccap'] }}</td>
                             <td nowrap="nowrap">
                                 <a style="color: #5474fe"
-                                          href="{{ url_for('teacher.teach_course',cno=info['cno']) }}">授课</a></td>
+                                          href="{{ url_for('teacher.teach_course',cno=info['cno']) }}">授课</a>
+                            </td>
+                            <td nowrap="nowrap">
+                                <a style="color: #5474fe"
+                                          href="{{ url_for('teacher.course_to_course',cno=info['cno']) }}">先修课程</a>
+                            </td>
                         </tr>
                     {% endfor %}
 
