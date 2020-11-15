@@ -93,8 +93,18 @@ create table textbook_course
 create table course_course
 (
     pcno int,
-    cno int,
+    cno  int,
     primary key (pcno, cno),
     foreign key (pcno) references course (cno),
+    foreign key (cno) references course (cno)
+);
+
+create table room_course
+(
+    rno  int,
+    cno  int,
+    time char(3),
+    primary key (rno, cno),
+    foreign key (rno) references room (rno),
     foreign key (cno) references course (cno)
 );
