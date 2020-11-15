@@ -987,7 +987,7 @@ def assign_textbook():
     return redirect(request.referrer or url_for('index'))
 
 
-@bp.route('/assign_textbook', methods=('POST',))
+@bp.route('/unassign_textbook', methods=('POST',))
 @check_permission('Admin', False)
 def unassign_textbook():
     bno = request.form['bno']

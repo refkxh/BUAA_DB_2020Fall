@@ -277,3 +277,64 @@ def modify_score():
         db.commit()
         cursor.close()
     return redirect(request.referrer or url_for('index'))
+
+
+@bp.route('/course_to_textbook/<int:cno>', methods=('GET',))
+@check_permission('Teacher', False)
+def course_to_textbook(cno):
+    db = get_db()
+    cursor = db.cursor(dictionary=True)
+    cursor.execute('select textbook.bno bno, bname, bauthor, bpress '
+                   'from textbook, textbook_course '
+                   'where textbook.bno = textbook_course.bno and cno = %s '
+                   'order by bno', (cno,))
+    textbooks = cursor.fetchall()
+    cursor.execute('select cno, cname from course where cno = %s', (cno,))
+    course = cursor.fetchone()
+    cursor.close()
+    return render_template('admin/course_to_teacher.html', textbooks=textbooks, course=course)
+
+
+@bp.route('/assign_textbook', methods=('POST',))
+@check_permission('Teacher', False)
+def assign_textbook():
+    bno = request.form['bno']
+    cno = request.form['cno']
+    db = get_db()
+    cursor = db.cursor(dictionary=True)
+    cursor.execute('select * from textbook_course where bno = %s and cno = %s', (bno, cno))
+    if cursor.fetchone() is not None:
+        flash('该教材已被指定为该课程所用！')
+    else:
+        cursor.execute('select * from textbook where bno = %s', (bno,))
+        if cursor.fetchone() is None:
+            flash('不存在该教材！')
+        else:
+            cursor.execute('select * from course where cno = %s', (cno,))
+            item = cursor.fetchone()
+            if item is None:
+                flash('不存在该课程！')
+            else:
+                cursor.callproc('assign_textbook', (bno, cno))
+                flash('教材指定成功！')
+    db.commit()
+    cursor.close()
+    return redirect(request.referrer or url_for('index'))
+
+
+@bp.route('/unassign_textbook', methods=('POST',))
+@check_permission('Teacher', False)
+def unassign_textbook():
+    bno = request.form['bno']
+    cno = request.form['cno']
+    db = get_db()
+    cursor = db.cursor()
+    cursor.execute('select * from textbook_course where bno = %s and cno = %s', (bno, cno))
+    if cursor.fetchone() is None:
+        flash('该教材并未被该课程指定！')
+    else:
+        cursor.callproc('unassign_textbook', (bno, cno))
+        flash('取消指定教材成功！')
+    db.commit()
+    cursor.close()
+    return redirect(request.referrer or url_for('index'))
