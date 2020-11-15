@@ -967,39 +967,39 @@ def assign_textbook():
     cno = request.form['cno']
     db = get_db()
     cursor = db.cursor(dictionary=True)
-    cursor.execute('select * from textbook_course where tno = %s and cno = %s', (tno, cno))
+    cursor.execute('select * from textbook_course where bno = %s and cno = %s', (bno, cno))
     if cursor.fetchone() is not None:
-        flash('该老师已教授该课程！')
+        flash('该教材已被指定为该课程所用！')
     else:
-        cursor.execute('select * from teacher where tno = %s', (tno,))
+        cursor.execute('select * from textbook where bno = %s', (bno,))
         if cursor.fetchone() is None:
-            flash('不存在该老师！')
+            flash('不存在该教材！')
         else:
             cursor.execute('select * from course where cno = %s', (cno,))
             item = cursor.fetchone()
             if item is None:
                 flash('不存在该课程！')
             else:
-                cursor.callproc('teach_course', (tno, cno))
-                flash('授课关系设置成功！')
+                cursor.callproc('assign_textbook', (bno, cno))
+                flash('教材指定成功！')
     db.commit()
     cursor.close()
     return redirect(request.referrer or url_for('index'))
 
 
-@bp.route('/unteach_course', methods=('POST',))
+@bp.route('/assign_textbook', methods=('POST',))
 @check_permission('Admin', False)
-def unteach_course():
-    tno = request.form['tno']
+def unassign_textbook():
+    bno = request.form['bno']
     cno = request.form['cno']
     db = get_db()
     cursor = db.cursor()
-    cursor.execute('select * from teacher_course where tno = %s and cno = %s', (tno, cno))
+    cursor.execute('select * from textbook_course where bno = %s and cno = %s', (bno, cno))
     if cursor.fetchone() is None:
-        flash('该老师并未教授该课程！')
+        flash('该教材并未被该课程指定！')
     else:
-        cursor.callproc('unteach_course', (tno, cno))
-        flash('授课关系取消成功！')
+        cursor.callproc('unassign_textbook', (bno, cno))
+        flash('取消指定教材成功！')
     db.commit()
     cursor.close()
     return redirect(request.referrer or url_for('index'))
