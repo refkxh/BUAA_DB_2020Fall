@@ -922,7 +922,7 @@ def unteach_course():
         flash('该老师并未教授该课程！')
     else:
         cursor.callproc('unteach_course', (tno, cno))
-        flash('授课关系取消成功！')
+        flash('取消教授课程成功！')
     db.commit()
     cursor.close()
     return redirect(request.referrer or url_for('index'))
@@ -941,7 +941,7 @@ def course_to_textbook(cno):
     cursor.execute('select cno, cname from course where cno = %s', (cno,))
     course = cursor.fetchone()
     cursor.close()
-    return render_template('admin/course_to_teacher.html', textbooks=textbooks, course=course)
+    return render_template('admin/course_to_textbook.html', textbooks=textbooks, course=course)
 
 
 @bp.route('/textbook_to_course/<bno>', methods=('GET',))
@@ -957,7 +957,7 @@ def textbook_to_course(bno):
     cursor.execute('select bno, bname from textbook where bno = %s', (bno,))
     textbook = cursor.fetchone()
     cursor.close()
-    return render_template('admin/teacher_to_course.html', courses=courses, textbook=textbook)
+    return render_template('admin/textbook_to_course.html', courses=courses, textbook=textbook)
 
 
 @bp.route('/assign_textbook', methods=('POST',))
