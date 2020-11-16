@@ -13,7 +13,7 @@
             <div class="content_table" style="margin-left: 30px;margin-right: 30px; padding-bottom: 30px;">
                 <table class="primary" width="100%">
                     <caption class="F1">
-                        2020秋季学期学生sudent['sname']课程表
+                        2020秋季学期课程表
                     </caption>
                     <tr class="C1">
                         <th>
@@ -21,15 +21,15 @@
                                 <b>时间</b>
                             </div>
                         </th>
-                        <th>
+                        <th nowrap="nowrap">
                             星期一</th>
-                        <th>
+                        <th nowrap="nowrap">
                             星期二</th>
-                        <th>
+                        <th nowrap="nowrap">
                             星期三</th>
-                        <th>
+                        <th nowrap="nowrap">
                             星期四</th>
-                        <th>
+                        <th nowrap="nowrap">
                             星期五</th>
 
                     </tr>
@@ -38,34 +38,38 @@
                     </td>
                     </tr>
                     <tr class="C2">
-                        <td nowrap="nowrap">第1,2节</td>
-                        <td>计算机工程中最优化的方法<br>
-                            冷 彪[1-17]周(一)201 第1，2节
-                        </td>
-                        <td>
+                        <td nowrap="nowrap">第1节</td>
+                        {% for i in range(5) %}
+                            {% for info in table[i][0] %}
+                                <td>{{ info['cname'] }} <br>
+                                    {% for tname in info['tname'] %}
+                                        {{ tname }} &nbsp;
+                                    {% endfor %}
+                                    ◇{{ info['rname'] }}◇
+                                </td>
 
-                        </td>
-                        <td>数据库系统原理<br>
-                            郎 波[1-13]周(一)304 第1，2节
-                        </td>
-                        <td></td>
-                        <td></td>
+                            {% endfor %}
+
+                        {% endfor %}
+
 
                     </tr>
                     <tr class="C2">
                         <td nowrap="nowrap">
-                            第3,4,5节
+                            第2节
                         </td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td>
+                        {% for i in range(5) %}
+                            {% for info in table[i][1] %}
+                                <td>{{ info['cname'] }} <br>
+                                    {% for tname in info['tname'] %}
+                                        {{ tname }} &nbsp;
+                                    {% endfor %}
+                                    ◇{{ info['rname'] }}◇
+                                </td>
 
+                            {% endfor %}
 
-                        </td>
-                        <td>数据库系统原理<br>
-                            郎 波[1-13]周(一)304 第3，4节
-                        </td>
+                        {% endfor %}
 
                     </tr>
 
@@ -75,34 +79,38 @@
                     </tr>
                     <tr class="C2">
                         <td nowrap="nowrap">
-                            第6,7节
+                            第3节
                         </td>
-                        <td></td>
-                        <td>编译技术<br>
-                            史晓华[1-13]周E207 第6，7节
-                        </td>
-                        <td>
+                        {% for i in range(5) %}
+                            {% for info in table[i][2] %}
+                                <td>{{ info['cname'] }} <br>
+                                    {% for tname in info['tname'] %}
+                                        {{ tname }} &nbsp;
+                                    {% endfor %}
+                                    ◇{{ info['rname'] }}◇
+                                </td>
 
-                        </td>
-                        <td>数学建模<br>
-                            刘正华，宋 晓[1-17]周主M201 第6，7节
-                        </td>
-                        <td></td>
+                            {% endfor %}
+
+                        {% endfor %}
 
                     </tr>
                     <tr class="C2">
                         <td nowrap="nowrap">
-                            第8,9,10节
+                            第4节
                         </td>
-                        <td>数学建模入门<br>
-                            郑 锦[1-13]周(一)212 第8，9节
-                        </td>
-                        <td></td>
-                        <td>
+                        {% for i in range(5) %}
+                            {% for info in table[i][3] %}
+                                <td>{{ info['cname'] }} <br>
+                                    {% for tname in info['tname'] %}
+                                        {{ tname }} &nbsp;
+                                    {% endfor %}
+                                    ◇{{ info['rname'] }}◇
+                                </td>
 
-                        </td>
-                        <td></td>
-                        <td></td>
+                            {% endfor %}
+
+                        {% endfor %}
 
                     </tr>
 
