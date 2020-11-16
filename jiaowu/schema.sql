@@ -103,7 +103,7 @@ create table room_course
 (
     rno  int,
     cno  int,
-    time char(3),
+    time char(3) not null,
     primary key (rno, cno),
     foreign key (rno) references room (rno),
     foreign key (cno) references course (cno)

@@ -179,3 +179,31 @@ def course_to_course(cno):
     course = cursor.fetchone()
     cursor.close()
     return render_template('student/course_to_course.html', courses=courses, course=course)
+
+
+@bp.route('/timetable', methods=('GET',))
+@check_permission('Student', False)
+def timetable():
+    db = get_db()
+    cursor = db.cursor(dictionary=True)
+    cursor.execute('select course.cno cno, cname, rname, time '
+                   'from course, room, room_course '
+                   'where course.cno = room_course.cno and room.rno = room_course.rno '
+                   'and room_course.cno in '
+                   '(select cno from student_course where sno = %s)', (current_user.no,))
+    course_rooms = cursor.fetchall()
+    table = [[list() for j in range(4)] for i in range(5)]
+    for course_room in course_rooms:
+        time = course_room['time'].split('-')
+        dim0 = int(time[0]) - 1
+        dim1 = int(time[1]) - 1
+        item = dict()
+        item['cname'] = course_room['cname']
+        item['rname'] = course_room['rname']
+        cursor.execute('select tname from teacher where tno in '
+                       '(select tno from teacher_course where cno = %s)', (course_room['cno'],))
+        entries = cursor.fetchall()
+        item['tname'] = [entry['tname'] for entry in entries]
+        table[dim0][dim1].append(item)
+    cursor.close()
+    return render_template('student/timetable.html', table=table)
