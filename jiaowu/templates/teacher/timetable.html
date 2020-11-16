@@ -40,15 +40,15 @@
                     <tr class="C2">
                         <td nowrap="nowrap">第1节</td>
                         {% for i in range(5) %}
-                            {% for info in table[i][0] %}
-                                <td>{{ info['cname'] }} <br>
+                            <td>{% for info in table[i][0] %}
+                                {{ info['cname'] }} <br>
                                     {% for tname in info['tname'] %}
-                                        {{ tname }} &nbsp;
+                                        {{ tname }},
                                     {% endfor %}
                                     ◇{{ info['rname'] }}◇
-                                </td>
 
-                            {% endfor %}
+
+                            {% endfor %} </td>
 
                         {% endfor %}
 
@@ -59,15 +59,15 @@
                             第2节
                         </td>
                         {% for i in range(5) %}
-                            {% for info in table[i][1] %}
-                                <td>{{ info['cname'] }} <br>
+                            <td>{% for info in table[i][1] %}
+                                {{ info['cname'] }} <br>
                                     {% for tname in info['tname'] %}
-                                        {{ tname }} &nbsp;
+                                        {{ tname }},
                                     {% endfor %}
                                     ◇{{ info['rname'] }}◇
-                                </td>
 
-                            {% endfor %}
+
+                            {% endfor %}</td>
 
                         {% endfor %}
 
@@ -82,15 +82,15 @@
                             第3节
                         </td>
                         {% for i in range(5) %}
-                            {% for info in table[i][2] %}
-                                <td>{{ info['cname'] }} <br>
+                            <td>{% for info in table[i][2] %}
+                                {{ info['cname'] }} <br>
                                     {% for tname in info['tname'] %}
-                                        {{ tname }} &nbsp;
+                                        {{ tname }},
                                     {% endfor %}
                                     ◇{{ info['rname'] }}◇
-                                </td>
 
-                            {% endfor %}
+
+                            {% endfor %} </td>
 
                         {% endfor %}
 
@@ -100,15 +100,14 @@
                             第4节
                         </td>
                         {% for i in range(5) %}
-                            {% for info in table[i][3] %}
-                                <td>{{ info['cname'] }} <br>
+                            <td>{% for info in table[i][3] %}
+                                {{ info['cname'] }} <br>
                                     {% for tname in info['tname'] %}
-                                        {{ tname }} &nbsp;
+                                        {{ tname }},
                                     {% endfor %}
                                     ◇{{ info['rname'] }}◇
-                                </td>
 
-                            {% endfor %}
+                            {% endfor %}</td>
 
                         {% endfor %}
 
@@ -128,7 +127,7 @@
 
     <a href="{{ url_for('teacher.update_teacher') }}">
         <li>
-            <div class="page_now"><i class="iconfont icon-xueshengdangan1"></i>&nbsp;&nbsp;个人信息管理</div>
+            <i class="iconfont icon-xueshengdangan1"></i>&nbsp;&nbsp;个人信息管理
         </li>
     </a>
 
@@ -147,6 +146,11 @@
     <a href="{{ url_for('teacher.list_taught_courses') }}">
         <li>
             <i class="iconfont icon-jiaoyu"></i>&nbsp;&nbsp;已授课程
+        </li>
+    </a>
+    <a href="{{ url_for('teacher.timetable') }}">
+        <li>
+            <div class="page_now"><i class="iconfont icon-kebiao"></i>&nbsp;&nbsp;课表查询</div>
         </li>
     </a>
 {% endblock %}

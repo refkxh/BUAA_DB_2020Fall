@@ -8,19 +8,31 @@
 {% endblock %}
 
 {% block form %}
+    <script type="text/javascript">
+        function addAction() {
+            document.name.action = "{{ url_for('admin.info_admin') }}";
+            document.name.submit();
+        }
+
+        function deleteAction() {
+            document.name.action = "{{url_for('admin.info_admin')}}";
+            document.name.submit();
+        }
+    </script>
     <div class="content_form" style="padding-top: 125px">
-        <form action="{{ url_for('admin.') }}" method="post">
-             <input type="hidden" name="rno" value="{{ room['rno'] }}" ><br>
+        <form name="name" method="post">
+            <input type="hidden" name="rno" value="{{ room['rno'] }}"><br>
             <label class="xrequired">课号: <br></label>
-                <input type="text" name="cno" value=""><br>
+            <input type="text" name="cno" value=""><br>
             <label class="xrequired">时间段: <br></label>
-                    <select name="time">
-                        <option>第一节</option>
-                        <option>第二节</option>
-                        <option>第三节</option>
-                        <option>第四节</option>
-                    </select><br><br>
-            <input type="submit" name="new" value="新增排课">&nbsp; <input type="submit" name="del" value="取消排课">
+            <select name="time">
+                <option>第一节</option>
+                <option>第二节</option>
+                <option>第三节</option>
+                <option>第四节</option>
+            </select><br><br>
+            <input type="button" value="新增排课" onclick="addAction()">&nbsp;
+            <input type="button" value="取消排课" onclick="deleteAction()">
         </form>
     </div>
 
@@ -28,110 +40,128 @@
 
 {% block table %}
     <div class="content_table">
-        
+
         <table class="primary" width="100%">
-                    <caption class="F1">
-                        2020秋季学期学生sudent['sname']课程表
-                    </caption>
-                    <tr class="C1">
-                        <th>
-                            <div class="C3">
-                                <b>时间</b>
-                            </div>
-                        </th>
-                        <th>
-                            星期一</th>
-                        <th>
-                            星期二</th>
-                        <th>
-                            星期三</th>
-                        <th>
-                            星期四</th>
-                        <th>
-                            星期五</th>
+            <caption class="F1">
+                2020秋季学期课程表
+            </caption>
+            <tr class="C1">
+                <th>
+                    <div class="C3">
+                        <b>时间</b>
+                    </div>
+                </th>
+                <th nowrap="nowrap">
+                    星期一
+                </th>
+                <th nowrap="nowrap">
+                    星期二
+                </th>
+                <th nowrap="nowrap">
+                    星期三
+                </th>
+                <th nowrap="nowrap">
+                    星期四
+                </th>
+                <th nowrap="nowrap">
+                    星期五
+                </th>
 
-                    </tr>
-                    <td colspan="8">
-                        上午
-                    </td>
-                    </tr>
-                    <tr class="C2">
-                        <td nowrap="nowrap">第1,2节</td>
-                        <td>计算机工程中最优化的方法<br>
-                            冷 彪[1-17]周 (一)201 第1，2节
-                        </td>
-                        <td>
+            </tr>
+            <td colspan="8">
+                上午
+            </td>
+            </tr>
+            <tr class="C2">
+                <td nowrap="nowrap">第1节</td>
+                {% for i in range(5) %}
+                    <td>{% for info in table[i][0] %}
 
-                        </td>
-                        <td>数据库系统原理<br>
-                            郎 波[1-13]周 (一)304 第1，2节
-                        </td>
-                        <td></td>
-                        <td></td>
+                        {{ info['cname'] }} <br>
+                        {% for tname in info['tname'] %}
+                            {{ tname }},
+                        {% endfor %}
+                        ◇{{ info['rname'] }}◇
 
-                    </tr>
-                    <tr class="C2">
-                        <td nowrap="nowrap">
-                            第3,4,5节
-                        </td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td>
+                    {% endfor %}</td>
+
+                {% endfor %}
 
 
-                        </td>
-                        <td>数据库系统原理<br>
-                            郎 波[1-13]周 (一)304 第3，4节
-                        </td>
+            </tr>
+            <tr class="C2">
+                <td nowrap="nowrap">
+                    第2节
+                </td>
+                {% for i in range(5) %}
+                    <td>{% for info in table[i][1] %}
 
-                    </tr>
+                        {{ info['cname'] }} <br>
+                        {% for tname in info['tname'] %}
+                            {{ tname }},
+                        {% endfor %}
+                        ◇{{ info['rname'] }}◇
 
-                    <td colspan="8">
-                        下午
-                    </td>
-                    </tr>
-                    <tr class="C2">
-                        <td nowrap="nowrap">
-                            第6,7节
-                        </td>
-                        <td></td>
-                        <td>编译技术<br>
-                            史晓华[1-13]周 E207 第6，7节
-                        </td>
-                        <td>
 
-                        </td>
-                        <td>数学建模<br>
-                            刘正华，宋 晓[1-17]周 主M201 第6，7节
-                        </td>
-                        <td></td>
 
-                    </tr>
-                    <tr class="C2">
-                        <td nowrap="nowrap">
-                            第8,9,10节
-                        </td>
-                        <td>数学建模入门<br>
-                            郑 锦[1-13]周 (一)212 第8，9节
-                        </td>
-                        <td></td>
-                        <td>
 
-                        </td>
-                        <td></td>
-                        <td></td>
+                    {% endfor %}</td>
 
-                    </tr>
+                {% endfor %}
 
-                </table>
-        
+            </tr>
+
+            <td colspan="8">
+                下午
+            </td>
+            </tr>
+            <tr class="C2">
+                <td nowrap="nowrap">
+                    第3节
+                </td>
+                {% for i in range(5) %}
+                    <td>{% for info in table[i][2] %}
+
+                        {{ info['cname'] }} <br>
+                        {% for tname in info['tname'] %}
+                            {{ tname }},
+                        {% endfor %}
+                        ◇{{ info['rname'] }}◇
+
+
+
+
+                    {% endfor %}</td>
+
+                {% endfor %}
+
+            </tr>
+            <tr class="C2">
+                <td nowrap="nowrap">
+                    第4节
+                </td>
+                {% for i in range(5) %}
+                    <td>{% for info in table[i][3] %}
+                        {{ info['cname'] }} <br>
+                        {% for tname in info['tname'] %}
+                            {{ tname }},
+                        {% endfor %}
+                        ◇{{ info['rname'] }}◇
+
+                    {% endfor %}</td>
+                {% endfor %}
+
+
+            </tr>
+
+        </table>
+
     </div>
 
 {% endblock %}
 
 {% block nav %}
-   <a href="{{ url_for('admin.info_stu') }}">
+    <a href="{{ url_for('admin.info_stu') }}">
         <li><i class="iconfont icon-xueshengdangan1"></i>&nbsp;&nbsp;学生信息管理</li>
     </a>
 
