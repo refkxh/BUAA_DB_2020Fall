@@ -1170,7 +1170,7 @@ def unassign_course():
     if cursor.fetchone() is None:
         flash('不存在该排课关系！')
     else:
-        cursor.callproc('unassign_course', (rno, cno))
+        cursor.callproc('unassign_course', (rno, cno, time))
         flash('取消排课成功！')
     db.commit()
     cursor.close()

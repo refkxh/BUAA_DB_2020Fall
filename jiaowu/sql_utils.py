@@ -327,10 +327,10 @@ procedures = ['create procedure create_student(sno_in varchar(10),'
               'commit;'
               'end',
 
-              'create procedure unassign_course(rno_in int, cno_in int)'
+              'create procedure unassign_course(rno_in int, cno_in int, time_in char(3))'
               'begin '
               'delete from room_course '
-              'where rno = rno_in and cno = cno_in;'
+              'where rno = rno_in and cno = cno_in and time = time_in;'
               'commit;'
               'end'
               ]
