@@ -1,0 +1,187 @@
+{% extends "base2.html" %}
+{% block title %}
+    课程信息
+{% endblock %}
+
+{% block Title %}
+    {{ room['rname'] }}的课程信息
+{% endblock %}
+
+{% block form %}
+    <script type="text/javascript">
+        function addAction() {
+            document.name.action = "{{ url_for('admin.assign_course') }}";
+            document.name.submit();
+        }
+
+        function deleteAction() {
+            document.name.action = "{{url_for('admin.unassign_course')}}";
+            document.name.submit();
+        }
+    </script>
+    <div class="content_form" style="padding-top: 125px">
+        <form action="{{ url_for('admin.assign_course') }}" method="post">
+             <input type="hidden" name="rno" value="{{ room['rno'] }}" ><br>
+            课号: <input type="text" name="cno" value=""><br>
+            时间: <input type="text" name="time" value="" placeholder="1-1 表示星期一第一节"><br><br>
+            <input type="button" value="新增排课" onclick="addAction()">&nbsp;
+            <input type="button" value="取消排课" onclick="deleteAction()">
+        </form>
+    </div>
+
+{% endblock %}
+
+{% block table %}
+    <div class="content_table">
+
+        <table class="primary" width="100%">
+            <caption class="F1">
+                2020秋季学期课程表
+            </caption>
+            <tr class="C1">
+                <th>
+                    <div class="C3">
+                        <b>时间</b>
+                    </div>
+                </th>
+                <th nowrap="nowrap">
+                    星期一
+                </th>
+                <th nowrap="nowrap">
+                    星期二
+                </th>
+                <th nowrap="nowrap">
+                    星期三
+                </th>
+                <th nowrap="nowrap">
+                    星期四
+                </th>
+                <th nowrap="nowrap">
+                    星期五
+                </th>
+
+            </tr>
+            <td colspan="8">
+                上午
+            </td>
+            </tr>
+            <tr class="C2">
+                <td nowrap="nowrap">第1节</td>
+                {% for i in range(5) %}
+                    <td>{% for info in table[i][0] %}
+
+                        {{ info['cname'] }} <br>
+                        {% for tname in info['tname'] %}
+                            {{ tname }},
+                        {% endfor %}
+                        ◇{{ room['rname'] }}◇
+
+                    {% endfor %}</td>
+
+                {% endfor %}
+
+
+            </tr>
+            <tr class="C2">
+                <td nowrap="nowrap">
+                    第2节
+                </td>
+                {% for i in range(5) %}
+                    <td>{% for info in table[i][1] %}
+
+                        {{ info['cname'] }} <br>
+                        {% for tname in info['tname'] %}
+                            {{ tname }},
+                        {% endfor %}
+                        ◇{{ room['rname'] }}◇
+
+
+
+
+                    {% endfor %}</td>
+
+                {% endfor %}
+
+            </tr>
+
+            <td colspan="8">
+                下午
+            </td>
+            </tr>
+            <tr class="C2">
+                <td nowrap="nowrap">
+                    第3节
+                </td>
+                {% for i in range(5) %}
+                    <td>{% for info in table[i][2] %}
+
+                        {{ info['cname'] }} <br>
+                        {% for tname in info['tname'] %}
+                            {{ tname }},
+                        {% endfor %}
+                        ◇{{ room['rname'] }}◇
+
+
+
+
+                    {% endfor %}</td>
+
+                {% endfor %}
+
+            </tr>
+            <tr class="C2">
+                <td nowrap="nowrap">
+                    第4节
+                </td>
+                {% for i in range(5) %}
+                    <td>{% for info in table[i][3] %}
+                        {{ info['cname'] }} <br>
+                        {% for tname in info['tname'] %}
+                            {{ tname }},
+                        {% endfor %}
+                        ◇{{ room['rname'] }}◇
+
+                    {% endfor %}</td>
+                {% endfor %}
+
+
+            </tr>
+
+        </table>
+
+    </div>
+
+{% endblock %}
+
+{% block nav %}
+   <a href="{{ url_for('admin.info_stu') }}">
+        <li><i class="iconfont icon-xueshengdangan1"></i>&nbsp;&nbsp;学生信息管理</li>
+    </a>
+
+    <a href="{{ url_for('admin.info_course') }}">
+        <li>
+            <i class="iconfont icon-biaoqiankuozhan_kecheng-136"></i>&nbsp;&nbsp;课程信息管理
+        </li>
+    </a>
+
+    <a href="{{ url_for('admin.info_admin') }}">
+        <li><i class="iconfont icon-guanliyuan"></i>&nbsp;&nbsp;管理员信息管理</li>
+    </a>
+
+    <a href="{{ url_for('admin.info_teacher') }}">
+        <li>
+            <i class="iconfont icon-jiaoshiliebiao"></i>&nbsp;&nbsp;教师信息管理
+        </li>
+    </a>
+
+    <a href="{{ url_for('admin.info_textbook') }}">
+        <li>
+            <i class="iconfont icon-jiaocai"></i>&nbsp;&nbsp;教材信息管理
+        </li>
+    </a>
+
+    <a href="{{ url_for('admin.info_room') }}">
+        <li><i class="iconfont icon-jiaoshi"></i>&nbsp;&nbsp;教室信息管理</li>
+    </a>
+
+{% endblock %}

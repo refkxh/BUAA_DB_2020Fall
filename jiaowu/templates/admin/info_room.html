@@ -32,6 +32,7 @@
                 <th nowrap="nowrap" width="30%">教室名称</th>
                 <th nowrap="nowrap" width="30%">教室容量</th>
                 <th nowrap="nowrap" width="30%">操作</th>
+                <th nowrap="nowrap" width="30%">详情信息</th>
 
             </tr>
             </thead>
@@ -47,6 +48,9 @@
                                            href="{{ url_for('admin.update_room',rno=info['rno']) }}">修改</a>
                         &nbsp; <a style="color:#fc3c3a"
                                   href="{{ url_for('admin.delete_room',rno=info['rno']) }}">删除</a></td>
+                    <td nowrap="nowrap"><a style="color: #5474fe"
+                                           href="{{ url_for('admin.room_to_course',rno=info['rno']) }}">课程信息与排课</a>
+                        </td>
                 </tr>
             {% endfor %}
 

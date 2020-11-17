@@ -1093,7 +1093,7 @@ def room_to_course(rno):
 
 
 @bp.route('/course_to_room/<int:cno>', methods=('GET',))
-@check_permission('Student', False)
+@check_permission('Admin', False)
 def course_to_room(cno):
     db = get_db()
     cursor = db.cursor(dictionary=True)
@@ -1123,10 +1123,10 @@ def assign_course():
     rno = request.form['rno']
     cno = request.form['cno']
     time = request.form['time']
-    if len(time) != 3 or time[1] != '-' or not time[0].is_digit() or not time[2].is_digit():
+    if len(time) != 3 or time[1] != '-' or not time[0].isdigit() or not time[2].isdigit():
         flash('课程时间不合法！')
         return redirect(request.referrer or url_for('index'))
-    if not (1 <= int(time[0]) <= 5 and 1 <= int(time[1]) <= 4):
+    if not (1 <= int(time[0]) <= 5 and 1 <= int(time[2]) <= 4):
         flash('课程时间不合法！')
         return redirect(request.referrer or url_for('index'))
     db = get_db()
