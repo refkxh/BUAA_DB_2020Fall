@@ -1163,9 +1163,10 @@ def assign_course():
 def unassign_course():
     rno = request.form['rno']
     cno = request.form['cno']
+    time = request.form['time']
     db = get_db()
     cursor = db.cursor()
-    cursor.execute('select * from room_course where rno = %s and cno = %s', (rno, cno))
+    cursor.execute('select * from room_course where rno = %s and cno = %s and time = %s', (rno, cno, time))
     if cursor.fetchone() is None:
         flash('不存在该排课关系！')
     else:
