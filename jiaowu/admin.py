@@ -1086,8 +1086,10 @@ def room_to_course(rno):
         entries = cursor.fetchall()
         item['tname'] = [entry['tname'] for entry in entries]
         table[dim0][dim1].append(item)
+    cursor.execute('select rno, rname from room where rno = %s', (rno,))
+    room = cursor.fetchone()
     cursor.close()
-    return render_template('admin/room_to_course.html', table=table)
+    return render_template('admin/room_to_course.html', table=table, room=room)
 
 
 @bp.route('/course_to_room/<int:cno>', methods=('GET',))
@@ -1109,8 +1111,10 @@ def course_to_room(cno):
         item['rno'] = room['rno']
         item['rname'] = room['rname']
         table[dim0][dim1].append(item)
+    cursor.execute('select cno, cname from course where cno = %s', (cno,))
+    course = cursor.fetchone()
     cursor.close()
-    return render_template('admin/course_to_room.html', table=table)
+    return render_template('admin/course_to_room.html', table=table, course=course)
 
 
 @bp.route('/assign_course', methods=('POST',))
