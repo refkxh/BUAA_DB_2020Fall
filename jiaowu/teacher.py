@@ -228,8 +228,7 @@ def unteach_course(cno):
     db = get_db()
     cursor = db.cursor(dictionary=True)
     cursor.execute('select * from teacher_course where tno = %s and cno = %s', (current_user.no, cno))
-    item = cursor.fetchone()
-    if item is None:
+    if cursor.fetchone() is None:
         flash('您并未教授该课程！')
     else:
         cursor.callproc('unteach_course', (current_user.no, cno))
@@ -311,8 +310,7 @@ def assign_textbook():
             flash('不存在该教材！')
         else:
             cursor.execute('select * from course where cno = %s', (cno,))
-            item = cursor.fetchone()
-            if item is None:
+            if cursor.fetchone() is None:
                 flash('不存在该课程！')
             else:
                 cursor.callproc('assign_textbook', (bno, cno))
@@ -372,8 +370,7 @@ def assign_prev_course():
             flash('不存在该课程！')
         else:
             cursor.execute('select * from course where cno = %s', (pcno,))
-            item = cursor.fetchone()
-            if item is None:
+            if cursor.fetchone() is None:
                 flash('不存在该课程！')
             else:
                 cursor.callproc('assign_prev_course', (pcno, cno))

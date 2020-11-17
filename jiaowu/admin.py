@@ -899,8 +899,7 @@ def teach_course():
             flash('不存在该老师！')
         else:
             cursor.execute('select * from course where cno = %s', (cno,))
-            item = cursor.fetchone()
-            if item is None:
+            if cursor.fetchone() is None:
                 flash('不存在该课程！')
             else:
                 cursor.callproc('teach_course', (tno, cno))
@@ -976,8 +975,7 @@ def assign_textbook():
             flash('不存在该教材！')
         else:
             cursor.execute('select * from course where cno = %s', (cno,))
-            item = cursor.fetchone()
-            if item is None:
+            if cursor.fetchone() is None:
                 flash('不存在该课程！')
             else:
                 cursor.callproc('assign_textbook', (bno, cno))
@@ -1037,8 +1035,7 @@ def assign_prev_course():
             flash('不存在该课程！')
         else:
             cursor.execute('select * from course where cno = %s', (pcno,))
-            item = cursor.fetchone()
-            if item is None:
+            if cursor.fetchone() is None:
                 flash('不存在该课程！')
             else:
                 cursor.callproc('assign_prev_course', (pcno, cno))
@@ -1061,6 +1058,115 @@ def unassign_prev_course():
     else:
         cursor.callproc('unassign_prev_course', (pcno, cno))
         flash('取消先修关系成功！')
+    db.commit()
+    cursor.close()
+    return redirect(request.referrer or url_for('index'))
+
+
+@bp.route('/room_to_course/<int:rno>', methods=('GET',))
+@check_permission('Admin', False)
+def room_to_course(rno):
+    db = get_db()
+    cursor = db.cursor(dictionary=True)
+    cursor.execute('select course.cno cno, cname, time '
+                   'from course, room_course '
+                   'where course.cno = room_course.cno '
+                   'and room_course.rno = %s', (rno,))
+    courses = cursor.fetchall()
+    table = [[list() for j in range(4)] for i in range(5)]
+    for course in courses:
+        time = course['time'].split('-')
+        dim0 = int(time[0]) - 1
+        dim1 = int(time[1]) - 1
+        item = dict()
+        item['cno'] = course['cno']
+        item['cname'] = course['cname']
+        cursor.execute('select tname from teacher where tno in '
+                       '(select tno from teacher_course where cno = %s)', (course['cno'],))
+        entries = cursor.fetchall()
+        item['tname'] = [entry['tname'] for entry in entries]
+        table[dim0][dim1].append(item)
+    cursor.close()
+    return render_template('admin/room_to_course.html', table=table)
+
+
+@bp.route('/course_to_room/<int:cno>', methods=('GET',))
+@check_permission('Student', False)
+def course_to_room(cno):
+    db = get_db()
+    cursor = db.cursor(dictionary=True)
+    cursor.execute('select room.rno rno, rname, time '
+                   'from room, room_course '
+                   'where room.rno = room_course.rno '
+                   'and room_course.cno = %s', (cno,))
+    rooms = cursor.fetchall()
+    table = [[list() for j in range(4)] for i in range(5)]
+    for room in rooms:
+        time = room['time'].split('-')
+        dim0 = int(time[0]) - 1
+        dim1 = int(time[1]) - 1
+        item = dict()
+        item['rno'] = room['rno']
+        item['rname'] = room['rname']
+        table[dim0][dim1].append(item)
+    cursor.close()
+    return render_template('admin/course_to_room.html', table=table)
+
+
+@bp.route('/assign_course', methods=('POST',))
+@check_permission('Admin', False)
+def assign_course():
+    rno = request.form['rno']
+    cno = request.form['cno']
+    time = request.form['time']
+    if len(time) != 3 or time[1] != '-' or not time[0].is_digit() or not time[2].is_digit():
+        flash('课程时间不合法！')
+        return redirect(request.referrer or url_for('index'))
+    if not (1 <= int(time[0]) <= 5 and 1 <= int(time[1]) <= 4):
+        flash('课程时间不合法！')
+        return redirect(request.referrer or url_for('index'))
+    db = get_db()
+    cursor = db.cursor(dictionary=True)
+    cursor.execute('select * from room_course where cno = %s and time = %s', (cno, time))
+    if cursor.fetchone() is not None:
+        flash('该课程在该时间段已经排课！')
+    else:
+        cursor.execute('select * from room_course where rno = %s and time = %s', (rno, time))
+        if cursor.fetchone() is not None:
+            flash('该教室在该时间段已经排课！')
+        else:
+            cursor.execute('select ccap from course where cno = %s', (cno,))
+            course = cursor.fetchone()
+            if course is None:
+                flash('不存在该课程！')
+            else:
+                cursor.execute('select rcap from room where rno = %s', (rno,))
+                room = cursor.fetchone()
+                if room is None:
+                    flash('不存在该教室！')
+                elif int(room['rcap']) < int(course['ccap']):
+                    flash('该教室容量过小，不能满足课程需要！')
+                else:
+                    cursor.callproc('assign_course', (rno, cno, time))
+                    flash('排课成功！')
+    db.commit()
+    cursor.close()
+    return redirect(request.referrer or url_for('index'))
+
+
+@bp.route('/unassign_course', methods=('POST',))
+@check_permission('Admin', False)
+def unassign_course():
+    rno = request.form['rno']
+    cno = request.form['cno']
+    db = get_db()
+    cursor = db.cursor()
+    cursor.execute('select * from room_course where rno = %s and cno = %s', (rno, cno))
+    if cursor.fetchone() is None:
+        flash('不存在该排课关系！')
+    else:
+        cursor.callproc('unassign_course', (rno, cno))
+        flash('取消排课成功！')
     db.commit()
     cursor.close()
     return redirect(request.referrer or url_for('index'))
