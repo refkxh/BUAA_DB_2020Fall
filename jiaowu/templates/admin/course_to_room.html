@@ -8,12 +8,13 @@
 {% endblock %}
 
 {% block form %}
-    <div class="content_form" style="padding-top: 125px">
-        <form action="{{ url_for('admin.assign_course') }}" method="post">
+    <div  class="content_form" style="padding-top: 125px">
+        <form name="form1"  method="post">
              <input type="hidden" name="cno" value="{{ course['cno'] }}" ><br>
-            教室: <input type="text" name="rno" value=""><br>
+            教室编号: <input type="text" name="rno" value="" ><br>
             时间: <input type="text" name="time" value="" placeholder="1-1 表示星期一第一节"><br><br>
-            <input type="submit" value="添加排课"><br>
+            <input type="submit" value="新增排课" onclick="form1.action='{{ url_for('admin.assign_course') }}';form1.submit();">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <input class="error" type="submit" value="取消排课" onclick="form1.action='{{ url_for('admin.unassign_course')}}';form1.submit();">
         </form>
     </div>
 
