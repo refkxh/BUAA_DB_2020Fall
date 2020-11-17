@@ -1,0 +1,212 @@
+{% extends "base.html" %}
+{% block title %}
+    学生信息管理
+{% endblock %}
+
+{% block Title %}
+    学生信息管理
+{% endblock %}
+
+
+{% block content %}
+
+    <div class="content_whole">
+        <div class="content_card_gray">
+            <div class="content_table" style="margin-left: 30px;margin-right: 30px">
+
+                <div class="order-evaluation clearfix">
+                    <h4>给000老师的评价</h4>
+                    <p>请严肃认真对待此次评价哦！您的评价对我们真的真的非常重要！</p>
+                    <div class="block">
+                        <ul>
+                            <li data-default-index="0">
+
+				<span>
+					<img src="{{ url_for('static',filename='img/x2.png') }}">
+					<img src="{{ url_for('static',filename='img/x2.png') }}">
+					<img src="{{ url_for('static',filename='img/x2.png') }}">
+					<img src="{{ url_for('static',filename='img/x2.png') }}">
+					<img src="{{ url_for('static',filename='img/x2.png') }}">
+				</span>
+                                <em class="level"></em>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="order-evaluation-text">
+                        老师的授课给您留下了什么印象呢？
+                    </div>
+                    <div class="order-evaluation-checkbox">
+                        <ul class="clearfix">
+                            <li class="order-evaluation-check" data-impression="1">专业水平高<i
+                                    class="iconfont icon-checked"></i></li>
+                            <li class="order-evaluation-check" data-impression="2">讲解清晰<i class="iconfont icon-checked"></i>
+                            </li>
+                            <li class="order-evaluation-check" data-impression="3">认真负责<i class="iconfont icon-checked"></i>
+                            </li>
+                            <li class="order-evaluation-check" data-impression="4">治学严谨<i
+                                    class="iconfont icon-checked"></i></li>
+                            <li class="order-evaluation-check" data-impression="5">幽默风趣<i
+                                    class="iconfont icon-checked"></i></li>
+                            <li class="order-evaluation-check" data-impression="6">能力待提高<i
+                                    class="iconfont icon-checked"></i>
+                            </li>
+                        </ul>
+                    </div>
+                    <form id="myform" action="{{ url_for('test') }}" method="post" style="">
+                        <div class="order-evaluation-textarea">
+
+                            <textarea name="content" id="TextArea1" onKeyUp="words_deal();"></textarea>
+                            <span>还可以输入<em id="textCount">140</em>个字</span>
+                        </div>
+
+                        <!--<input type="submit" id="order_evaluation" value="评价完成">-->
+
+                    </form> <a id="order_evaluation" href="" onclick="document.getElementById('myform').submit();return false;" >
+                            评价完成</a>
+                </div>
+
+                <div id="order_evaluate_modal" class="dmlei_tishi_info"></div>
+                <script type="text/javascript">
+                    /*
+                     * 根据index获取 str
+                     * **/
+                    function byIndexLeve(index) {
+                        var str = "";
+                        switch (index) {
+                            case 0:
+                                str = "差评";
+                                break;
+                            case 1:
+                                str = "较差";
+                                break;
+                            case 2:
+                                str = "中等";
+                                break;
+                            case 3:
+                                str = "一般";
+                                break;
+                            case 4:
+                                str = "好评";
+                                break;
+                        }
+                        return str;
+                    }
+
+                    //  星星数量
+                    var stars = [
+                        ['x2.png', 'x1.png', 'x1.png', 'x1.png', 'x1.png'],
+                        ['x2.png', 'x2.png', 'x1.png', 'x1.png', 'x1.png'],
+                        ['x2.png', 'x2.png', 'x2.png', 'x1.png', 'x1.png'],
+                        ['x2.png', 'x2.png', 'x2.png', 'x2.png', 'x1.png'],
+                        ['x2.png', 'x2.png', 'x2.png', 'x2.png', 'x2.png'],
+                    ];
+                    $(".block li").find("img").hover(function (e) {
+                        var obj = $(this);
+                        var index = obj.index();
+                        if (index < (parseInt($(".block li").attr("data-default-index")) - 1)) {
+                            return;
+                        }
+                        var li = obj.closest("li");
+                        var star_area_index = li.index();
+                        for (var i = 0; i < 5; i++) {
+                            //li.find("img").eq(i).attr("src", "../../static/img/" + stars[index][i]);//切换每个星星
+                            li.find("img").eq(i).attr("src", "{{ url_for('static',filename='') }}" + 'img/' + stars[index][i]);
+                        }
+                        $(".level").html(byIndexLeve(index));
+                    }, function () {
+                    })
+
+                    $(".block li").hover(function (e) {
+                    }, function () {
+                        var index = $(this).attr("data-default-index");//点击后的索引
+                        index = parseInt(index);
+                        console.log("index", index);
+                        $(".level").html(byIndexLeve(index - 1));
+                        console.log(byIndexLeve(index - 1));
+                        $(".order-evaluation ul li:eq(0)").find("img").attr("src", "{{ url_for('static',filename='') }}" + 'img/x1.png');
+                        for (var i = 0; i < index; i++) {
+
+                            $(".order-evaluation ul li:eq(0)").find("img").eq(i).attr("src", "{{ url_for('static',filename='') }}" + 'img/x2.png');
+                        }
+                    })
+                    $(".block li").find("img").click(function () {
+                        var obj = $(this);
+                        var li = obj.closest("li");
+                        var star_area_index = li.index();
+                        var index1 = obj.index();
+                        li.attr("data-default-index", (parseInt(index1) + 1));
+                        var index = $(".block li").attr("data-default-index");//点击后的索引
+                        index = parseInt(index);
+                        console.log("index", index);
+                        $(".level").html(byIndexLeve(index - 1));
+                        console.log(byIndexLeve(index - 1));
+                        $(".order-evaluation ul li:eq(0)").find("img").attr("src", "{{ url_for('static',filename='') }}" + 'img/x1.png');
+                        for (var i = 0; i < index; i++) {
+                            $(".order-evaluation ul li:eq(0)").find("img").eq(i).attr("src", "{{ url_for('static',filename='') }}" + 'img/x2.png');
+                        }
+
+                    });
+                    //印象
+                    $(".order-evaluation-check").click(function () {
+                        if ($(this).hasClass('checked')) {
+                            //当前为选中状态，需要取消
+                            $(this).removeClass('checked');
+                        } else {
+                            //当前未选中，需要增加选中
+                            $(this).addClass('checked');
+                        }
+                    });
+
+                    //评价字数限制
+                    function words_deal() {
+                        var curLength = $("#TextArea1").val().length;
+                        if (curLength > 140) {
+                            var num = $("#TextArea1").val().substr(0, 140);
+                            $("#TextArea1").val(num);
+                            alert("超过字数限制，多出的字将被截断！");
+                        } else {
+                            $("#textCount").text(140 - $("#TextArea1").val().length);
+                        }
+                    }
+
+                    $("#order_evaluation").click(function () {
+                        $("#order_evaluate_modal").html("感谢您的评价！(* ￣3)(ε￣ *)").show().delay(3000).hide(500);
+                    })
+                </script>
+            </div>
+        </div>
+
+
+    </div>
+{% endblock %}
+
+
+{% block nav %}
+    <a href="{{ url_for('student.update_stu') }}">
+        <li>
+            <i class="iconfont icon-xueshengdangan1"></i>&nbsp;&nbsp;个人信息管理
+        </li>
+    </a>
+
+
+    <a href="{{ url_for('student.list_unselected_courses') }}">
+        <li>
+            <i class="iconfont icon-xuanke"></i>&nbsp;&nbsp;学生选课
+        </li>
+    </a>
+
+    <a href="{{ url_for('student.list_selected_courses') }}">
+        <li>
+            <div class="page_now"><i class="iconfont icon-kecheng"></i>&nbsp;&nbsp;已选课程</div>
+        </li>
+    </a>
+    <a href="{{ url_for('student.timetable') }}">
+        <li>
+            <i class="iconfont icon-kebiao"></i>&nbsp;&nbsp;课表查询
+        </li>
+    </a>
+{% endblock %}
+
+
+
+
