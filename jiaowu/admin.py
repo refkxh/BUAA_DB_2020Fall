@@ -180,11 +180,7 @@ def info_course():
               ' from course where {} order by cno'.format(str_select[:-4])
         cursor.execute(sql)
     else:
-        cursor.execute(
-            'select *'
-            ' from course'
-            ' order by cno'
-        )
+        cursor.execute('select * from course order by cno')
     courses = cursor.fetchall()
     cursor.close()
     return render_template('admin/info_course.html', courses=courses)
@@ -251,12 +247,7 @@ def update_course(cno):
 
         return redirect(url_for('admin.update_course', cno=cno))
     else:
-        cursor.execute(
-            'select *'
-            ' from course'
-            ' where cno = %s',
-            (cno,)
-        )
+        cursor.execute('select * from course where cno = %s', (cno,))
         course = cursor.fetchone()
         cursor.close()
         if course is None:
@@ -547,11 +538,7 @@ def info_textbook():
               ' from textbook where {} order by bno'.format(str_select[:-4])
         cursor.execute(sql)
     else:
-        cursor.execute(
-            'select *'
-            ' from textbook'
-            ' order by bno'
-        )
+        cursor.execute('select * from textbook order by bno')
     textbooks = cursor.fetchall()
     cursor.close()
     return render_template('admin/info_textbook.html', textbooks=textbooks)
@@ -664,11 +651,7 @@ def info_room():
               ' from room where {} order by rno'.format(str_select[:-4])
         cursor.execute(sql)
     else:
-        cursor.execute(
-            'select *'
-            ' from room'
-            ' order by rno'
-        )
+        cursor.execute('select * from room order by rno')
     rooms = cursor.fetchall()
     cursor.close()
     return render_template('admin/info_room.html', rooms=rooms)

@@ -83,8 +83,8 @@ def list_unselected_courses():
     courses = cursor.fetchall()
     course_teachers = dict()
     for course in courses:
-        cursor.execute('select tname from teacher where tno in '
-                       '(select tno from teacher_course where cno = %s)', (course['cno'],))
+        cursor.execute('select tname from teacher, teacher_course '
+                       'where teacher.tno = teacher_course.tno and cno = %s', (course['cno'],))
         course_teachers[course['cno']] = [name['tname'] for name in cursor.fetchall()]
     cursor.close()
     return render_template('student/list_unselected_courses.html', courses=courses, course_teachers=course_teachers)
@@ -123,8 +123,8 @@ def list_selected_courses():
     courses = cursor.fetchall()
     course_teachers = dict()
     for course in courses:
-        cursor.execute('select tname from teacher where tno in '
-                       '(select tno from teacher_course where cno = %s)', (course['cno'],))
+        cursor.execute('select tname from teacher, teacher_course '
+                       'where teacher.tno = teacher_course.tno and cno = %s', (course['cno'],))
         course_teachers[course['cno']] = [name['tname'] for name in cursor.fetchall()]
     cursor.close()
     return render_template('student/list_selected_courses.html', courses=courses, course_teachers=course_teachers)
@@ -187,10 +187,9 @@ def timetable():
     db = get_db()
     cursor = db.cursor(dictionary=True)
     cursor.execute('select course.cno cno, cname, rname, time '
-                   'from course, room, room_course '
+                   'from course, room, room_course, student_course '
                    'where course.cno = room_course.cno and room.rno = room_course.rno '
-                   'and room_course.cno in '
-                   '(select cno from student_course where sno = %s)', (current_user.no,))
+                   'and room_course.cno = student_course.cno and sno = %s', (current_user.no,))
     course_rooms = cursor.fetchall()
     table = [[list() for j in range(4)] for i in range(5)]
     for course_room in course_rooms:
@@ -200,8 +199,8 @@ def timetable():
         item = dict()
         item['cname'] = course_room['cname']
         item['rname'] = course_room['rname']
-        cursor.execute('select tname from teacher where tno in '
-                       '(select tno from teacher_course where cno = %s)', (course_room['cno'],))
+        cursor.execute('select tname from teacher, teacher_course '
+                       'where teacher.tno = teacher_course.tno and cno = %s', (course_room['cno'],))
         entries = cursor.fetchall()
         item['tname'] = [entry['tname'] for entry in entries]
         table[dim0][dim1].append(item)

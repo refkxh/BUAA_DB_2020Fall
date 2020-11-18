@@ -214,8 +214,9 @@ def teach_course(cno):
 def list_taught_courses():
     db = get_db()
     cursor = db.cursor(dictionary=True)
-    cursor.execute('select * from course where cno in '
-                   '(select cno from teacher_course where tno = %s) '
+    cursor.execute('select course.cno cno, cname, ctype, ccredit, cdept, ccap, cselect '
+                   'from course, teacher_course '
+                   'where course.cno = teacher_course.cno and tno = %s '
                    'order by cno', (current_user.no,))
     courses = cursor.fetchall()
     cursor.close()
@@ -404,10 +405,9 @@ def timetable():
     db = get_db()
     cursor = db.cursor(dictionary=True)
     cursor.execute('select course.cno cno, cname, rname, time '
-                   'from course, room, room_course '
+                   'from course, room, room_course, teacher_course '
                    'where course.cno = room_course.cno and room.rno = room_course.rno '
-                   'and room_course.cno in '
-                   '(select cno from teacher_course where tno = %s)', (current_user.no,))
+                   'and room_course.cno = teacher_course.cno and tno = %s', (current_user.no,))
     course_rooms = cursor.fetchall()
     table = [[list() for j in range(4)] for i in range(5)]
     for course_room in course_rooms:
