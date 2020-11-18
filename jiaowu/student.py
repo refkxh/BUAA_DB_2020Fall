@@ -104,8 +104,13 @@ def select_course(cno):
         if item['cselect'] >= item['ccap']:
             flash('课程容量已满！')
         else:
-            cursor.callproc('select_course', (current_user.no, cno))
-            flash('选课成功！')
+            cursor.execute('select pcno from course_course where cno = %s and pcno not in'
+                           '(select cno from student_course where sno = %s)', (cno, current_user.no))
+            if cursor.fetchone() is not None:
+                flash('先修条件未满足！')
+            else:
+                cursor.callproc('select_course', (current_user.no, cno))
+                flash('选课成功！')
     db.commit()
     cursor.close()
     return redirect(url_for('student.list_unselected_courses'))
