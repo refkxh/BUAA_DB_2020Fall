@@ -37,24 +37,30 @@
                     </div>
                     <div class="order-evaluation-checkbox">
                         <ul class="clearfix">
-                            <li class="order-evaluation-check" data-impression="1">专业水平高<i
-                                    class="iconfont icon-checked"></i></li>
-                            <li class="order-evaluation-check" data-impression="2">讲解清晰<i class="iconfont icon-checked"></i>
+                            <li class="order-evaluation-check" data-impression="1" id="1">专业水平高<i
+                                    class="iconfont icon-checked" style="color: #46b2ef"></i></li>
+                            <li class="order-evaluation-check" data-impression="2" id="2">讲解清晰<i class="iconfont icon-checked" style="color: #46b2ef"></i>
                             </li>
-                            <li class="order-evaluation-check" data-impression="3">认真负责<i class="iconfont icon-checked"></i>
+                            <li class="order-evaluation-check" data-impression="3" id="3">认真负责<i class="iconfont icon-checked" style="color: #46b2ef"></i>
                             </li>
-                            <li class="order-evaluation-check" data-impression="4">治学严谨<i
-                                    class="iconfont icon-checked"></i></li>
-                            <li class="order-evaluation-check" data-impression="5">幽默风趣<i
-                                    class="iconfont icon-checked"></i></li>
-                            <li class="order-evaluation-check" data-impression="6">能力待提高<i
-                                    class="iconfont icon-checked"></i>
+                            <li class="order-evaluation-check" data-impression="4" id="4">治学严谨<i
+                                    class="iconfont icon-checked" style="color: #46b2ef"></i></li>
+                            <li class="order-evaluation-check" data-impression="5" id="5">幽默风趣<i
+                                    class="iconfont icon-checked" style="color: #46b2ef"></i></li>
+                            <li class="order-evaluation-check" data-impression="6" id="6">能力待提高<i
+                                    class="iconfont icon-checked" style="color: #46b2ef"></i>
                             </li>
                         </ul>
                     </div>
-                    <form id="myform" action="{{ url_for('test') }}" method="post" style="">
+                    <form id="myform" action="" method="post" style="">
                         <div class="order-evaluation-textarea">
-
+                            <input type="hidden" id="starArea" name="star" value="0">
+                            <input type="hidden" id="1area" name="1" value="0">
+                            <input type="hidden" id="2area" name="2" value="0">
+                            <input type="hidden" id="3area" name="3" value="0">
+                            <input type="hidden" id="4area" name="4" value="0">
+                            <input type="hidden" id="5area" name="5" value="0">
+                            <input type="hidden" id="6area" name="6" value="0">
                             <textarea name="content" id="TextArea1" onKeyUp="words_deal();"></textarea>
                             <span>还可以输入<em id="textCount">140</em>个字</span>
                         </div>
@@ -103,6 +109,7 @@
                     $(".block li").find("img").hover(function (e) {
                         var obj = $(this);
                         var index = obj.index();
+
                         if (index < (parseInt($(".block li").attr("data-default-index")) - 1)) {
                             return;
                         }
@@ -134,11 +141,15 @@
                         var li = obj.closest("li");
                         var star_area_index = li.index();
                         var index1 = obj.index();
+
+
                         li.attr("data-default-index", (parseInt(index1) + 1));
                         var index = $(".block li").attr("data-default-index");//点击后的索引
                         index = parseInt(index);
                         console.log("index", index);
                         $(".level").html(byIndexLeve(index - 1));
+                        //传参
+                        $("#starArea").attr("value",(index));
                         console.log(byIndexLeve(index - 1));
                         $(".order-evaluation ul li:eq(0)").find("img").attr("src", "{{ url_for('static',filename='') }}" + 'img/x1.png');
                         for (var i = 0; i < index; i++) {
@@ -151,10 +162,15 @@
                         if ($(this).hasClass('checked')) {
                             //当前为选中状态，需要取消
                             $(this).removeClass('checked');
+                            var xxx=$(this).attr("id");
+                            $('#'+xxx+'area').attr("value",0);
                         } else {
                             //当前未选中，需要增加选中
                             $(this).addClass('checked');
+                            var xxx=$(this).attr("id");
+                            $('#'+xxx+'area').attr("value",1);
                         }
+
                     });
 
                     //评价字数限制
