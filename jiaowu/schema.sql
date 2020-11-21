@@ -108,3 +108,15 @@ create table room_course
     foreign key (rno) references room (rno),
     foreign key (cno) references course (cno)
 );
+
+create table rating
+(
+    sno     varchar(10),
+    cno     int,
+    score   int,
+    tags    char(6),
+    comment varchar(256),
+    primary key (sno, cno),
+    foreign key (sno) references student (sno),
+    foreign key (cno) references course (cno)
+);
