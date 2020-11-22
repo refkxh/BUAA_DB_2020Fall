@@ -1056,7 +1056,7 @@ def room_to_course(rno):
                    'where course.cno = room_course.cno '
                    'and room_course.rno = %s', (rno,))
     courses = cursor.fetchall()
-    table = [[list() for j in range(4)] for i in range(5)]
+    table = [[[] * 4] * 5]
     for course in courses:
         time = course['time'].split('-')
         dim0 = int(time[0]) - 1
@@ -1085,7 +1085,7 @@ def course_to_room(cno):
                    'where room.rno = room_course.rno '
                    'and room_course.cno = %s', (cno,))
     rooms = cursor.fetchall()
-    table = [[list() for j in range(4)] for i in range(5)]
+    table = [[[] * 4] * 5]
     for room in rooms:
         time = room['time'].split('-')
         dim0 = int(time[0]) - 1

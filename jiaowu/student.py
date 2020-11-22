@@ -196,7 +196,7 @@ def timetable():
                    'where course.cno = room_course.cno and room.rno = room_course.rno '
                    'and room_course.cno = student_course.cno and sno = %s', (current_user.no,))
     course_rooms = cursor.fetchall()
-    table = [[list() for j in range(4)] for i in range(5)]
+    table = [[[] * 4] * 5]
     for course_room in course_rooms:
         time = course_room['time'].split('-')
         dim0 = int(time[0]) - 1
@@ -211,3 +211,36 @@ def timetable():
         table[dim0][dim1].append(item)
     cursor.close()
     return render_template('student/timetable.html', table=table)
+
+
+@bp.route('/rate_course/<int:cno>', methods=('GET', 'POST'))
+@check_permission('Student', False)
+def rate_course(cno):
+    db = get_db()
+    cursor = db.cursor(dictionary=True)
+
+    if request.method == 'GET':
+        cursor.execute('select cno, cname, ctype, ccredit, cdept from course where cno = %s', (cno,))
+        course = cursor.fetchone()
+        cursor.close()
+        return render_template('student/rate_course.html', course=course)
+
+    cursor.execute('select * from course where cno = %s', (cno,))
+    if cursor.fetchone() is None:
+        flash('该课程不存在！')
+    else:
+        cursor.execute('select * from student_course where sno = %s and cno = %s', (current_user.no, cno))
+        if cursor.fetchone() is None:
+            flash('您未选修该课程，不可进行评价！')
+        else:
+            cursor.execute('select * from rating where sno = %s and cno = %s', (current_user.no, cno))
+            if cursor.fetchone() is not None:
+                flash('您已经评价过该课程！')
+            else:
+                score = request.form['score']
+                comment = request.form['comment']
+                cursor.callproc('rate_course', (current_user.no, cno, score, comment))
+                flash('评价课程成功！')
+    db.commit()
+    cursor.close()
+    return redirect(url_for('student.list_selected_courses'))
