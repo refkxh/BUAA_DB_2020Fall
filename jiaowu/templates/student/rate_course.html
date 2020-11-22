@@ -1,10 +1,10 @@
 {% extends "base.html" %}
 {% block title %}
-    学生信息管理
+    课程评价
 {% endblock %}
 
 {% block Title %}
-    学生信息管理
+    {{ course['cname']}}的课程评价
 {% endblock %}
 
 
@@ -22,11 +22,11 @@
                             <li data-default-index="0">
 
 				<span>
-					<img src="{{ url_for('static',filename='img/x2.png') }}">
-					<img src="{{ url_for('static',filename='img/x2.png') }}">
-					<img src="{{ url_for('static',filename='img/x2.png') }}">
-					<img src="{{ url_for('static',filename='img/x2.png') }}">
-					<img src="{{ url_for('static',filename='img/x2.png') }}">
+					<img src="{{ url_for('static',filename='img/x1.png') }}">
+					<img src="{{ url_for('static',filename='img/x1.png') }}">
+					<img src="{{ url_for('static',filename='img/x1.png') }}">
+					<img src="{{ url_for('static',filename='img/x1.png') }}">
+					<img src="{{ url_for('static',filename='img/x1.png') }}">
 				</span>
                                 <em class="level"></em>
                             </li>
@@ -39,9 +39,11 @@
                         <ul class="clearfix">
                             <li class="order-evaluation-check" data-impression="1" id="1">专业水平高<i
                                     class="iconfont icon-checked" style="color: #46b2ef"></i></li>
-                            <li class="order-evaluation-check" data-impression="2" id="2">讲解清晰<i class="iconfont icon-checked" style="color: #46b2ef"></i>
+                            <li class="order-evaluation-check" data-impression="2" id="2">讲解清晰<i
+                                    class="iconfont icon-checked" style="color: #46b2ef"></i>
                             </li>
-                            <li class="order-evaluation-check" data-impression="3" id="3">认真负责<i class="iconfont icon-checked" style="color: #46b2ef"></i>
+                            <li class="order-evaluation-check" data-impression="3" id="3">认真负责<i
+                                    class="iconfont icon-checked" style="color: #46b2ef"></i>
                             </li>
                             <li class="order-evaluation-check" data-impression="4" id="4">治学严谨<i
                                     class="iconfont icon-checked" style="color: #46b2ef"></i></li>
@@ -52,23 +54,26 @@
                             </li>
                         </ul>
                     </div>
-                    <form id="myform" action="" method="post" style="">
+                    <form id="myform" action="{{ url_for('student.rate_course',cno=course['cno']) }}" method="post">
                         <div class="order-evaluation-textarea">
-                            <input type="hidden" id="starArea" name="star" value="0">
-                            <input type="hidden" id="1area" name="1" value="0">
-                            <input type="hidden" id="2area" name="2" value="0">
-                            <input type="hidden" id="3area" name="3" value="0">
-                            <input type="hidden" id="4area" name="4" value="0">
-                            <input type="hidden" id="5area" name="5" value="0">
-                            <input type="hidden" id="6area" name="6" value="0">
-                            <textarea name="content" id="TextArea1" onKeyUp="words_deal();"></textarea>
+
+                            <input type="hidden" id="starArea" name="score" value="0">
+                            <input type="hidden" id="1area" name="tag1" value="0">
+                            <input type="hidden" id="2area" name="tag2" value="0">
+                            <input type="hidden" id="3area" name="tag3" value="0">
+                            <input type="hidden" id="4area" name="tag4" value="0">
+                            <input type="hidden" id="5area" name="tag5" value="0">
+                            <input type="hidden" id="6area" name="tag6" value="0">
+{#                            <input type="hidden" name="time" id="event_time">#}
+                            <textarea name="comment" id="TextArea1" onKeyUp="words_deal();"></textarea>
                             <span>还可以输入<em id="textCount">140</em>个字</span>
                         </div>
 
                         <!--<input type="submit" id="order_evaluation" value="评价完成">-->
 
-                    </form> <a id="order_evaluation" href="" onclick="document.getElementById('myform').submit();return false;" >
-                            评价完成</a>
+                    </form>
+                    <a id="order_evaluation" href="" onclick="document.getElementById('myform').submit();;return false;">
+                        评价完成</a>
                 </div>
 
                 <div id="order_evaluate_modal" class="dmlei_tishi_info"></div>
@@ -149,7 +154,7 @@
                         console.log("index", index);
                         $(".level").html(byIndexLeve(index - 1));
                         //传参
-                        $("#starArea").attr("value",(index));
+                        $("#starArea").attr("value", (index));
                         console.log(byIndexLeve(index - 1));
                         $(".order-evaluation ul li:eq(0)").find("img").attr("src", "{{ url_for('static',filename='') }}" + 'img/x1.png');
                         for (var i = 0; i < index; i++) {
@@ -162,13 +167,13 @@
                         if ($(this).hasClass('checked')) {
                             //当前为选中状态，需要取消
                             $(this).removeClass('checked');
-                            var xxx=$(this).attr("id");
-                            $('#'+xxx+'area').attr("value",0);
+                            var xxx = $(this).attr("id");
+                            $('#' + xxx + 'area').attr("value", 0);
                         } else {
                             //当前未选中，需要增加选中
                             $(this).addClass('checked');
-                            var xxx=$(this).attr("id");
-                            $('#'+xxx+'area').attr("value",1);
+                            var xxx = $(this).attr("id");
+                            $('#' + xxx + 'area').attr("value", 1);
                         }
 
                     });
@@ -185,9 +190,7 @@
                         }
                     }
 
-                    $("#order_evaluation").click(function () {
-                        $("#order_evaluate_modal").html("感谢您的评价！(* ￣3)(ε￣ *)").show().delay(3000).hide(500);
-                    })
+
                 </script>
             </div>
         </div>
@@ -213,7 +216,7 @@
 
     <a href="{{ url_for('student.list_selected_courses') }}">
         <li>
-            <div class="page_now"><i class="iconfont icon-kecheng"></i>&nbsp;&nbsp;已选课程</div>
+            <i class="iconfont icon-kecheng"></i>&nbsp;&nbsp;已选课程
         </li>
     </a>
     <a href="{{ url_for('student.timetable') }}">

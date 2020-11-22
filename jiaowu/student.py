@@ -256,7 +256,7 @@ def list_ratings(cno):
     db = get_db()
     cursor = db.cursor(dictionary=True)
 
-    cursor.execute('select cname, avg(score) avg_score, count(*) cnt '
+    cursor.execute('select course.cno cno, cname, avg(score) avg_score, count(*) cnt '
                    'from rating, course '
                    'where rating.cno = course.cno '
                    'and rating.cno = %s', (cno,))
@@ -274,7 +274,7 @@ def list_ratings(cno):
             rating[target] = int(tags[i - 1])
 
     cursor.close()
-    return render_template('student/list_ratings.html', course=course, ratings=ratings)
+    return render_template('student/list_ratings.html', course=course, ratings=ratings, sno=current_user.no)
 
 
 @bp.route('/unrate_course/<int:cno>', methods=('GET',))
@@ -287,7 +287,7 @@ def unrate_course(cno):
     if item is None:
         flash('您并未评价过该课程！')
     else:
-        cursor.callproc('unselect_course', (current_user.no, cno))
+        cursor.callproc('unrate_course', (current_user.no, cno))
         flash('删除评价成功！')
     db.commit()
     cursor.close()

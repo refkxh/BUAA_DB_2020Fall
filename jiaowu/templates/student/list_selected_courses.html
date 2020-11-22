@@ -23,7 +23,7 @@
                         <th nowrap="nowrap">授课教师</th>
                         <th nowrap="nowrap">成绩</th>
                         <th nowrap="nowrap">操作</th>
-                        <th nowrap="nowrap">详情信息查询</th>
+                        <th nowrap="nowrap">详情信息</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -51,13 +51,17 @@
                                 {% endif %}
                             </td>
                             <td nowrap="nowrap">
+                                <a style="color: #5474fe"
+                                          href="{{ url_for('student.rate_course',cno=info['cno']) }}">评价课程</a>&nbsp;&nbsp;
                                 <a style="color:#fc3c3a"
                                           href="{{ url_for('student.unselect_course',cno=info['cno']) }}">退课</a></td>
                             <td nowrap="nowrap">
                                 <a style="color: #5474fe"
                                           href="{{ url_for('student.course_to_textbook',cno=info['cno']) }}">查看教材</a>&nbsp;&nbsp;
                                 <a style="color: #5474fe"
-                                          href="{{ url_for('student.course_to_course',cno=info['cno']) }}">先修课程</a>
+                                          href="{{ url_for('student.course_to_course',cno=info['cno']) }}">先修课程</a>&nbsp;&nbsp;
+                                <a style="color: #5474fe"
+                                          href="{{ url_for('student.list_ratings',cno=info['cno']) }}">查看评价</a>
                             </td>
                         </tr>
                     {% endfor %}

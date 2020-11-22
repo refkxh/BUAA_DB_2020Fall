@@ -4,139 +4,189 @@ body {
     padding: 0px;
 }
 
-ul,li{
-	list-style: none;
-	padding:0;
-	margin:0;
+ul, li {
+    list-style: none;
+    padding: 0;
+    margin: 0;
 }
-a{
-	text-decoration: none;
-}
-.clearfix:after {
-	content: ".";
-	display: block;
-	height: 0;
-	clear: both;
-	visibility: hidden;
-}
-.order-evaluation {
-	width: 827px;
-	border: 2px solid #2b9de6;
-	background: #fff;
-	z-index: 200;
-	margin:20px auto;
-}
-.order-evaluation{
-	padding:22px;
-}
-.order-evaluation h4{
-	font-size:18px;
-	color:#333333;
-	padding-bottom:20px;
-	border-bottom:1px dashed #dbdbdb;
-}
-.order-evaluation p{
-	font-size:14px;
-	color:#999;
-	line-height:45px;
-	margin-bottom:0;
-}
-.order-evaluation .order-evaluation-text{
-	font-size:16px;
-	color:#333;
-	line-height:40px;
-	width:790px;
-	padding-left:15px;
-	background:#f3f3f3;
-	margin-bottom:25px;
-	margin-top:20px;
-}
-.order-evaluation-checkbox ul li{
-	width:142px;
-	height:43px;
-	border:1px solid #e8e8e8;
-	text-align: center;
-	background: #fff;
-	font-size:14px;
-	color:#333333;
-	line-height:43px;
-	margin-right:25px;
-	margin-bottom:25px;
-	float:left;
-	cursor: pointer;
-	overflow: hidden;
-	position:relative;
-}
-.order-evaluation-checkbox ul li.checked i{
-	display: block;
-}
-.order-evaluation-checkbox ul li.checked{
-	border:1px solid #46b2ef;
-}
-.order-evaluation .order-evaluation-textarea{
-	position:relative;
-	width: 784px;
-	height: 210px;
-}
-.order-evaluation .order-evaluation-textarea textarea{
-	width:793px;
-	height:178px;
-	border:1px solid #e8e8e8;
-	position:absolute;
-	top:0;
-	left:0;
-	line-height:22px;
-	padding:15px;
-	color:#666;
-}
-.order-evaluation .order-evaluation-textarea span{
-	position:absolute;
-	bottom:10px;
-	font-size:12px;
-	color:#999;
-	right:10px;
-}
-.order-evaluation .order-evaluation-textarea span em{
-	color:#e84c3d;
-}
-.order-evaluation>a{
-	width:154px;
-	height:48px;
-	border-radius: 6px;
-	display: block;
-	text-align: center;
-	line-height:48px;
-	background:#0074d9;
-	float:right;
-	margin-top:20px;
-	color:#fff;
-	font-size:14px;
-}
-.order-evaluation-checkbox ul li i {
-	display: none;
-	color: #69c0f2;
-	position: absolute;
 
-	right: -26px;
-	bottom: -9px;
-	font-size: 25px;
+a {
+    text-decoration: none;
 }
-.order-evaluation>a:hover{
-	background: #3bacec;
+
+.clearfix:after {
+    content: ".";
+    display: block;
+    height: 0;
+    clear: both;
+    visibility: hidden;
 }
-.block li label,.con span{ font-size: 18px; margin-right: 20px; line-height: 23px;}
-.block li span{display: inline-block; vertical-align: middle; cursor: pointer;}
-.block li span img{margin-right: -5px; }
-.level{color:#e84c3d;font-size:16px;margin-left:15px;position: relative;top: 3px;}
-.dmlei_tishi_info{
-	height:70px;border-radius: 10px;background: rgba(0,0,0,0.5);font-size:18px;color:#fff;text-align: center;line-height: 70px;position:fixed;
-	left: 48%;
-	display: none;
-	margin-left: -128px;
-	top: 40%;
-	margin-top: -35px;
-	padding: 0 15px;
-	z-index: 1000;
+
+.order-evaluation {
+    width: 827px;
+    border: 2px solid #2b9de6;
+    background: #fff;
+    z-index: 200;
+    margin: 20px auto;
+}
+
+.order-evaluation {
+    padding: 22px;
+    border-radius: 7px;
+}
+
+.order-evaluation h4 {
+    font-size: 18px;
+    color: #333333;
+    padding-bottom: 20px;
+    border-bottom: 1px dashed #dbdbdb;
+}
+
+.order-evaluation p {
+    font-size: 14px;
+    color: #999;
+    line-height: 45px;
+    margin-bottom: 0;
+}
+
+.order-evaluation .order-evaluation-text {
+    font-size: 16px;
+    color: #333;
+    line-height: 40px;
+    width: 790px;
+    padding-left: 15px;
+    background: #f3f3f3;
+    margin-bottom: 25px;
+    margin-top: 20px;
+    border-radius: 7px;
+}
+
+.order-evaluation-checkbox ul li {
+    width: 142px;
+    height: 43px;
+    border: 1px solid #e8e8e8;
+    border-radius: 5px;
+    text-align: center;
+    background: #fff;
+    font-size: 14px;
+    color: #333333;
+    line-height: 43px;
+    margin-right: 25px;
+    margin-bottom: 25px;
+    float: left;
+    cursor: pointer;
+    overflow: hidden;
+    position: relative;
+}
+
+.order-evaluation-checkbox ul li.checked i {
+    display: block;
+}
+
+.order-evaluation-checkbox ul li.checked {
+    border: 1px solid #46b2ef;
+    border-radius: 5px;
+}
+
+.order-evaluation .order-evaluation-textarea {
+    position: relative;
+    width: 784px;
+    height: 210px;
+}
+
+.order-evaluation .order-evaluation-textarea textarea {
+    width: 793px;
+    height: 178px;
+    border: 1px solid #e8e8e8;
+    border-radius: 7px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    line-height: 22px;
+    padding: 15px;
+    color: #666;
+}
+
+.order-evaluation .order-evaluation-textarea span {
+    position: absolute;
+    bottom: 10px;
+    font-size: 12px;
+    color: #999;
+    right: 10px;
+}
+
+.order-evaluation .order-evaluation-textarea span em {
+    color: #e84c3d;
+}
+
+.order-evaluation > a {
+    width: 154px;
+    height: 48px;
+    border-radius: 6px;
+    display: block;
+    text-align: center;
+    line-height: 48px;
+    background: #0074d9;
+    float: right;
+    margin-top: 20px;
+    color: #fff;
+    font-size: 14px;
+}
+
+.order-evaluation-checkbox ul li i {
+    display: none;
+    color: #69c0f2;
+    position: absolute;
+
+    right: -26px;
+    bottom: -9px;
+    font-size: 25px;
+}
+
+.order-evaluation > a:hover {
+    background: #3bacec;
+}
+
+.block li label, .con span {
+    font-size: 18px;
+    margin-right: 20px;
+    line-height: 23px;
+}
+
+.block li span {
+    display: inline-block;
+    vertical-align: middle;
+    cursor: pointer;
+}
+
+.block li span img {
+    margin-right: -5px;
+}
+
+.level {
+    color: #e84c3d;
+    font-size: 16px;
+    margin-left: 15px;
+    position: relative;
+    top: 3px;
+}
+
+.dmlei_tishi_info {
+    height: 70px;
+    border-radius: 10px;
+    background: rgba(0, 0, 0, 0.5);
+    font-size: 18px;
+    color: #fff;
+    text-align: center;
+    line-height: 70px;
+    position: fixed;
+    left: 48%;
+    display: none;
+    margin-left: -128px;
+    top: 40%;
+    margin-top: -35px;
+    padding: 0 15px;
+    z-index: 1000;
 }
 
 @font-face {
@@ -150,9 +200,10 @@ a{
 }
 
 label.xrequired:before {
-        content: '* ';
-        color: red;
-    }
+    content: '* ';
+    color: red;
+}
+
 /* 弹窗 (background) */
 .modal {
     display: none; /* 默认隐藏 */
@@ -175,6 +226,7 @@ label.xrequired:before {
     padding: 20px;
     border: 1px solid #888;
     width: 80%;
+    border-radius: 10px;
 }
 
 /* 关闭按钮 */
@@ -335,7 +387,7 @@ li {
     margin-left: 33px;
     margin-right: 33px;
     background-color: white;
-
+    border-radius: 7px;
 }
 
 .content_head_box {
@@ -369,6 +421,7 @@ li {
     background-color: #f5f6f8;
     padding: 55px 30px;
     height: 100%;
+    border-radius: 7px;
 }
 
 .content_card_gray {
@@ -377,7 +430,10 @@ li {
     height: 100%;
     padding-top: 35px;
     padding-bottom: 20px;
+    border-radius: 7px;
+
 }
+
 .content_form1 {
     margin: auto;
     padding-top: 40px;
@@ -386,8 +442,10 @@ li {
     overflow: scroll;
     background-color: #f5f6f8;
     padding-left: 430px;
+    border-radius: 7px;
 }
-.content_table_course-stu{
+
+.content_table_course-stu {
     margin: auto;
     padding-top: 40px;
     width: 90%;
@@ -395,6 +453,7 @@ li {
     overflow: scroll;
     background-color: #f5f6f8;
 }
+
 .content_form1 input {
     width: 300px;
 }
@@ -442,6 +501,7 @@ li {
     height: 100%;
     padding: 20px 20px;
     overflow: scroll;
+    border-radius: 7px;
 }
 
 .content_table1 {
@@ -487,3 +547,100 @@ li {
 
 }
 
+.msgCon {
+    width: 600px;
+    margin: 0px auto;
+    margin-bottom: 60px;
+}
+
+.msgCon .msgBox {
+    background: #fff;
+    padding: 10px;
+    box-sizing: border-box;
+    margin-top: 16px;
+    border-radius: 20px;
+}
+
+.msgCon .msgBox .headUrl {
+    width: 100%;
+    height: 90px;
+    border-bottom: 1px dotted #ddd;
+    display: flex;
+    align-items: center;
+}
+
+.msgCon .msgBox .headUrl img {
+    width: 46px;
+    height: 46px;
+    border-radius: 50%
+}
+
+.msgCon .msgBox .headUrl div {
+    flex: 1;
+    display: flex;
+    flex-flow: column;
+    font-size: 16px;
+    margin-left: 16px;
+    -webkit-background-clip: text;
+    color: transparent;
+    background-image: linear-gradient(to top, #b224ef 0%, #7579ff 100%);
+}
+
+.msgCon .msgBox .headUrl div .time {
+    font-size: 14px;
+    margin-top: 6px;
+    -webkit-background-clip: text;
+    color: transparent;
+    background-image: linear-gradient(to right, #74ebd5 0%, #9face6 100%);
+}
+
+.msgCon .msgBox .headUrl div .tag {
+    font-size: 14px;
+    margin-top: 6px;
+    -webkit-background-clip: text;
+    color: transparent;
+    background-image: linear-gradient(to right, #74ebd5 0%, #9face6 100%);
+}
+
+.msgCon .msgBox .headUrl div .tag img {
+    height: 12px;
+    width: 12px;
+}
+
+.msgCon .msgBox .headUrl a {
+    font-size: 14px;
+    padding: 10px;
+    color: salmon;
+    cursor: pointer;
+}
+
+.msgCon .msgBox .msgTxt {
+    font-size: 14px;
+    color: #666;
+    min-height: 40px;
+    line-height: 24px;
+    padding: 10px;
+    box-sizing: border-box;
+    word-wrap: break-word;
+    -webkit-background-clip: text;
+    color: transparent;
+    background-image: linear-gradient(to right, #778899 0%, #333 100%);
+}
+
+.labelS {
+    padding: 1px 7px;
+    margin-right: 10px;
+    margin-bottom: 5px;
+    border: 1px solid;
+    border-radius: 10px;
+    float: left;
+    cursor: pointer;
+    background-color: rgba(0, 0, 0, 0);
+}
+
+#labelDiv {
+    width: 500px;
+    height: 100%;
+    position: relative;
+    margin: 40px auto;
+}
