@@ -248,3 +248,47 @@ def rate_course(cno):
     db.commit()
     cursor.close()
     return redirect(url_for('student.list_selected_courses'))
+
+
+@bp.route('/list_ratings/<int:cno>', methods=('GET',))
+@check_permission('Student', False)
+def list_ratings(cno):
+    db = get_db()
+    cursor = db.cursor(dictionary=True)
+
+    cursor.execute('select cname, avg(score) avg_score, count(*) cnt '
+                   'from rating, course '
+                   'where rating.cno = course.cno '
+                   'and rating.cno = %s', (cno,))
+    course = cursor.fetchone()
+
+    cursor.execute('select sname, score, tags, comment '
+                   'from rating, student '
+                   'where rating.sno = student.sno '
+                   'and rating.cno = %s', (cno,))
+    ratings = cursor.fetchall()
+    for rating in ratings:
+        tags = rating['tags']
+        for i in range(1, 7):
+            target = 'tag' + str(i)
+            rating[target] = tags[i - 1]
+
+    cursor.close()
+    return render_template('student/list_selected_courses.html', course=course, ratings=ratings)
+
+
+@bp.route('/unrate_course/<int:cno>', methods=('GET',))
+@check_permission('Student', False)
+def unrate_course(cno):
+    db = get_db()
+    cursor = db.cursor(dictionary=True)
+    cursor.execute('select * from rating where sno = %s and cno = %s', (current_user.no, cno))
+    item = cursor.fetchone()
+    if item is None:
+        flash('您并未评价过该课程！')
+    else:
+        cursor.callproc('unselect_course', (current_user.no, cno))
+        flash('删除评价成功！')
+    db.commit()
+    cursor.close()
+    return redirect(url_for('student.list_selected_courses'))
