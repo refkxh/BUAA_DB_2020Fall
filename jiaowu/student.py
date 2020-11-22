@@ -238,8 +238,12 @@ def rate_course(cno):
                 flash('您已经评价过该课程！')
             else:
                 score = request.form['score']
+                tags = ''
+                for i in range(1, 7):
+                    target = 'tag' + str(i)
+                    tags += request.form[target]
                 comment = request.form['comment']
-                cursor.callproc('rate_course', (current_user.no, cno, score, comment))
+                cursor.callproc('rate_course', (current_user.no, cno, score, tags, comment))
                 flash('评价课程成功！')
     db.commit()
     cursor.close()
