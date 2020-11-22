@@ -81,9 +81,12 @@
                                         {% endif %}
                                 </span>
                                 </div>
-                                {% if sno==rate['sno'] %}
-                                    <a href="{{ url_for('student.unrate_course',cno=course['cno']) }}" class="del">删除</a>
-                                {% endif %}
+                                <form id="myform" action="{{ url_for('admin.unrate_course') }}" method="post">
+                                    <input type="hidden" name="sno" value="{{ rate['sno'] }}">
+                                    <input type="hidden" name="cno" value="{{ course['cno'] }}">
+                                </form>
+                                <a  class="del">删除</a>
+
                             </div>
                             <div class='msgTxt'>
                                 {{ rate['comment'] }}
@@ -101,28 +104,34 @@
 
 
 {% block nav %}
-    <a href="{{ url_for('student.update_stu') }}">
+    <a href="{{ url_for('admin.info_stu') }}">
+        <li><i class="iconfont icon-xueshengdangan1"></i>&nbsp;&nbsp;学生信息管理</li>
+    </a>
+
+    <a href="{{ url_for('admin.info_course') }}">
         <li>
-            <i class="iconfont icon-xueshengdangan1"></i>&nbsp;&nbsp;个人信息管理
+            <i class="iconfont icon-biaoqiankuozhan_kecheng-136"></i>&nbsp;&nbsp;课程信息管理
         </li>
     </a>
 
+    <a href="{{ url_for('admin.info_admin') }}">
+        <li><i class="iconfont icon-guanliyuan"></i>&nbsp;&nbsp;管理员信息管理</li>
+    </a>
 
-    <a href="{{ url_for('student.list_unselected_courses') }}">
+    <a href="{{ url_for('admin.info_teacher') }}">
         <li>
-            <i class="iconfont icon-xuanke"></i>&nbsp;&nbsp;学生选课
+            <i class="iconfont icon-jiaoshiliebiao"></i>&nbsp;&nbsp;教师信息管理
         </li>
     </a>
 
-    <a href="{{ url_for('student.list_selected_courses') }}">
+    <a href="{{ url_for('admin.info_textbook') }}">
         <li>
-            <i class="iconfont icon-kecheng"></i>&nbsp;&nbsp;已选课程
+            <i class="iconfont icon-jiaocai"></i>&nbsp;&nbsp;教材信息管理
         </li>
     </a>
-    <a href="{{ url_for('student.timetable') }}">
-        <li>
-            <i class="iconfont icon-kebiao"></i>&nbsp;&nbsp;课表查询
-        </li>
+
+    <a href="{{ url_for('admin.info_room') }}">
+        <li><i class="iconfont icon-jiaoshi"></i>&nbsp;&nbsp;教室信息管理</li>
     </a>
 {% endblock %}
 

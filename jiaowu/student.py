@@ -247,7 +247,7 @@ def rate_course(cno):
                 flash('评价课程成功！')
     db.commit()
     cursor.close()
-    return redirect(url_for('student.list_selected_courses'))
+    return redirect(url_for('student.list_ratings', cno=cno))
 
 
 @bp.route('/list_ratings/<int:cno>', methods=('GET',))
@@ -291,4 +291,4 @@ def unrate_course(cno):
         flash('删除评价成功！')
     db.commit()
     cursor.close()
-    return redirect(url_for('student.list_selected_courses'))
+    return redirect(url_for('student.list_ratings', cno=cno))

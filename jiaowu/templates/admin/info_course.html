@@ -39,7 +39,7 @@
                 <th nowrap="nowrap">院系</th>
                 <th nowrap="nowrap">课程容量</th>
                 <th nowrap="nowrap">操作</th>
-                <th nowrap="nowrap">详情信息查询</th>
+                <th >详情信息</th>
             </tr>
             </thead>
             <tbody>
@@ -62,9 +62,11 @@
                                         <a style="color: #5474fe"
                                            href="{{ url_for('admin.course_to_teacher',cno=info['cno']) }}">授课教师</a>&nbsp;
                                          <a style="color: #5474fe"
-                                           href="{{ url_for('admin.course_to_textbook',cno=info['cno']) }}">所选教材</a>&nbsp;
+                                           href="{{ url_for('admin.course_to_textbook',cno=info['cno']) }}">所选教材</a><br>
                                         <a style="color: #5474fe"
                                            href="{{ url_for('admin.course_to_course',cno=info['cno']) }}">先修课程</a>&nbsp;
+                                        <a style="color: #5474fe"
+                                           href="{{ url_for('admin.list_ratings',cno=info['cno']) }}">课程评价</a>&nbsp;
                                         <a style="color: #5474fe"
                                            href="{{ url_for('admin.course_to_room',cno=info['cno']) }}">教室信息与排课</a>
 

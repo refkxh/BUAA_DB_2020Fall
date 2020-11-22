@@ -81,9 +81,7 @@
                                         {% endif %}
                                 </span>
                                 </div>
-                                {% if sno==rate['sno'] %}
-                                    <a href="{{ url_for('student.unrate_course',cno=course['cno']) }}" class="del">删除</a>
-                                {% endif %}
+
                             </div>
                             <div class='msgTxt'>
                                 {{ rate['comment'] }}
@@ -101,25 +99,30 @@
 
 
 {% block nav %}
-    <a href="{{ url_for('student.update_stu') }}">
+    <a href="{{ url_for('teacher.update_teacher') }}">
         <li>
             <i class="iconfont icon-xueshengdangan1"></i>&nbsp;&nbsp;个人信息管理
         </li>
     </a>
 
-
-    <a href="{{ url_for('student.list_unselected_courses') }}">
+    <a href="{{ url_for('teacher.info_textbook') }}">
         <li>
-            <i class="iconfont icon-xuanke"></i>&nbsp;&nbsp;学生选课
+            <i class="iconfont icon-xueshengdangan1"></i>&nbsp;&nbsp;教材信息管理
         </li>
     </a>
 
-    <a href="{{ url_for('student.list_selected_courses') }}">
+    <a href="{{ url_for('teacher.list_untaught_courses') }}">
         <li>
-            <i class="iconfont icon-kecheng"></i>&nbsp;&nbsp;已选课程
+            <i class="iconfont icon-shouke"></i>&nbsp;&nbsp;教师授课
         </li>
     </a>
-    <a href="{{ url_for('student.timetable') }}">
+
+    <a href="{{ url_for('teacher.list_taught_courses') }}">
+        <li>
+            <i class="iconfont icon-jiaoyu"></i>&nbsp;&nbsp;已授课程
+        </li>
+    </a>
+    <a href="{{ url_for('teacher.timetable') }}">
         <li>
             <i class="iconfont icon-kebiao"></i>&nbsp;&nbsp;课表查询
         </li>
