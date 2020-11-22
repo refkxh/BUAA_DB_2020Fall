@@ -66,7 +66,7 @@
                             <input type="hidden" id="6area" name="tag6" value="0">
 {#                            <input type="hidden" name="time" id="event_time">#}
                             <textarea name="comment" id="TextArea1" onKeyUp="words_deal();"></textarea>
-                            <span>还可以输入<em id="textCount">140</em>个字</span>
+                            <span>还可以输入<em id="textCount">128</em>个字</span>
                         </div>
 
                         <!--<input type="submit" id="order_evaluation" value="评价完成">-->
@@ -181,12 +181,12 @@
                     //评价字数限制
                     function words_deal() {
                         var curLength = $("#TextArea1").val().length;
-                        if (curLength > 140) {
-                            var num = $("#TextArea1").val().substr(0, 140);
+                        if (curLength > 128) {
+                            var num = $("#TextArea1").val().substr(0, 128);
                             $("#TextArea1").val(num);
                             alert("超过字数限制，多出的字将被截断！");
                         } else {
-                            $("#textCount").text(140 - $("#TextArea1").val().length);
+                            $("#textCount").text(128 - $("#TextArea1").val().length);
                         }
                     }
 
