@@ -424,3 +424,30 @@ def timetable():
         table[dim0][dim1].append(item)
     cursor.close()
     return render_template('teacher/timetable.html', table=table)
+
+
+@bp.route('/list_ratings/<int:cno>', methods=('GET',))
+@check_permission('Teacher', False)
+def list_ratings(cno):
+    db = get_db()
+    cursor = db.cursor(dictionary=True)
+
+    cursor.execute('select course.cno cno, cname, avg(score) avg_score, count(*) cnt '
+                   'from rating, course '
+                   'where rating.cno = course.cno '
+                   'and rating.cno = %s', (cno,))
+    course = cursor.fetchone()
+
+    cursor.execute('select sname, score, tags, comment '
+                   'from rating, student '
+                   'where rating.sno = student.sno '
+                   'and rating.cno = %s', (cno,))
+    ratings = cursor.fetchall()
+    for rating in ratings:
+        tags = rating['tags']
+        for i in range(1, 7):
+            target = 'tag' + str(i)
+            rating[target] = int(tags[i - 1])
+
+    cursor.close()
+    return render_template('teacher/list_ratings.html', course=course, ratings=ratings)
