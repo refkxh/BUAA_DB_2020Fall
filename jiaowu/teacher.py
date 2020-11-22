@@ -409,7 +409,7 @@ def timetable():
                    'where course.cno = room_course.cno and room.rno = room_course.rno '
                    'and room_course.cno = teacher_course.cno and tno = %s', (current_user.no,))
     course_rooms = cursor.fetchall()
-    table = [[[] * 4] * 5]
+    table = [[[] for j in range(4)] for i in range(5)]
     for course_room in course_rooms:
         time = course_room['time'].split('-')
         dim0 = int(time[0]) - 1
