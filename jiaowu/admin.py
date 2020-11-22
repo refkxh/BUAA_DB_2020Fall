@@ -1166,11 +1166,14 @@ def list_ratings(cno):
     db = get_db()
     cursor = db.cursor(dictionary=True)
 
-    cursor.execute('select course.cno cno, cname, avg(score) avg_score, count(*) cnt '
+    cursor.execute('select cno, cname from course where cno = %s', (cno,))
+    course = cursor.fetchone()
+
+    cursor.execute('select avg(score) avg_score, count(*) cnt '
                    'from rating, course '
                    'where rating.cno = course.cno '
                    'and rating.cno = %s', (cno,))
-    course = cursor.fetchone()
+    rating_info = cursor.fetchone()
 
     cursor.execute('select student.sno sno, sname, score, tags, comment '
                    'from rating, student '
@@ -1184,7 +1187,7 @@ def list_ratings(cno):
             rating[target] = int(tags[i - 1])
 
     cursor.close()
-    return render_template('admin/list_ratings.html', course=course, ratings=ratings)
+    return render_template('admin/list_ratings.html', course=course, rating_info=rating_info, ratings=ratings)
 
 
 @bp.route('/unrate_course', methods=('POST',))
