@@ -21,7 +21,7 @@
                                     <font color="#b224ef" style="size: 20px;">{{ course['cname'] }}</font>&nbsp;&nbsp;
 
                                     {% for i in range(1, 6) %}
-                                        {% if i <= course['avg_score'] %}
+                                        {% if rating_info['avg_score'] and i <= rating_info['avg_score'] %}
                                             <img src="{{ url_for('static',filename='img/x2.png') }}">
                                         {% else %}
                                             <img src="{{ url_for('static',filename='img/x1.png') }}">
@@ -35,7 +35,7 @@
                                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                 <font  style="color: black; text-align: right">全部({{ course['cnt'] }})</font>
+                                 <font  style="color: black; text-align: right">全部({{ rating_info['cnt'] }})</font>
                                 </span>
                             </div>
                         </div>
