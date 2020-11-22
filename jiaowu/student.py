@@ -262,7 +262,7 @@ def list_ratings(cno):
                    'and rating.cno = %s', (cno,))
     course = cursor.fetchone()
 
-    cursor.execute('select sname, score, tags, comment '
+    cursor.execute('select student.sno sno, sname, score, tags, comment '
                    'from rating, student '
                    'where rating.sno = student.sno '
                    'and rating.cno = %s', (cno,))
