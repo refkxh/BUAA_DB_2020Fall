@@ -274,7 +274,7 @@ def list_ratings(cno):
             rating[target] = tags[i - 1]
 
     cursor.close()
-    return render_template('student/list_selected_courses.html', course=course, ratings=ratings)
+    return render_template('student/list_ratings.html', course=course, ratings=ratings)
 
 
 @bp.route('/unrate_course/<int:cno>', methods=('GET',))
