@@ -20,11 +20,14 @@
                                 <span class="tag">
                                     <font color="#b224ef" style="size: 20px;">{{ course['cname'] }}</font>&nbsp;&nbsp;
                                     {% for i in range(1, 6) %}
-                                        {% if i <= course['avg_score'] %}
+                                        {% if course['avg_score'] %}
+                                            {% if i <= course['avg_score'] %}
                                             <img src="{{ url_for('static',filename='img/x2.png') }}">
                                         {% else %}
                                             <img src="{{ url_for('static',filename='img/x1.png') }}">
                                         {% endif %}
+                                        {% endif %}
+
                                     {% endfor %}
                                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;

@@ -19,6 +19,7 @@
                             <div>
                                 <span class="tag">
                                     <font color="#b224ef" style="size: 20px;">{{ course['cname'] }}</font>&nbsp;&nbsp;
+
                                     {% for i in range(1, 6) %}
                                         {% if i <= course['avg_score'] %}
                                             <img src="{{ url_for('static',filename='img/x2.png') }}">
@@ -26,6 +27,8 @@
                                             <img src="{{ url_for('static',filename='img/x1.png') }}">
                                         {% endif %}
                                     {% endfor %}
+
+
                                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -85,7 +88,7 @@
                                     <input type="hidden" name="sno" value="{{ rate['sno'] }}">
                                     <input type="hidden" name="cno" value="{{ course['cno'] }}">
                                 </form>
-                                <a  class="del">删除</a>
+                                <a  href="" onclick="document.getElementById('myform').submit();;return false;" class="del">删除</a>
 
                             </div>
                             <div class='msgTxt'>

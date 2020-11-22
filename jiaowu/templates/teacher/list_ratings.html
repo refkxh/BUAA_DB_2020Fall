@@ -19,6 +19,7 @@
                             <div>
                                 <span class="tag">
                                     <font color="#b224ef" style="size: 20px;">{{ course['cname'] }}</font>&nbsp;&nbsp;
+
                                     {% for i in range(1, 6) %}
                                         {% if i <= course['avg_score'] %}
                                             <img src="{{ url_for('static',filename='img/x2.png') }}">
@@ -26,13 +27,15 @@
                                             <img src="{{ url_for('static',filename='img/x1.png') }}">
                                         {% endif %}
                                     {% endfor %}
-                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                 <font  style="color: black; text-align: right">全部({{ course['cnt'] }})</font>
+                                 <font style="color: black; text-align: right">全部({{ course['cnt'] }})</font>
                                 </span>
                             </div>
                         </div>
@@ -57,7 +60,8 @@
                                 </span>
                                     <span class="time">
                                         {% if rate['tag1'] %}
-                                            <span id="1" class="labelSpan labelS" style="border-color:#cca4e3;color: #2b9de6">内容有趣</span>
+                                            <span id="1" class="labelSpan labelS"
+                                                  style="border-color:#cca4e3;color: #2b9de6">内容有趣</span>
                                         {% endif %}
                                         {% if rate['tag2'] %}
                                             <span id="2" class="labelSpan labelS"

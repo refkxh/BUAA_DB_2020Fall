@@ -1203,4 +1203,4 @@ def unrate_course():
         flash('删除评价成功！')
     db.commit()
     cursor.close()
-    return redirect(url_for('admin.list_ratings'))
+    return redirect(url_for('admin.list_ratings', cno=cno))
