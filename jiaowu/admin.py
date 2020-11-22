@@ -1158,3 +1158,49 @@ def unassign_course():
     db.commit()
     cursor.close()
     return redirect(request.referrer or url_for('index'))
+
+
+@bp.route('/list_ratings/<int:cno>', methods=('GET',))
+@check_permission('Admin', False)
+def list_ratings(cno):
+    db = get_db()
+    cursor = db.cursor(dictionary=True)
+
+    cursor.execute('select course.cno cno, cname, avg(score) avg_score, count(*) cnt '
+                   'from rating, course '
+                   'where rating.cno = course.cno '
+                   'and rating.cno = %s', (cno,))
+    course = cursor.fetchone()
+
+    cursor.execute('select sname, score, tags, comment '
+                   'from rating, student '
+                   'where rating.sno = student.sno '
+                   'and rating.cno = %s', (cno,))
+    ratings = cursor.fetchall()
+    for rating in ratings:
+        tags = rating['tags']
+        for i in range(1, 7):
+            target = 'tag' + str(i)
+            rating[target] = int(tags[i - 1])
+
+    cursor.close()
+    return render_template('admin/list_ratings.html', course=course, ratings=ratings)
+
+
+@bp.route('/unrate_course', methods=('POST',))
+@check_permission('Admin', False)
+def unrate_course():
+    sno = request.form['sno']
+    cno = request.form['cno']
+    db = get_db()
+    cursor = db.cursor(dictionary=True)
+    cursor.execute('select * from rating where sno = %s and cno = %s', (sno, cno))
+    item = cursor.fetchone()
+    if item is None:
+        flash('该学生并未评价过该课程！')
+    else:
+        cursor.callproc('unrate_course', (sno, cno))
+        flash('删除评价成功！')
+    db.commit()
+    cursor.close()
+    return redirect(url_for('admin.list_ratings'))
