@@ -203,8 +203,8 @@ def teach_course(cno):
         flash('您已教授该课程！')
     else:
         cursor.callproc('teach_course', (current_user.no, cno))
+        db.commit()
         flash('授课成功！')
-    db.commit()
     cursor.close()
     return redirect(url_for('teacher.list_untaught_courses'))
 
@@ -233,8 +233,8 @@ def unteach_course(cno):
         flash('您并未教授该课程！')
     else:
         cursor.callproc('unteach_course', (current_user.no, cno))
+        db.commit()
         flash('取消教授课程成功！')
-    db.commit()
     cursor.close()
     return redirect(url_for('teacher.list_taught_courses'))
 
@@ -273,8 +273,8 @@ def modify_score():
             flash('该学生并未选修过该课程！')
         else:
             cursor.callproc('update_score', (sno, cno, score))
+            db.commit()
             flash('成绩修改成功！')
-        db.commit()
         cursor.close()
     return redirect(request.referrer or url_for('index'))
 
@@ -315,8 +315,8 @@ def assign_textbook():
                 flash('不存在该课程！')
             else:
                 cursor.callproc('assign_textbook', (bno, cno))
+                db.commit()
                 flash('教材指定成功！')
-    db.commit()
     cursor.close()
     return redirect(request.referrer or url_for('index'))
 
@@ -333,8 +333,8 @@ def unassign_textbook():
         flash('该教材并未被该课程指定！')
     else:
         cursor.callproc('unassign_textbook', (bno, cno))
+        db.commit()
         flash('取消指定教材成功！')
-    db.commit()
     cursor.close()
     return redirect(request.referrer or url_for('index'))
 
@@ -375,8 +375,8 @@ def assign_prev_course():
                 flash('不存在该课程！')
             else:
                 cursor.callproc('assign_prev_course', (pcno, cno))
+                db.commit()
                 flash('先修课程指定成功！')
-    db.commit()
     cursor.close()
     return redirect(request.referrer or url_for('index'))
 
@@ -393,8 +393,8 @@ def unassign_prev_course():
         flash('不存在该先修关系！')
     else:
         cursor.callproc('unassign_prev_course', (pcno, cno))
+        db.commit()
         flash('取消先修关系成功！')
-    db.commit()
     cursor.close()
     return redirect(request.referrer or url_for('index'))
 

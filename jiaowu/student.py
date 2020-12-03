@@ -110,8 +110,8 @@ def select_course(cno):
                 flash('先修条件未满足！')
             else:
                 cursor.callproc('select_course', (current_user.no, cno))
+                db.commit()
                 flash('选课成功！')
-    db.commit()
     cursor.close()
     return redirect(url_for('student.list_unselected_courses'))
 
@@ -148,8 +148,8 @@ def unselect_course(cno):
         flash('该课程已经出成绩，不允许退课！')
     else:
         cursor.callproc('unselect_course', (current_user.no, cno))
+        db.commit()
         flash('退课成功！')
-    db.commit()
     cursor.close()
     return redirect(url_for('student.list_selected_courses'))
 
@@ -244,8 +244,8 @@ def rate_course(cno):
                     tags += request.form[target]
                 comment = request.form['comment']
                 cursor.callproc('rate_course', (current_user.no, cno, score, tags, comment))
+                db.commit()
                 flash('评价课程成功！')
-    db.commit()
     cursor.close()
     return redirect(url_for('student.list_ratings', cno=cno))
 

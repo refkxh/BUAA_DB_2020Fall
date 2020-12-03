@@ -786,8 +786,8 @@ def select_course():
                 flash('课程容量已满！')
             else:
                 cursor.callproc('select_course', (sno, cno))
+                db.commit()
                 flash('选课成功！')
-    db.commit()
     cursor.close()
     return redirect(request.referrer or url_for('index'))
 
@@ -804,8 +804,8 @@ def unselect_course():
         flash('该学生并未选修过该课程！')
     else:
         cursor.callproc('unselect_course', (sno, cno))
+        db.commit()
         flash('退课成功！')
-    db.commit()
     cursor.close()
     return redirect(request.referrer or url_for('index'))
 
@@ -828,8 +828,8 @@ def modify_score():
             flash('该学生并未选修过该课程！')
         else:
             cursor.callproc('update_score', (sno, cno, score))
+            db.commit()
             flash('成绩修改成功！')
-        db.commit()
         cursor.close()
     return redirect(request.referrer or url_for('index'))
 
@@ -886,8 +886,8 @@ def teach_course():
                 flash('不存在该课程！')
             else:
                 cursor.callproc('teach_course', (tno, cno))
+                db.commit()
                 flash('授课关系设置成功！')
-    db.commit()
     cursor.close()
     return redirect(request.referrer or url_for('index'))
 
@@ -904,8 +904,8 @@ def unteach_course():
         flash('该老师并未教授该课程！')
     else:
         cursor.callproc('unteach_course', (tno, cno))
+        db.commit()
         flash('取消教授课程成功！')
-    db.commit()
     cursor.close()
     return redirect(request.referrer or url_for('index'))
 
@@ -962,8 +962,8 @@ def assign_textbook():
                 flash('不存在该课程！')
             else:
                 cursor.callproc('assign_textbook', (bno, cno))
+                db.commit()
                 flash('教材指定成功！')
-    db.commit()
     cursor.close()
     return redirect(request.referrer or url_for('index'))
 
@@ -980,8 +980,8 @@ def unassign_textbook():
         flash('该教材并未被该课程指定！')
     else:
         cursor.callproc('unassign_textbook', (bno, cno))
+        db.commit()
         flash('取消指定教材成功！')
-    db.commit()
     cursor.close()
     return redirect(request.referrer or url_for('index'))
 
@@ -1022,8 +1022,8 @@ def assign_prev_course():
                 flash('不存在该课程！')
             else:
                 cursor.callproc('assign_prev_course', (pcno, cno))
+                db.commit()
                 flash('先修课程指定成功！')
-    db.commit()
     cursor.close()
     return redirect(request.referrer or url_for('index'))
 
@@ -1040,8 +1040,8 @@ def unassign_prev_course():
         flash('不存在该先修关系！')
     else:
         cursor.callproc('unassign_prev_course', (pcno, cno))
+        db.commit()
         flash('取消先修关系成功！')
-    db.commit()
     cursor.close()
     return redirect(request.referrer or url_for('index'))
 
@@ -1135,8 +1135,8 @@ def assign_course():
                     flash('该教室容量过小，不能满足课程需要！')
                 else:
                     cursor.callproc('assign_course', (rno, cno, time))
+                    db.commit()
                     flash('排课成功！')
-    db.commit()
     cursor.close()
     return redirect(request.referrer or url_for('index'))
 
@@ -1154,8 +1154,8 @@ def unassign_course():
         flash('不存在该排课关系！')
     else:
         cursor.callproc('unassign_course', (rno, cno, time))
+        db.commit()
         flash('取消排课成功！')
-    db.commit()
     cursor.close()
     return redirect(request.referrer or url_for('index'))
 
@@ -1203,7 +1203,7 @@ def unrate_course():
         flash('该学生并未评价过该课程！')
     else:
         cursor.callproc('unrate_course', (sno, cno))
+        db.commit()
         flash('删除评价成功！')
-    db.commit()
     cursor.close()
     return redirect(url_for('admin.list_ratings', cno=cno))
