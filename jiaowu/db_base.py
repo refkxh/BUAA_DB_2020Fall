@@ -16,7 +16,8 @@ def get_db():
                 user=current_app.config['DATABASE_USERNAME'],
                 password=current_app.config['DATABASE_PASSWORD'],
                 database=current_app.config['DATABASE_NAME'],
-                charset='utf8mb4'
+                charset='utf8mb4',
+                buffered=True
             )
         except:
             raise Exception('Database connection failed.')
