@@ -1020,6 +1020,8 @@ def assign_prev_course():
             cursor.execute('select * from course where cno = %s', (pcno,))
             if cursor.fetchone() is None:
                 flash('不存在该课程！')
+            elif pcno == cno:
+                flash('不允许设置自己为自己的先修课！')
             else:
                 cursor.callproc('assign_prev_course', (pcno, cno))
                 db.commit()
