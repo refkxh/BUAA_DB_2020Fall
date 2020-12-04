@@ -71,11 +71,11 @@
                         <td nowrap="nowrap">
 
 
-                            <a href="#" style="color:#fc3c3a" class="js_click">
+                            <a href="#" style="color:#fc3c3a" class="js_click{{ info['sno'] }}">
                                 退课</a>
 
                             <script type="text/javascript">
-                                $(".js_click").click(function () {
+                                $(".js_click{{ info['sno'] }}").click(function () {
                                     $('#label1').attr('value', {{ info['sno'] }});
                                     $('#label2').attr('value', {{ course['cno'] }});
                                     $('#myform').submit();

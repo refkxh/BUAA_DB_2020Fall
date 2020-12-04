@@ -45,10 +45,10 @@
                     <td nowrap="nowrap">{{ info['cselect'] }}/{{ info['ccap'] }}</td>
                     <td nowrap="nowrap">
 
-                        <a href="#" style="color:#fc3c3a" class="js_click">
+                        <a href="#" style="color:#fc3c3a" class="js_click{{ info['cno'] }}">
                             取消先修</a>
                         <script type="text/javascript">
-                            $(".js_click").click(function () {
+                            $(".js_click{{ info['cno'] }}").click(function () {
                                 $('#label1').attr('value', {{ info['cno'] }});
                                 $('#label2').attr('value',{{ course['cno'] }});
                                 $('#myform').submit();

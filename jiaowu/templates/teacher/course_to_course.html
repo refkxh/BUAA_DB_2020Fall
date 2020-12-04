@@ -46,10 +46,10 @@
                     <td nowrap="nowrap">
 
 
-                        <a href="#" class="js_click" style="color:#fc3c3a">
+                        <a href="#" class="js_click{{ info['cno'] }}" style="color:#fc3c3a">
                             取消先修</a>
                         <script type="text/javascript">
-                            $(".js_click").click(function () {
+                            $(".js_click{{ info['cno'] }}").click(function () {
                                 $('#label1').attr('value', {{ info['cno'] }});
                                 $('#label2').attr('value', {{ course['cno'] }});
                                 $('#myform').submit();
