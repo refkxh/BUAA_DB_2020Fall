@@ -23,12 +23,12 @@
         <table class="primary">
             <thead>
             <tr>
-                <th nowrap="nowrap" >教材编号</th>
-                <th nowrap="nowrap" >教材名称</th>
-                <th nowrap="nowrap" >出版社</th>
-                <th nowrap="nowrap" >作者</th>
-                <th nowrap="nowrap" >教材操作</th>
-                <th nowrap="nowrap" >关系操作</th>
+                <th nowrap="nowrap">教材编号</th>
+                <th nowrap="nowrap">教材名称</th>
+                <th nowrap="nowrap">出版社</th>
+                <th nowrap="nowrap">作者</th>
+                <th nowrap="nowrap">教材操作</th>
+                <th nowrap="nowrap">关系操作</th>
 
             </tr>
             </thead>
@@ -42,17 +42,22 @@
                     <td nowrap="nowrap">{{ info['bauthor'] }}</td>
                     <td nowrap="nowrap">
                         <a style="color: #5474fe"
-                                           href="{{ url_for('teacher.update_textbook',bno=info['bno']) }}">修改</a>
+                           href="{{ url_for('teacher.update_textbook',bno=info['bno']) }}">修改</a>
                         &nbsp; <a style="color:#fc3c3a"
-                                  href="{{ url_for('teacher.delete_textbook',bno=info['bno']) }}">删除</a> &nbsp;</td>
+                                  href="{{ url_for('teacher.delete_textbook',bno=info['bno']) }}">删除</a> &nbsp;
+                    </td>
                     <td>
 
-                        <form action={{ url_for('teacher.unassign_textbook') }} method="post" id="myform">
-                            <input type="hidden" name="bno" value="{{ info['bno'] }}"/>
-                            <input type="hidden" name="cno" value="{{ course['cno'] }}"/>
-                        </form>
-                        <a href="#" onclick="document.getElementById('myform').submit();return false;" style="color:#fc3c3a">
+                        <a href="#" class="js_click" style="color:#fc3c3a">
                             解除绑定</a>
+                        <script type="text/javascript">
+                            $(".js_click").click(function () {
+                                $('#label1').attr('value', {{ info['bno'] }});
+                                $('#label2').attr('value', {{ course['cno'] }});
+                                $('#myform').submit();
+
+                            });
+                        </script>
                     </td>
                 </tr>
             {% endfor %}
@@ -62,11 +67,16 @@
         </table>
 
     </div>
+    <form action={{ url_for('teacher.unassign_textbook') }} method="post" id="myform">
+        <input id="label1" type="hidden" name="bno" value=""/>
+        <input id='label2' type="hidden" name="cno" value=""/>
+    </form>
+
 {% endblock %}
 
 
 {% block nav %}
-<a href="{{ url_for('teacher.update_teacher') }}">
+    <a href="{{ url_for('teacher.update_teacher') }}">
         <li>
             <i class="iconfont icon-xueshengdangan1"></i>&nbsp;&nbsp;个人信息管理
         </li>

@@ -10,7 +10,7 @@
 {% block form %}
     <div class="content_form" style="padding-top: 125px">
         <form action="{{ url_for('admin.assign_textbook') }}" method="post">
-             <input type="hidden" name="bno" value="{{ textbook['bno'] }}" ><br>
+            <input type="hidden" name="bno" value="{{ textbook['bno'] }}"><br>
             课号: <input type="text" name="cno" value=""><br><br>
             <input type="submit" value="添加所属课程"><br>
         </form>
@@ -46,12 +46,19 @@
                     <td nowrap="nowrap">{{ info['cselect'] }}/{{ info['ccap'] }}</td>
 
                     <td nowrap="nowrap">
-                        <form action={{ url_for('admin.unassign_textbook') }} method="post" id="myform">
-                            <input type="hidden" name="bno" value="{{ textbook['bno'] }}"/>
-                            <input type="hidden" name="cno" value="{{ info['cno'] }}"/>
+
                         </form>
-                        <a href="#" onclick="document.getElementById('myform').submit();return false;" style="color:#fc3c3a">
-                            解除绑定</a></td>
+                        <a href="#" class="js_click" style="color:#fc3c3a">
+                            解除绑定</a>
+                        <script type="text/javascript">
+                            $(".js_click").click(function () {
+                                $('#label1').attr('value', {{ textbook['bno'] }});
+                                $('#label2').attr('value', {{ info['cno'] }});
+                                $('#myform').submit();
+
+                            });
+                        </script>
+                    </td>
                 </tr>
             {% endfor %}
 
@@ -59,6 +66,10 @@
         </table>
 
     </div>
+    <form action={{ url_for('admin.unassign_textbook') }} method="post" id="myform">
+        <input id="label1" type="hidden" name="bno" value=""/>
+        <input id='label2' type="hidden" name="cno" value=""/>
+    </form>
 
 {% endblock %}
 

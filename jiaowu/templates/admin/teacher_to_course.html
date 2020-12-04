@@ -10,7 +10,7 @@
 {% block form %}
     <div class="content_form" style="padding-top: 125px">
         <form action="{{ url_for('admin.teach_course') }}" method="post">
-             <input type="hidden" name="tno" value="{{ teacher['tno'] }}" ><br>
+            <input type="hidden" name="tno" value="{{ teacher['tno'] }}"><br>
             课号: <input type="text" name="cno" value=""><br><br>
             <input type="submit" value="授课"><br>
         </form>
@@ -21,44 +21,54 @@
 {% block table %}
     <div class="content_table">
         <form method="post" action="{{ url_for('admin.modify_score') }}">
-        <table class="primary" width="100%">
-            <thead>
-            <tr>
-                <th nowrap="nowrap">课程名称</th>
-                <th nowrap="nowrap">课程号</th>
-                <th nowrap="nowrap">课程类型</th>
-                <th nowrap="nowrap">学分</th>
-                <th nowrap="nowrap">院系</th>
-                <th nowrap="nowrap">课程容量</th>
-                <th nowrap="nowrap">操作</th>
-
-            </tr>
-            </thead>
-            <tbody>
-
-            {% for info in courses %}
+            <table class="primary" width="100%">
+                <thead>
                 <tr>
-                    <td nowrap="nowrap">{{ info['cname'] }}</td>
-                    <td nowrap="nowrap">{{ info['cno'] }}</td>
-                    <td nowrap="nowrap">{{ info['ctype'] }}</td>
-                    <td nowrap="nowrap">{{ info['ccredit'] }}</td>
-                    <td nowrap="nowrap">{{ info['cdept'] }}</td>
-                    <td nowrap="nowrap">{{ info['cselect'] }}/{{ info['ccap'] }}</td>
+                    <th nowrap="nowrap">课程名称</th>
+                    <th nowrap="nowrap">课程号</th>
+                    <th nowrap="nowrap">课程类型</th>
+                    <th nowrap="nowrap">学分</th>
+                    <th nowrap="nowrap">院系</th>
+                    <th nowrap="nowrap">课程容量</th>
+                    <th nowrap="nowrap">操作</th>
 
-                    <td nowrap="nowrap">
-                        <form action={{ url_for('admin.unteach_course',tno=info['tno']) }} method="post" id="myform">
-                            <input type="hidden" name="tno" value="{{ teacher['tno'] }}"/>
-                            <input type="hidden" name="cno" value="{{ info['cno'] }}"/>
-                        </form>
-                        <a href="#" onclick="document.getElementById('myform').submit();return false;" style="color:#fc3c3a">
-                            退授</a></td>
                 </tr>
-            {% endfor %}
+                </thead>
+                <tbody>
 
-            </tbody>
-        </table>
+                {% for info in courses %}
+                    <tr>
+                        <td nowrap="nowrap">{{ info['cname'] }}</td>
+                        <td nowrap="nowrap">{{ info['cno'] }}</td>
+                        <td nowrap="nowrap">{{ info['ctype'] }}</td>
+                        <td nowrap="nowrap">{{ info['ccredit'] }}</td>
+                        <td nowrap="nowrap">{{ info['cdept'] }}</td>
+                        <td nowrap="nowrap">{{ info['cselect'] }}/{{ info['ccap'] }}</td>
+
+                        <td nowrap="nowrap">
+
+                            <a href="#" class="js_click" style="color:#fc3c3a">
+                                退授</a>
+                            <script type="text/javascript">
+                                $(".js_click").click(function () {
+                                    $('#label1').attr('value', {{ teacher['tno'] }});
+                                    $('#label2').attr('value', {{ info['cno'] }});
+                                    $('#myform').submit();
+
+                                });
+                            </script>
+                        </td>
+                    </tr>
+                {% endfor %}
+
+                </tbody>
+            </table>
         </form>
     </div>
+    <form action={{ url_for('admin.unteach_course') }} method="post" id="myform">
+        <input id="label1" type="hidden" name="tno" value=""/>
+        <input id='label2' type="hidden" name="cno" value=""/>
+    </form>
 
 {% endblock %}
 

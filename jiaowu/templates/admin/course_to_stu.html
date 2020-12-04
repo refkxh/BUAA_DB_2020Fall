@@ -19,70 +19,84 @@
 
 {% block table %}
     <div class="content_table">
-    <form method="post" action="{{ url_for('admin.modify_score') }}">
-        <table class="primary">
-            <thead>
-            <tr>
-                <th nowrap="nowrap">学号</th>
-                <th nowrap="nowrap">姓名</th>
-                <th nowrap="nowrap">性别</th>
-                <th nowrap="nowrap">年级</th>
-                <th nowrap="nowrap">院系</th>
-                <th nowrap="nowrap">身份证</th>
-                <th nowrap="nowrap">手机号</th>
-                <th nowrap="nowrap">邮箱</th>
-                <th nowrap="nowrap">成绩</th>
-                <th nowrap="nowrap">操作</th>
-            </tr>
-            </thead>
-            <tbody>
-
-            {% for info in students %}
+        <form method="post" action="{{ url_for('admin.modify_score') }}">
+            <table class="primary">
+                <thead>
                 <tr>
-                    <td nowrap="nowrap">{{ info['sno'] }}</td>
-                    <td nowrap="nowrap">{{ info['sname'] }}</td>
-                    <td nowrap="nowrap">{{ info['ssex'] }}</td>
-                    <td nowrap="nowrap">{{ info['sgrade'] }}</td>
-                    <td nowrap="nowrap">{{ info['sdept'] }}</td>
-                    <td nowrap="nowrap">{{ info['sid'] }}</td>
-                    <td nowrap="nowrap">{{ info['stel'] }}</td>
-                    <td nowrap="nowrap">{{ info['smail'] }}</td>
-                    <td nowrap="nowrap" width="210px">
-                        {% if  info['score'] is not none %}
-                            {% if  info['score'] == 0 %}
-                               <input name="score" type="text" style="width: 45%"
-                           value="0">&nbsp;&nbsp;
-                            {% else%}
+                    <th nowrap="nowrap">学号</th>
+                    <th nowrap="nowrap">姓名</th>
+                    <th nowrap="nowrap">性别</th>
+                    <th nowrap="nowrap">年级</th>
+                    <th nowrap="nowrap">院系</th>
+                    <th nowrap="nowrap">身份证</th>
+                    <th nowrap="nowrap">手机号</th>
+                    <th nowrap="nowrap">邮箱</th>
+                    <th nowrap="nowrap">成绩</th>
+                    <th nowrap="nowrap">操作</th>
+                </tr>
+                </thead>
+                <tbody>
+
+                {% for info in students %}
+                    <tr>
+                        <td nowrap="nowrap">{{ info['sno'] }}</td>
+                        <td nowrap="nowrap">{{ info['sname'] }}</td>
+                        <td nowrap="nowrap">{{ info['ssex'] }}</td>
+                        <td nowrap="nowrap">{{ info['sgrade'] }}</td>
+                        <td nowrap="nowrap">{{ info['sdept'] }}</td>
+                        <td nowrap="nowrap">{{ info['sid'] }}</td>
+                        <td nowrap="nowrap">{{ info['stel'] }}</td>
+                        <td nowrap="nowrap">{{ info['smail'] }}</td>
+                        <td nowrap="nowrap" width="210px">
+                            {% if  info['score'] is not none %}
+                                {% if  info['score'] == 0 %}
+                                    <input name="score" type="text" style="width: 45%"
+                                           value="0">&nbsp;&nbsp;
+                                {% else %}
+                                    <input name="score" type="text" style="width: 45%"
+                                           value="{{ info['score'] }}">&nbsp;&nbsp;
+                                {% endif %}
+                            {% else %}
                                 <input name="score" type="text" style="width: 45%"
-                           value="{{  info['score'] }}">&nbsp;&nbsp;
+                                       value="">&nbsp;&nbsp;
                             {% endif %}
-                        {% else%}
-                            <input name="score" type="text" style="width: 45%"
-                           value="">&nbsp;&nbsp;
-                        {% endif %}
 
                             <input name="cno" type="hidden"
-                           value="{{ request.form['cno'] or course['cno'] }}">
-                        <input name="sno" type="hidden"
-                           value="{{ request.form['sno'] or info['sno'] }}">
+                                   value="{{ request.form['cno'] or course['cno'] }}">
+                            <input name="sno" type="hidden"
+                                   value="{{ request.form['sno'] or info['sno'] }}">
 
                             <input type="submit" value="修改">
-                    </td>
-                    <td nowrap="nowrap">
-                        <form action={{ url_for('admin.unselect_course',sno=info['sno']) }} method="post" id="myform">
-                            <input type="hidden" name="sno" value="{{ info['sno'] }}"/>
-                            <input type="hidden" name="cno" value="{{ course['cno'] }}"/>
-                        </form>
-                        <a href="#" onclick="document.getElementById('myform').submit();return false;" style="color:#fc3c3a">
-                            退课</a></td>
-                </tr>
-            {% endfor %}
+                        </td>
+                        <td nowrap="nowrap">
 
 
-            </tbody>
-        </table>
-    </form>
+                            <a href="#" style="color:#fc3c3a" class="js_click">
+                                退课</a>
+
+                            <script type="text/javascript">
+                                $(".js_click").click(function () {
+                                    $('#label1').attr('value', {{ info['sno'] }});
+                                    $('#label2').attr('value', {{ course['cno'] }});
+                                    $('#myform').submit();
+
+                                });
+                            </script>
+                        </td>
+                    </tr>
+                {% endfor %}
+
+
+                </tbody>
+            </table>
+        </form>
     </div>
+
+    <form action={{ url_for('admin.unselect_course') }} method="post" id="myform">
+        <input id="label1" type="hidden" name="sno" value=""/>
+        <input id='label2' type="hidden" name="cno" value=""/>
+    </form>
+
 {% endblock %}
 
 

@@ -40,12 +40,18 @@
                     <td nowrap="nowrap">{{ info['bpress'] }}</td>
                     <td nowrap="nowrap">{{ info['bauthor'] }}</td>
                     <td nowrap="nowrap">
-                        <form action={{ url_for('admin.unassign_textbook') }} method="post" id="myform">
-                            <input type="hidden" name="bno" value="{{ info['bno'] }}"/>
-                            <input type="hidden" name="cno" value="{{ course['cno'] }}"/>
-                        </form>
-                        <a href="#" onclick="document.getElementById('myform').submit();return false;" style="color:#fc3c3a">
-                            解除绑定</a></td>
+
+                        <a href="#" class="js_click" style="color:#fc3c3a">
+                            解除绑定</a>
+                        <script type="text/javascript">
+                            $(".js_click").click(function () {
+                                $('#label1').attr('value', {{ info['bno'] }});
+                                $('#label2').attr('value', {{ course['cno'] }});
+                                $('#myform').submit();
+
+                            });
+                        </script>
+                    </td>
                 </tr>
             {% endfor %}
 
@@ -54,11 +60,16 @@
         </table>
 
     </div>
+    <form action={{ url_for('admin.unassign_textbook') }} method="post" id="myform">
+        <input id="label1" type="hidden" name="bno" value=""/>
+        <input id='label2' type="hidden" name="cno" value=""/>
+    </form>
+
 {% endblock %}
 
 
 {% block nav %}
-<a href="{{ url_for('admin.info_stu') }}">
+    <a href="{{ url_for('admin.info_stu') }}">
         <li><i class="iconfont icon-xueshengdangan1"></i>&nbsp;&nbsp;学生信息管理</li>
     </a>
 
