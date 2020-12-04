@@ -2,8 +2,6 @@
 
 北航《数据库系统原理》课程2020秋课程设计
 
-正在进行中……
-
 ## Requirements
 
 - Internet connection
