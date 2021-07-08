@@ -1,4 +1,4 @@
-# BUAA_DB_2020Autumn
+# BUAA_DB_2020Fall
 
 北航《数据库系统原理》课程2020秋课程设计
 
